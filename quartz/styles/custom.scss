@@ -300,6 +300,7 @@ body[data-slug="index"] footer {
   align-items: center;
   justify-items: center;
   min-width: 0;
+  perspective: 1200px;
 }
 
 .garden-visual__halo {
@@ -311,12 +312,183 @@ body[data-slug="index"] footer {
   filter: blur(45px);
 }
 
-.garden-constellation {
+.garden-3d-stage {
   position: relative;
   z-index: 1;
   width: min(100%, 38rem);
+  aspect-ratio: 1.1;
+  transform: rotateX(4deg) rotateY(-5deg) translateZ(0);
+  transform-style: preserve-3d;
+  animation: garden-scene-float 12s ease-in-out infinite;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.garden-visual:hover .garden-3d-stage {
+  transform: rotateX(8deg) rotateY(-11deg) translateZ(12px) scale(1.02);
+  animation-play-state: paused;
+}
+
+.garden-3d-stage__floor,
+.garden-3d-stage__grid {
+  position: absolute;
+  inset: 11% 7% 9%;
+  border: 1px solid rgba(103, 224, 202, 0.18);
+  border-radius: 2.2rem;
+  transform: rotateX(68deg) rotateZ(-12deg) translateZ(-80px) translateY(12%);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.garden-3d-stage__floor {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(103, 224, 202, 0.24),
+    rgba(103, 224, 202, 0.02) 50%,
+    transparent 70%
+  );
+  box-shadow:
+    0 0 6rem rgba(103, 224, 202, 0.2),
+    inset 0 0 4rem rgba(103, 224, 202, 0.14);
+}
+
+.garden-3d-stage__grid {
+  inset: 22% 18% 23%;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      ellipse at center,
+      transparent 0 18px,
+      rgba(103, 224, 202, 0.13) 19px 20px
+    ),
+    repeating-linear-gradient(90deg, transparent 0 29px, rgba(103, 224, 202, 0.08) 30px 31px);
+  opacity: 0.72;
+}
+
+.garden-3d-stage__ring {
+  position: absolute;
+  top: 22%;
+  left: 18%;
+  width: 64%;
+  height: 44%;
+  border: 1px solid rgba(103, 224, 202, 0.42);
+  border-radius: 50%;
+  box-shadow:
+    0 0 1.8rem rgba(103, 224, 202, 0.14),
+    inset 0 0 1.8rem rgba(103, 224, 202, 0.08);
+  transform: rotateX(67deg) rotateZ(-18deg) translateZ(42px);
+  transform-style: preserve-3d;
+  animation: garden-ring-spin 16s linear infinite;
+}
+
+.garden-3d-stage__ring--two {
+  top: 19%;
+  left: 26%;
+  width: 48%;
+  height: 62%;
+  border-color: rgba(255, 179, 122, 0.46);
+  transform: rotateY(68deg) rotateZ(16deg) translateZ(62px);
+  animation-duration: 21s;
+  animation-direction: reverse;
+}
+
+.garden-3d-stage__orb {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  transform: translateZ(96px);
+  box-shadow:
+    0 0 1rem currentColor,
+    0 0 2.4rem currentColor;
+  animation: garden-orb-pulse 4s ease-in-out infinite;
+}
+
+.garden-3d-stage__orb--mint {
+  top: 19%;
+  left: 22%;
+  color: var(--garden-mint);
+  background: var(--garden-mint);
+}
+
+.garden-3d-stage__orb--peach {
+  right: 18%;
+  bottom: 22%;
+  width: 0.72rem;
+  height: 0.72rem;
+  color: var(--garden-peach);
+  background: var(--garden-peach);
+  animation-delay: -1.8s;
+}
+
+.garden-3d-stage__particle {
+  position: absolute;
+  z-index: 4;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: #effff8;
+  box-shadow: 0 0 0.8rem rgba(239, 255, 248, 0.92);
+  animation: garden-particle-drift 8s ease-in-out infinite;
+}
+
+.garden-3d-stage__particle--one {
+  top: 29%;
+  left: 71%;
+  animation-delay: -1.2s;
+}
+.garden-3d-stage__particle--two {
+  top: 66%;
+  left: 16%;
+  width: 0.26rem;
+  height: 0.26rem;
+  animation-delay: -4.6s;
+}
+.garden-3d-stage__particle--three {
+  top: 72%;
+  left: 76%;
+  width: 0.22rem;
+  height: 0.22rem;
+  animation-delay: -6.4s;
+}
+
+.garden-3d-stage__badge {
+  position: absolute;
+  z-index: 5;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(183, 238, 223, 0.22);
+  border-radius: 999px;
+  background: rgba(7, 20, 27, 0.58);
+  color: var(--garden-muted);
+  font-family: var(--codeFont);
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  transform: translateZ(120px);
+}
+
+.garden-3d-stage__badge--top {
+  top: 9%;
+  right: 9%;
+  color: var(--garden-mint);
+}
+.garden-3d-stage__badge--bottom {
+  right: 7%;
+  bottom: 9%;
+  color: var(--garden-peach);
+  transform: translateZ(80px);
+}
+
+.garden-constellation {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   height: auto;
   overflow: visible;
+  transform: translateZ(72px);
+  transform-style: preserve-3d;
 }
 
 .garden-orbit {
@@ -580,6 +752,49 @@ body[data-slug="index"] footer {
   }
 }
 
+@keyframes garden-scene-float {
+  0%,
+  100% {
+    transform: rotateX(4deg) rotateY(-5deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotateX(7deg) rotateY(-2deg) translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes garden-ring-spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes garden-orb-pulse {
+  0%,
+  100% {
+    scale: 0.82;
+    opacity: 0.72;
+  }
+  50% {
+    scale: 1.16;
+    opacity: 1;
+  }
+}
+
+@keyframes garden-particle-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 10px, 70px);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(18px, -20px, 130px);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 1200px) {
   body[data-slug="index"] #quartz-body {
     grid-template-columns: 200px minmax(0, 1fr);
@@ -634,6 +849,9 @@ body[data-slug="index"] footer {
   .garden-visual {
     margin-top: 1rem;
   }
+  .garden-3d-stage {
+    width: 100%;
+  }
   .garden-visual__caption {
     position: static;
     justify-self: end;
@@ -671,6 +889,16 @@ body[data-slug="index"] footer {
 @media (prefers-reduced-motion: reduce) {
   .garden-orbit {
     animation: none;
+  }
+  .garden-3d-stage,
+  .garden-3d-stage__ring,
+  .garden-3d-stage__orb,
+  .garden-3d-stage__particle {
+    animation: none;
+  }
+  .garden-3d-stage,
+  .garden-visual:hover .garden-3d-stage {
+    transform: none;
   }
   .garden-button,
   .garden-trail,

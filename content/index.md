@@ -20,9 +20,21 @@ description: 一座正在生长的公开知识花园：从好奇心出发，把�
         <div><dt>01</dt><dd>正在发芽</dd></div>
       </dl>
     </div>
-    <div class="garden-visual" aria-label="一枚由轨道、节点和萤火组成的知识星图">
+    <div class="garden-visual" aria-label="一枚由轨道、节点和萤火组成的 3D 知识星图">
       <div class="garden-visual__halo" aria-hidden="true"></div>
-      <svg class="garden-constellation" viewBox="0 0 620 560" role="img" aria-labelledby="constellation-title constellation-desc">
+      <div class="garden-3d-stage">
+        <div class="garden-3d-stage__floor" aria-hidden="true"></div>
+        <div class="garden-3d-stage__grid" aria-hidden="true"></div>
+        <div class="garden-3d-stage__ring garden-3d-stage__ring--one" aria-hidden="true"></div>
+        <div class="garden-3d-stage__ring garden-3d-stage__ring--two" aria-hidden="true"></div>
+        <span class="garden-3d-stage__orb garden-3d-stage__orb--mint" aria-hidden="true"></span>
+        <span class="garden-3d-stage__orb garden-3d-stage__orb--peach" aria-hidden="true"></span>
+        <span class="garden-3d-stage__particle garden-3d-stage__particle--one" aria-hidden="true"></span>
+        <span class="garden-3d-stage__particle garden-3d-stage__particle--two" aria-hidden="true"></span>
+        <span class="garden-3d-stage__particle garden-3d-stage__particle--three" aria-hidden="true"></span>
+        <span class="garden-3d-stage__badge garden-3d-stage__badge--top" aria-hidden="true">DEPTH / 01</span>
+        <span class="garden-3d-stage__badge garden-3d-stage__badge--bottom" aria-hidden="true">LIVE / 3D FIELD</span>
+        <svg class="garden-constellation" viewBox="0 0 620 560" role="img" aria-labelledby="constellation-title constellation-desc">
         <title id="constellation-title">知识花园星图</title>
         <desc id="constellation-desc">中心节点 GROW 连接着问题、方法与灵感三个方向。</desc>
         <defs>
@@ -57,7 +69,8 @@ description: 一座正在生长的公开知识花园：从好奇心出发，把�
         <text x="330" y="303" text-anchor="middle" class="garden-core__sub">IDEAS IN MOTION</text>
         <g class="garden-visual__label garden-visual__label--one"><rect x="74" y="112" width="126" height="34" rx="17" /><text x="137" y="134" text-anchor="middle">问题 / QUESTIONS</text></g>
         <g class="garden-visual__label garden-visual__label--two"><rect x="414" y="395" width="132" height="34" rx="17" /><text x="480" y="417" text-anchor="middle">连接 / LINKS</text></g>
-      </svg>
+        </svg>
+      </div>
       <p class="garden-visual__caption"><span>LIVE SIGNAL</span> 思考正在发芽 · 2026.08</p>
     </div>
   </header>
