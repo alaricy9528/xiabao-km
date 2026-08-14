@@ -1,0 +1,1017 @@
+.quantum-home {
+  --q-void: #050713;
+  --q-orbit: #0b1230;
+  --q-cyan: #5df7ff;
+  --q-violet: #8a63ff;
+  --q-magenta: #ff5cd9;
+  --q-ice: #eafbff;
+  --q-text: #d8e9f2;
+  --q-muted: #8196a8;
+  --q-line: rgba(166, 216, 238, 0.16);
+  --q-panel: rgba(9, 15, 38, 0.72);
+  --q-soft: rgba(93, 247, 255, 0.08);
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 3rem) 2rem;
+  color: var(--q-text);
+}
+
+:root[saved-theme="light"] .quantum-home {
+  --q-void: #eef4f7;
+  --q-orbit: #dfeaf0;
+  --q-cyan: #087c89;
+  --q-violet: #6246c7;
+  --q-magenta: #bb337f;
+  --q-ice: #0b1724;
+  --q-text: #172b3a;
+  --q-muted: #597080;
+  --q-line: rgba(18, 68, 88, 0.18);
+  --q-panel: rgba(238, 246, 250, 0.8);
+  --q-soft: rgba(8, 124, 137, 0.08);
+}
+
+.quantum-home,
+.quantum-home * {
+  box-sizing: border-box;
+}
+
+.quantum-home a {
+  color: inherit;
+}
+
+.quantum-home button {
+  font: inherit;
+}
+
+.quantum-home :is(a, button):focus-visible {
+  outline: 2px solid var(--q-cyan);
+  outline-offset: 4px;
+}
+
+.quantum-masthead {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5rem;
+  border-bottom: 1px solid var(--q-line);
+}
+
+.quantum-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.quantum-brand__sigil {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--q-cyan) 42%, transparent);
+  color: var(--q-ice);
+  font-family: var(--headerFont);
+  font-size: 0.85rem;
+  font-weight: 700;
+  clip-path: polygon(16% 0, 100% 0, 100% 84%, 84% 100%, 0 100%, 0 16%);
+  background: linear-gradient(145deg, var(--q-soft), transparent 68%);
+}
+
+.quantum-brand > span:last-child {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.quantum-brand strong {
+  color: var(--q-ice);
+  font-size: 0.94rem;
+  letter-spacing: 0.04em;
+}
+
+.quantum-brand small,
+.quantum-masthead__status,
+.quantum-eyebrow,
+.quantum-observatory__bar,
+.quantum-axis,
+.quantum-gesture,
+.quantum-selection__copy > p,
+.quantum-section-index,
+.quantum-signal__index,
+.quantum-signal__body small,
+.quantum-stream__rail :is(span, small),
+.quantum-protocol > li > span {
+  font-family: var(--codeFont);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.quantum-brand small {
+  color: var(--q-muted);
+  font-size: 0.54rem;
+}
+
+.quantum-masthead__status {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-right: 8.5rem;
+  color: var(--q-muted);
+  font-size: 0.62rem;
+}
+
+.quantum-live-dot {
+  display: inline-block;
+  width: 0.46rem;
+  height: 0.46rem;
+  border-radius: 50%;
+  background: var(--q-cyan);
+  box-shadow:
+    0 0 0 0.28rem color-mix(in srgb, var(--q-cyan) 12%, transparent),
+    0 0 1rem color-mix(in srgb, var(--q-cyan) 62%, transparent);
+}
+
+.quantum-masthead__divider {
+  width: 1px;
+  height: 0.85rem;
+  background: var(--q-line);
+}
+
+.quantum-main {
+  display: block;
+}
+
+.quantum-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(500px, 1.12fr);
+  align-items: stretch;
+  min-height: min(760px, calc(100vh - 6.25rem));
+  border-bottom: 1px solid var(--q-line);
+}
+
+.quantum-hero::before {
+  position: absolute;
+  inset: 0 auto 0 calc(43.8% - 1px);
+  z-index: -1;
+  width: 1px;
+  content: "";
+  background: linear-gradient(transparent, var(--q-line) 16%, var(--q-line) 84%, transparent);
+}
+
+.quantum-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(3rem, 7vw, 7.5rem) clamp(2rem, 5vw, 5.5rem) clamp(3rem, 6vw, 6rem) 0;
+}
+
+.quantum-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 2rem;
+  color: var(--q-cyan);
+  font-size: 0.66rem;
+}
+
+.quantum-eyebrow span:last-child {
+  position: relative;
+  padding-left: 2.6rem;
+  color: var(--q-muted);
+}
+
+.quantum-eyebrow span:last-child::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1.9rem;
+  height: 1px;
+  content: "";
+  background: var(--q-line);
+}
+
+.quantum-hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  color: var(--q-ice);
+  font-family: var(--headerFont);
+  font-size: clamp(3.2rem, 5.7vw, 6.3rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+}
+
+.quantum-hero h1 em {
+  color: transparent;
+  font-style: normal;
+  background: linear-gradient(92deg, var(--q-cyan), var(--q-violet) 66%, var(--q-magenta));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.quantum-lede {
+  max-width: 37rem;
+  margin: 2rem 0 0;
+  color: var(--q-muted);
+  font-size: clamp(1rem, 1.3vw, 1.13rem);
+  line-height: 1.9;
+}
+
+.quantum-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.4rem;
+}
+
+.quantum-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid var(--q-line);
+  border-radius: 0;
+  color: var(--q-text);
+  font-family: var(--codeFont);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.quantum-button:hover {
+  border-color: color-mix(in srgb, var(--q-cyan) 52%, transparent);
+  color: var(--q-ice);
+  transform: translateY(-2px);
+}
+
+.quantum-button--primary {
+  border-color: transparent;
+  color: #041219;
+  background: var(--q-cyan);
+}
+
+.quantum-button--primary:hover {
+  color: #041219;
+  background: color-mix(in srgb, var(--q-cyan) 86%, white);
+}
+
+.quantum-readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 31rem;
+  margin: auto 0 0;
+  padding: 2.5rem 0 0;
+}
+
+.quantum-readout > div {
+  min-width: 0;
+  padding-left: 1rem;
+  border-left: 1px solid var(--q-line);
+}
+
+.quantum-readout dt {
+  color: var(--q-ice);
+  font-family: var(--codeFont);
+  font-size: 1.25rem;
+}
+
+.quantum-readout dd {
+  margin: 0.35rem 0 0;
+  color: var(--q-muted);
+  font-size: 0.72rem;
+}
+
+.quantum-observatory {
+  align-self: center;
+  min-width: 0;
+  margin: clamp(2rem, 4vw, 4.5rem) 0 clamp(2rem, 4vw, 4.5rem) clamp(2rem, 5vw, 5rem);
+  border: 1px solid var(--q-line);
+  background: linear-gradient(
+    145deg,
+    var(--q-panel),
+    color-mix(in srgb, var(--q-void) 90%, transparent)
+  );
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.22);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 1.6rem) 0,
+    100% 1.6rem,
+    100% 100%,
+    1.6rem 100%,
+    0 calc(100% - 1.6rem)
+  );
+}
+
+:root[saved-theme="light"] .quantum-observatory {
+  box-shadow: 0 1.5rem 5rem rgba(25, 67, 88, 0.12);
+}
+
+.quantum-observatory__bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.82rem 1rem;
+  border-bottom: 1px solid var(--q-line);
+  color: var(--q-muted);
+  font-size: 0.56rem;
+}
+
+.quantum-observatory__bar span:first-child {
+  color: var(--q-cyan);
+}
+
+.quantum-viewport {
+  position: relative;
+  min-height: clamp(360px, 44vw, 510px);
+  overflow: hidden;
+  border-bottom: 1px solid var(--q-line);
+  cursor: grab;
+  background:
+    radial-gradient(
+      circle at 50% 46%,
+      color-mix(in srgb, var(--q-violet) 13%, transparent),
+      transparent 32%
+    ),
+    linear-gradient(var(--q-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--q-line) 1px, transparent 1px);
+  background-size:
+    auto,
+    4.5rem 4.5rem,
+    4.5rem 4.5rem;
+  touch-action: pan-y;
+}
+
+.quantum-viewport::before,
+.quantum-viewport::after {
+  position: absolute;
+  z-index: 3;
+  content: "";
+  pointer-events: none;
+}
+
+.quantum-viewport::before {
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    transparent 28%,
+    color-mix(in srgb, var(--q-void) 78%, transparent) 96%
+  );
+}
+
+.quantum-viewport::after {
+  top: 50%;
+  left: 50%;
+  width: 0.34rem;
+  height: 0.34rem;
+  border: 1px solid color-mix(in srgb, var(--q-cyan) 72%, transparent);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.quantum-viewport.is-dragging,
+.quantum-viewport.is-dragging canvas {
+  cursor: grabbing !important;
+}
+
+.quantum-canvas,
+.quantum-canvas canvas,
+.quantum-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.quantum-canvas {
+  z-index: 2;
+}
+
+.quantum-canvas canvas {
+  display: block;
+  touch-action: pan-y;
+}
+
+.quantum-fallback {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.quantum-fallback svg {
+  width: min(62%, 20rem);
+  overflow: visible;
+  filter: drop-shadow(0 0 2.2rem color-mix(in srgb, var(--q-cyan) 35%, transparent));
+  animation: quantum-fallback-float 8s ease-in-out infinite;
+}
+
+.quantum-fallback__orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 58%;
+  aspect-ratio: 2.2;
+  border: 1px solid color-mix(in srgb, var(--q-cyan) 24%, transparent);
+  border-radius: 50%;
+}
+
+.quantum-fallback__orbit--a {
+  transform: translate(-50%, -50%) rotate(22deg);
+}
+
+.quantum-fallback__orbit--b {
+  border-color: color-mix(in srgb, var(--q-violet) 28%, transparent);
+  transform: translate(-50%, -50%) rotate(-54deg);
+}
+
+.quantum-webgl-active .quantum-fallback {
+  opacity: 0;
+}
+
+.quantum-webgl-fallback .quantum-fallback {
+  opacity: 1;
+}
+
+.quantum-axis {
+  position: absolute;
+  z-index: 4;
+  color: var(--q-muted);
+  font-size: 0.52rem;
+  pointer-events: none;
+}
+
+.quantum-axis--x {
+  top: 1rem;
+  left: 1rem;
+}
+
+.quantum-axis--y {
+  top: 1rem;
+  right: 1rem;
+  writing-mode: vertical-rl;
+}
+
+.quantum-gesture {
+  position: absolute;
+  z-index: 4;
+  right: 1rem;
+  bottom: 0.85rem;
+  margin: 0;
+  color: var(--q-muted);
+  font-size: 0.54rem;
+  pointer-events: none;
+}
+
+.quantum-selection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: end;
+  min-height: 9.5rem;
+  padding: 1.35rem 1.5rem 1.25rem;
+}
+
+.quantum-selection__copy > p:first-child {
+  display: flex;
+  gap: 0.8rem;
+  margin: 0 0 0.55rem;
+  color: var(--q-muted);
+  font-size: 0.53rem;
+}
+
+.quantum-selection__index {
+  color: var(--q-cyan);
+}
+
+.quantum-selection h2 {
+  margin: 0;
+  color: var(--q-ice);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.25;
+}
+
+.quantum-selection__copy > p:last-child {
+  display: -webkit-box;
+  max-width: 44rem;
+  margin: 0.55rem 0 0;
+  overflow: hidden;
+  color: var(--q-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.quantum-open-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--q-cyan);
+  color: var(--q-ice) !important;
+  font-family: var(--codeFont);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.quantum-node-controls {
+  display: flex;
+  overflow-x: auto;
+  border-top: 1px solid var(--q-line);
+  scrollbar-width: thin;
+}
+
+.quantum-node-button {
+  display: inline-flex;
+  flex: 1 0 auto;
+  gap: 0.55rem;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.75rem;
+  border: 0;
+  border-right: 1px solid var(--q-line);
+  border-radius: 0;
+  color: var(--q-muted);
+  font-family: var(--codeFont);
+  font-size: 0.57rem;
+  cursor: pointer;
+  background: transparent;
+}
+
+.quantum-node-button span {
+  color: color-mix(in srgb, var(--q-muted) 62%, transparent);
+}
+
+.quantum-node-button:hover,
+.quantum-node-button.is-selected {
+  color: var(--q-ice);
+  background: var(--q-soft);
+}
+
+.quantum-node-button.is-selected span {
+  color: var(--q-cyan);
+}
+
+.quantum-signals,
+.quantum-stream,
+.quantum-system {
+  padding: clamp(4.5rem, 9vw, 8.5rem) 0;
+  border-bottom: 1px solid var(--q-line);
+}
+
+.quantum-section-heading {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.6fr) minmax(18rem, 0.4fr);
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.quantum-section-heading h2,
+.quantum-system__intro h2 {
+  margin: 0.55rem 0 0;
+  color: var(--q-ice);
+  font-family: var(--headerFont);
+  font-size: clamp(2rem, 4.2vw, 4.5rem);
+  font-weight: 580;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.quantum-section-heading > p {
+  max-width: 31rem;
+  margin: 0;
+  color: var(--q-muted);
+  line-height: 1.8;
+}
+
+.quantum-section-index {
+  margin: 0;
+  color: var(--q-cyan);
+  font-size: 0.6rem;
+}
+
+.quantum-signal-list {
+  border-top: 1px solid var(--q-line);
+}
+
+.quantum-signal {
+  display: grid;
+  grid-template-columns: minmax(4rem, 0.12fr) minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  min-height: 9rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--q-line);
+  text-decoration: none;
+  transition:
+    padding 200ms ease,
+    background 200ms ease;
+}
+
+.quantum-signal:hover {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  background: linear-gradient(90deg, var(--q-soft), transparent 76%);
+}
+
+.quantum-signal__index {
+  color: var(--q-muted);
+  font-size: 0.58rem;
+}
+
+.quantum-signal__body {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.35fr) minmax(14rem, 0.65fr);
+  gap: 0.45rem 2rem;
+  align-items: center;
+}
+
+.quantum-signal__body small {
+  grid-column: 1 / -1;
+  color: var(--q-cyan);
+  font-size: 0.55rem;
+}
+
+.quantum-signal__body strong {
+  color: var(--q-ice);
+  font-size: clamp(1.05rem, 2vw, 1.65rem);
+  letter-spacing: -0.025em;
+}
+
+.quantum-signal__body > span {
+  color: var(--q-muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.quantum-signal__arrow {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid var(--q-line);
+  color: var(--q-cyan);
+}
+
+.quantum-stream__rail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--q-line);
+  border-left: 1px solid var(--q-line);
+}
+
+.quantum-stream__rail a {
+  position: relative;
+  display: grid;
+  min-height: 10.5rem;
+  align-content: space-between;
+  padding: 1.2rem 1.3rem 1.35rem;
+  border-right: 1px solid var(--q-line);
+  border-bottom: 1px solid var(--q-line);
+  text-decoration: none;
+  background: transparent;
+  transition: background 180ms ease;
+}
+
+.quantum-stream__rail a:hover {
+  background: var(--q-soft);
+}
+
+.quantum-stream__rail span,
+.quantum-stream__rail small {
+  color: var(--q-muted);
+  font-size: 0.55rem;
+}
+
+.quantum-stream__rail strong {
+  max-width: 24ch;
+  color: var(--q-ice);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.quantum-stream__rail small {
+  justify-self: end;
+  color: var(--q-cyan);
+}
+
+.quantum-system {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 0.7fr);
+  gap: clamp(3rem, 10vw, 10rem);
+  align-items: start;
+}
+
+.quantum-system__intro h2 {
+  max-width: 13ch;
+  font-size: clamp(2rem, 3.6vw, 3.7rem);
+  line-height: 1.08;
+}
+
+.quantum-protocol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--q-line);
+}
+
+.quantum-protocol li {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--q-line);
+}
+
+.quantum-protocol > li > span {
+  color: var(--q-cyan);
+  font-size: 0.58rem;
+}
+
+.quantum-protocol strong {
+  color: var(--q-ice);
+}
+
+.quantum-protocol p {
+  margin: 0.4rem 0 0;
+  color: var(--q-muted);
+  line-height: 1.7;
+}
+
+.quantum-home-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 7rem;
+  color: var(--q-muted);
+  font-size: 0.78rem;
+}
+
+.quantum-home-footer p {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.quantum-home-footer a {
+  color: var(--q-cyan);
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@keyframes quantum-fallback-float {
+  0%,
+  100% {
+    transform: translateY(-0.25rem) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(0.35rem) rotate(2deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .quantum-masthead__status {
+    margin-right: 7.5rem;
+  }
+
+  .quantum-hero {
+    grid-template-columns: minmax(0, 0.78fr) minmax(460px, 1.22fr);
+  }
+
+  .quantum-hero__copy {
+    padding-right: 2.5rem;
+  }
+
+  .quantum-observatory {
+    margin-left: 2rem;
+  }
+
+  .quantum-signal__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .quantum-home {
+    padding-inline: 1.25rem;
+  }
+
+  .quantum-masthead__status {
+    margin-right: 6.5rem;
+  }
+
+  .quantum-hero {
+    display: block;
+    min-height: auto;
+  }
+
+  .quantum-hero::before {
+    display: none;
+  }
+
+  .quantum-hero__copy {
+    min-height: 39rem;
+    padding: 5.5rem 0 4rem;
+  }
+
+  .quantum-readout {
+    margin-top: 4rem;
+  }
+
+  .quantum-observatory {
+    margin: 0 0 4rem;
+  }
+
+  .quantum-viewport {
+    min-height: 460px;
+  }
+
+  .quantum-section-heading {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .quantum-system {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .quantum-home {
+    padding-inline: 0.9rem;
+  }
+
+  .quantum-masthead {
+    min-height: 4.5rem;
+  }
+
+  .quantum-brand__sigil {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .quantum-masthead__status {
+    margin-right: 4.4rem;
+    font-size: 0;
+  }
+
+  .quantum-masthead__status time {
+    font-size: 0.54rem;
+  }
+
+  .quantum-masthead__divider {
+    display: none;
+  }
+
+  .quantum-hero__copy {
+    min-height: 36rem;
+    padding: 4.5rem 0 3rem;
+  }
+
+  .quantum-eyebrow {
+    margin-bottom: 1.5rem;
+    font-size: 0.58rem;
+  }
+
+  .quantum-eyebrow span:last-child {
+    padding-left: 1.5rem;
+  }
+
+  .quantum-eyebrow span:last-child::before {
+    width: 1rem;
+  }
+
+  .quantum-hero h1 {
+    font-size: clamp(3rem, 15.5vw, 4.25rem);
+  }
+
+  .quantum-lede {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .quantum-actions,
+  .quantum-button {
+    width: 100%;
+  }
+
+  .quantum-readout {
+    margin-top: 3rem;
+  }
+
+  .quantum-readout > div {
+    padding-left: 0.65rem;
+  }
+
+  .quantum-readout dd {
+    font-size: 0.62rem;
+  }
+
+  .quantum-observatory {
+    margin-bottom: 3rem;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 1rem) 0,
+      100% 1rem,
+      100% 100%,
+      1rem 100%,
+      0 calc(100% - 1rem)
+    );
+  }
+
+  .quantum-observatory__bar span:last-child {
+    max-width: 13rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .quantum-viewport {
+    min-height: 350px;
+  }
+
+  .quantum-axis--y {
+    display: none;
+  }
+
+  .quantum-selection {
+    grid-template-columns: 1fr;
+    min-height: 12.5rem;
+  }
+
+  .quantum-open-note {
+    justify-self: start;
+  }
+
+  .quantum-signals,
+  .quantum-stream,
+  .quantum-system {
+    padding: 4.75rem 0;
+  }
+
+  .quantum-signal {
+    grid-template-columns: 3rem minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    min-height: 10rem;
+  }
+
+  .quantum-signal__body strong {
+    font-size: 1rem;
+  }
+
+  .quantum-signal__body > span {
+    font-size: 0.75rem;
+  }
+
+  .quantum-signal__arrow {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .quantum-stream__rail {
+    grid-template-columns: 1fr;
+  }
+
+  .quantum-home-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quantum-home *,
+  .quantum-home *::before,
+  .quantum-home *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
