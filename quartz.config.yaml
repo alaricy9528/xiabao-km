@@ -16,30 +16,30 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      header: Oxanium
+      body: Noto Sans SC
+      code: JetBrains Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        light: "#eef4f7"
+        lightgray: "#dbe6eb"
+        gray: "#8aa0ad"
+        darkgray: "#405968"
+        dark: "#0b1724"
+        secondary: "#087c89"
+        tertiary: "#6246c7"
+        highlight: rgba(8, 124, 137, 0.1)
+        textHighlight: "#5df7ff55"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#050713"
+        lightgray: "#151c35"
+        gray: "#697b96"
+        darkgray: "#c7dae6"
+        dark: "#eafbff"
+        secondary: "#5df7ff"
+        tertiary: "#9c82ff"
+        highlight: rgba(93, 247, 255, 0.1)
+        textHighlight: "#8a63ff66"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true
@@ -110,8 +110,15 @@ plugins:
     order: 92
   - source: "@quartz-community/quartz-fonts"
     enabled: true
+    options:
+      useThemeFonts: false
+      fontOrigin: local
+      header: Oxanium
+      body: Noto Sans SC
+      code: JetBrains Mono
+      interface: Noto Sans SC
   - source: "@quartz-themes/core"
-    enabled: true
+    enabled: false
     options:
       theme: default
       mode: both
@@ -231,7 +238,6 @@ plugins:
     options:
       links:
         GitHub: https://github.com/alaricy9528/xiabao-km
-        Discord Community: https://discord.gg/cRFFHYye7t
     layout:
       position: footer
       priority: 50
