@@ -3,3 +3,8 @@ node_modules
 .quartz-cache
 content/Quartz v5 + GitHub Pages 执行方案.md
 content/index.md
+# Local-only collaboration artifacts (excluded from git via .git/info/exclude)
+AGENTS.md
+work/
+outputs/
+.workbuddy/
