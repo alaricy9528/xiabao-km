@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "cycle": "daily",
+  "lastUpdated": "2026-09-22",
+  "modules": [
+    {
+      "code": "M-01",
+      "name": "模型与架构",
+      "summary": "待每日演进填充：基础模型、架构演进与能力边界。",
+      "topics": [],
+      "status": "skeleton"
+    },
+    {
+      "code": "M-02",
+      "name": "训练与对齐",
+      "summary": "待每日演进填充：预训练、微调、强化学习与价值对齐。",
+      "topics": [],
+      "status": "skeleton"
+    },
+    {
+      "code": "M-03",
+      "name": "推理与智能体",
+      "summary": "待每日演进填充：推理链、工具调用、多智能体协作。",
+      "topics": [],
+      "status": "skeleton"
+    },
+    {
+      "code": "M-04",
+      "name": "知识与记忆",
+      "summary": "待每日演进填充：检索增强、长期记忆与知识组织。",
+      "topics": [],
+      "status": "skeleton"
+    },
+    {
+      "code": "M-05",
+      "name": "工程与系统",
+      "summary": "待每日演进填充：推理服务、评测体系与工程实践。",
+      "topics": [],
+      "status": "skeleton"
+    },
+    {
+      "code": "M-06",
+      "name": "安全与治理",
+      "summary": "待每日演进填充：安全边界、可解释性与治理框架。",
+      "topics": [],
+      "status": "skeleton"
+    }
+  ],
+  "log": []
+}

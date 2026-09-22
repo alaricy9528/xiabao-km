@@ -42,8 +42,18 @@ const runtimeWindow = window as GardenWindow
 let activeCleanup: (() => void) | undefined
 let mountGeneration = 0
 
+function siteRoot(): URL {
+  // The quantum garden runtime now only mounts on the archived page,
+  // which lives exactly two path segments below the site root
+  // (e.g. /xiabao-km/archive/quantum-garden/). Resolve note slugs from
+  // the site root so links stay correct regardless of nesting depth.
+  const here = new URL(window.location.href)
+  if (!here.pathname.endsWith("/")) here.pathname += "/"
+  return new URL("../../", here)
+}
+
 function noteHref(slug: string): string {
-  return new URL(`./${slug}`, window.location.href).href
+  return new URL(slug, siteRoot()).href
 }
 
 function staticNotes(root: HTMLElement): GardenNote[] {
