@@ -1,7 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "cycle": "daily",
-  "lastUpdated": "2026-09-22",
+  "lastUpdated": "2026-09-23",
   "modules": [
     {
       "code": "M-01",
@@ -13,16 +13,22 @@
     {
       "code": "M-02",
       "name": "训练与对齐",
-      "summary": "待每日演进填充：预训练、微调、强化学习与价值对齐。",
-      "topics": [],
-      "status": "skeleton"
+      "summary": "预训练、微调、强化学习与价值对齐；当前焦点是 RL 后训练的规模化。",
+      "topics": [
+        "RL 后训练扩展（MiMo-V2.6 案例）：预训练参数不变，靠异步 GRPO + 约 75 万条轨迹的多任务 RL 实现能力跨代跃升；Groupwise Agentic Grading 用对比 rollout 合成动态评分细则，让模型自评中间推理步骤，替代二元 pass/fail 验证（来源：小米 2026-09-22 开源发布，方向：训练与对齐）",
+        "从 RLHF 到 Agentic RL 的转向：对齐目标从「优化语气/偏好」转为「优化多步任务完成」，奖励信号面向长程任务（Long Horizon）设计，并需配套 Reward Hacking 防线（来源：Towards AI / MiMo 技术报告，方向：训练与对齐）"
+      ],
+      "status": "growing"
     },
     {
       "code": "M-03",
       "name": "推理与智能体",
-      "summary": "待每日演进填充：推理链、工具调用、多智能体协作。",
-      "topics": [],
-      "status": "skeleton"
+      "summary": "推理链、工具调用、多智能体协作；当前焦点是经验的显式组织与复用。",
+      "topics": [
+        "Procedural Graphs（PG，程序图）：把工具调用、技能步骤、内部推理与任务状态组织成有向图，边携带 condition/guidance/pitfalls 三字段；执行时读取当前步骤附近子图生成情境指导，离线阶段依据轨迹提出改图方案并经独立验证后保留——经验成为可读取、检查、修订的程序关系，更新无需重训权重（来源：Google/佐治亚理工/北大，arXiv 2609.09153，方向：推理与智能体）",
+        "Agent harness 的上下文管理：长任务产生海量工具输出会撑爆上下文并使成本复利增长；工程解法是保留相关内容、摘要旧轮次、把大块工具输出推入外部存储按需短查询取回（来源：AWS Strands harness 2026-09-21 发布访谈，方向：推理与智能体）"
+      ],
+      "status": "growing"
     },
     {
       "code": "M-04",
@@ -41,10 +47,19 @@
     {
       "code": "M-06",
       "name": "安全与治理",
-      "summary": "待每日演进填充：安全边界、可解释性与治理框架。",
-      "topics": [],
-      "status": "skeleton"
+      "summary": "安全边界、可解释性与治理框架；当前焦点是递归自我改进（RSI）的国际标准。",
+      "topics": [
+        "RSI 全球技术标准提案：OpenAI 2026-09-21 发布《Building standards for the next phase of AI》，呼吁美国牵头、依托各国 AI 安全机构网络（英/日/韩/法/德/印/新/肯/加/澳）与 CAISI 制定前沿 AI 技术标准，重点覆盖按能力基准划定的前沿模型/开发者，以及自动化 AI 研究（含 RSI）的收益-风险管理；立场是「完全自主 RSI 尚未发生，在能安全实现之前不应推进」，并建议统一 AI 事故分类、跟踪与报告机制（来源：OpenAI 官方博客，方向：安全与治理）",
+        "第三方安全评估原则：OpenAI 同期承诺对前沿模型做独立、严格的第三方评估；评估界正推动「最低条件」共识——授予审计方更深访问权、保护发布不利结论的评估者免受报复（来源：OpenAI / The Decoder，方向：安全与治理）"
+      ],
+      "status": "growing"
     }
   ],
-  "log": []
+  "log": [
+    {
+      "date": "2026-09-23",
+      "title": "RSI 治理、程序图与 RL 扩展：智能体经验组织成为新前沿",
+      "detail": "今日吸收三条进展：① Google/佐治亚理工/北大提出 Procedural Graphs，把工具、技能、记忆连成可修订的条件图，Agent 经验复用不再依赖重训权重（推理与智能体方向，arXiv 2609.09153）；② 小米开源 MiMo-V2.6，用异步 GRPO 与 Groupwise Agentic Grading 验证 RL 后训练扩展路径，参数不变实现能力跨代跃升（训练与对齐方向）；③ OpenAI 发布前沿 AI 全球标准提案，将递归自我改进（RSI）纳入国际标准讨论，明确「无法安全实现前不推进完全自主 RSI」（安全与治理方向）。三个模块由 skeleton 升级为 growing。"
+    }
+  ]
 }
