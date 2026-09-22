@@ -16,7 +16,6 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
       <span data-ai-freshness>静态骨架</span>
     </div>
   </header>
-
   <main>
     <section class="ai-hero" aria-labelledby="ai-title">
       <div>
@@ -36,7 +35,6 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
         <span class="ai-core__label">NEURAL LATTICE / GROWING</span>
       </div>
     </section>
-
     <section aria-labelledby="ai-modules-title">
       <header class="ai-section-heading">
         <div>
@@ -84,7 +82,6 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
         </article>
       </div>
     </section>
-
     <section aria-labelledby="ai-log-title">
       <header class="ai-section-heading">
         <div>
@@ -97,7 +94,6 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
         <li class="ai-log__empty">演进日志尚未开始。每日自我更新启动后，这里会记录框架的每一次生长。</li>
       </ol>
     </section>
-
     <section aria-labelledby="ai-protocol-title">
       <header class="ai-section-heading">
         <div>
@@ -112,7 +108,6 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
       </ol>
     </section>
   </main>
-
   <footer class="ai-home-footer">
     <p><span class="ai-live-dot" aria-hidden="true"></span> 框架仍在生长，下一次演进将在明日清晨抵达。</p>
     <a href="./archive/quantum-garden" data-no-popover="true">旧版量子生态舱 ↗</a>
