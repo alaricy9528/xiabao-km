@@ -6,6 +6,7 @@ import {
   isValidEvolutionData,
   moduleProgress,
   normalizeEvolutionData,
+  splitTopic,
   type EvolutionData,
 } from "./ai-evolution-data"
 
@@ -91,4 +92,48 @@ test("computes days since last update", () => {
   assert.equal(daysSince("2026-09-21", now), 1)
   assert.equal(daysSince("2026-09-15", now), 7)
   assert.equal(daysSince("not-a-date", now), 0)
+})
+
+test("splits a full-shaped topic into title/body/source", () => {
+  const parsed = splitTopic(
+    "HySparse2 混合稀疏注意力（MiMo-V3 核心架构）：两级 KV 共享——外层 KV Bridging + 内层 KV Reuse；1M tokens 下预填充 FLOPs 降低 5.02 倍（来源：小米 arXiv 2609.26368，2026-09-23，方向：模型与架构）",
+  )
+  assert.equal(parsed.title, "HySparse2 混合稀疏注意力（MiMo-V3 核心架构）")
+  assert.ok(parsed.body.includes("1M tokens 下预填充 FLOPs 降低 5.02 倍"))
+  assert.ok(!parsed.body.includes("来源"))
+  assert.equal(parsed.source, "小米 arXiv 2609.26368，2026-09-23")
+})
+
+test("splits topic without source citation", () => {
+  const parsed = splitTopic(
+    "从 RLHF 到 Agentic RL 的转向：对齐目标从「优化语气/偏好」转为「优化多步任务完成」（来源：Towards AI / MiMo 技术报告，方向：训练与对齐）",
+  )
+  assert.equal(parsed.title, "从 RLHF 到 Agentic RL 的转向")
+  assert.ok(parsed.body.startsWith("对齐目标"))
+  assert.equal(parsed.source, "Towards AI / MiMo 技术报告")
+})
+
+test("handles long titles with embedded parentheses and colons safely", () => {
+  // Real data shape: title contains（…）and body contains further full-width colons.
+  const parsed = splitTopic(
+    "RSI 全球技术标准提案 + 第三方安全评估原则（OpenAI 2026-09-21《Building standards for the next phase of AI》，两条同源合并）：呼吁美国牵头、依托各国 AI 安全机构网络制定前沿 AI 技术标准：重点覆盖前沿模型（来源：OpenAI 官方博客 / The Decoder，方向：安全与治理）",
+  )
+  assert.equal(
+    parsed.title,
+    "RSI 全球技术标准提案 + 第三方安全评估原则（OpenAI 2026-09-21《Building standards for the next phase of AI》，两条同源合并）",
+  )
+  assert.ok(parsed.body.includes("重点覆盖前沿模型"))
+  assert.equal(parsed.source, "OpenAI 官方博客 / The Decoder")
+})
+
+test("falls back to whole string as title when shape is unrecognized", () => {
+  const noColon = splitTopic("一段没有冒号的普通描述文字")
+  assert.equal(noColon.title, "一段没有冒号的普通描述文字")
+  assert.equal(noColon.body, "")
+  assert.equal(noColon.source, undefined)
+
+  // Colon too deep (>TITLE_MAX or past half the string) → not a title separator.
+  const deepColon = splitTopic("a".repeat(120) + "：尾部")
+  assert.equal(deepColon.title, "a".repeat(120) + "：尾部")
+  assert.equal(deepColon.body, "")
 })

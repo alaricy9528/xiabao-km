@@ -91,3 +91,40 @@ export function daysSince(dateIso: string, now: Date): number {
   const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
   return Math.max(0, Math.round((today.valueOf() - then.valueOf()) / 86400000))
 }
+
+export type ParsedTopic = {
+  title: string
+  body: string
+  source: string | undefined
+}
+
+// Only treat a leading full-width colon as a title separator when the title
+// stays short; otherwise the colon is likely mid-sentence punctuation.
+// (Real data: the longest observed title segment is ~92 chars.)
+const TITLE_MAX = 100
+
+const SOURCE_PATTERN = /（来源：([^）]*)）\s*$/
+const DIRECTION_PATTERN = /，方向：[^，]*$/
+
+/**
+ * Split a long raw topic string (produced by the daily evolution automation)
+ * into a short title, body text, and optional source citation.
+ *
+ * Expected shape: "<title>：<body>（来源：<who/arXiv/date>，方向：<module>）".
+ * All parts are optional; parsing never throws and never loses text —
+ * unrecognized shapes fall back to using the whole string as the title.
+ */
+export function splitTopic(raw: string): ParsedTopic {
+  let body = raw.trim()
+  let source: string | undefined
+  const sourceMatch = body.match(SOURCE_PATTERN)
+  if (sourceMatch && sourceMatch.index !== undefined) {
+    source = sourceMatch[1].replace(DIRECTION_PATTERN, "").trim()
+    body = body.slice(0, sourceMatch.index).trim()
+  }
+  const colon = body.indexOf("：")
+  if (colon > 0 && colon <= TITLE_MAX) {
+    return { title: body.slice(0, colon).trim(), body: body.slice(colon + 1).trim(), source }
+  }
+  return { title: body, body: "", source }
+}
