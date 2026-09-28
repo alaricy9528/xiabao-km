@@ -453,6 +453,10 @@
 }
 
 /* ---------- sections ---------- */
+/* NOTE: heading resets for .ai-home live in quartz/styles/custom.scss
+   (.center article .ai-home h2/h3). Component CSS is bundled inside
+   @layer quartz-base, and unlayered rules always win regardless of
+   specificity, so overrides must be written in the unlayered custom.scss. */
 .ai-home section {
   scroll-margin-top: 5rem;
 }
@@ -499,8 +503,8 @@
 /* ---------- module grid ---------- */
 .ai-modules {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
-  gap: 1.4rem;
+  grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr));
+  gap: 1.6rem;
   margin: 0;
   padding: 0;
 }
@@ -508,8 +512,8 @@
 .ai-module {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  padding: 1.6rem 1.6rem 1.5rem;
+  gap: 0.9rem;
+  padding: 1.7rem 1.7rem 1.6rem;
   border: 1px solid var(--ai-line);
   border-radius: 20px;
   background: linear-gradient(155deg, var(--ai-panel), transparent 140%);
@@ -541,11 +545,12 @@
 .ai-module header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.7rem;
 }
 
 .ai-module__code {
-  padding: 0.2rem 0.55rem;
+  padding: 0.22rem 0.6rem;
   border: 1px solid color-mix(in srgb, var(--ai-cyan) 30%, transparent);
   border-radius: 8px;
   color: var(--ai-cyan);
@@ -557,19 +562,20 @@
 
 .ai-module__name {
   margin: 0;
-  flex: 1;
   font-family: var(--headerFont);
-  font-size: 1.14rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
   color: var(--ai-ice);
 }
 
 .ai-module__badge {
-  padding: 0.2rem 0.65rem;
+  flex: none;
+  padding: 0.22rem 0.7rem;
   border: 1px solid var(--ai-line);
   border-radius: 999px;
   color: var(--ai-muted);
   font-family: var(--codeFont);
-  font-size: 0.62rem;
+  font-size: 0.64rem;
   letter-spacing: 0.1em;
   white-space: nowrap;
 }
@@ -590,11 +596,19 @@
   margin: 0;
   color: var(--ai-muted);
   font-size: 0.88rem;
-  line-height: 1.75;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.8;
+}
+
+/* Progress bar + knowledge-point count share one row; content flows
+   naturally so uneven summaries leave slack at the card tail, not mid-card. */
+.ai-module__meter {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ai-module__meter .ai-module__bar {
+  flex: 1;
 }
 
 .ai-module__bar {
@@ -613,11 +627,13 @@
 }
 
 .ai-module__meta {
+  flex: none;
   margin: 0;
   color: color-mix(in srgb, var(--ai-muted) 80%, transparent);
   font-family: var(--codeFont);
   font-size: 0.68rem;
   letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
 /* ---------- topic list (two-level fold) ---------- */

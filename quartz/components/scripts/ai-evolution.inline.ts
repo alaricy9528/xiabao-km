@@ -76,13 +76,14 @@ function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
   const code = document.createElement("span")
   code.className = "ai-module__code"
   code.textContent = module.code
-  const name = document.createElement("h3")
-  name.className = "ai-module__name"
-  name.textContent = module.name
   const badge = document.createElement("span")
   badge.className = "ai-module__badge"
   badge.textContent = statusLabel(module.status)
-  head.append(code, name, badge)
+  head.append(code, badge)
+
+  const name = document.createElement("h3")
+  name.className = "ai-module__name"
+  name.textContent = module.name
 
   const summary = document.createElement("p")
   summary.className = "ai-module__summary"
@@ -101,10 +102,13 @@ function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
 
   const meta = document.createElement("p")
   meta.className = "ai-module__meta"
-  meta.textContent =
-    module.topics.length > 0 ? `${module.topics.length} 个知识点 · 点击展开` : "尚无知识点"
+  meta.textContent = module.topics.length > 0 ? `${module.topics.length} 个知识点` : "尚无知识点"
 
-  card.append(head, summary, bar, meta)
+  const meter = document.createElement("div")
+  meter.className = "ai-module__meter"
+  meter.append(bar, meta)
+
+  card.append(head, name, summary, meter)
 
   if (module.topics.length > 0) {
     const list = document.createElement("ul")

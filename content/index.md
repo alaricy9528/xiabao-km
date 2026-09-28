@@ -51,40 +51,46 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
       </header>
       <div class="ai-modules" data-ai-modules>
         <article class="ai-module ai-reveal ai-spot" style="--d: 0" data-status="skeleton">
-          <header><span class="ai-module__code">M-01</span><h3 class="ai-module__name">模型与架构</h3><span class="ai-module__badge">骨架</span></header>
+          <header><span class="ai-module__code">M-01</span><span class="ai-module__badge">骨架</span></header>
+          <h3 class="ai-module__name">模型与架构</h3>
           <p class="ai-module__summary">待每日演进填充：基础模型、架构演进与能力边界。</p>
-          <div class="ai-module__bar" role="img" aria-label="模型与架构 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
-          <p class="ai-module__meta">尚无知识点</p>
+          <div class="ai-module__meter"><div class="ai-module__bar" role="img" aria-label="模型与架构 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
+          <p class="ai-module__meta">尚无知识点</p></div>
         </article>
         <article class="ai-module ai-reveal ai-spot" style="--d: 1" data-status="skeleton">
-          <header><span class="ai-module__code">M-02</span><h3 class="ai-module__name">训练与对齐</h3><span class="ai-module__badge">骨架</span></header>
+          <header><span class="ai-module__code">M-02</span><span class="ai-module__badge">骨架</span></header>
+          <h3 class="ai-module__name">训练与对齐</h3>
           <p class="ai-module__summary">待每日演进填充：预训练、微调、强化学习与价值对齐。</p>
-          <div class="ai-module__bar" role="img" aria-label="训练与对齐 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
-          <p class="ai-module__meta">尚无知识点</p>
+          <div class="ai-module__meter"><div class="ai-module__bar" role="img" aria-label="训练与对齐 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
+          <p class="ai-module__meta">尚无知识点</p></div>
         </article>
         <article class="ai-module ai-reveal ai-spot" style="--d: 2" data-status="skeleton">
-          <header><span class="ai-module__code">M-03</span><h3 class="ai-module__name">推理与智能体</h3><span class="ai-module__badge">骨架</span></header>
+          <header><span class="ai-module__code">M-03</span><span class="ai-module__badge">骨架</span></header>
+          <h3 class="ai-module__name">推理与智能体</h3>
           <p class="ai-module__summary">待每日演进填充：推理链、工具调用、多智能体协作。</p>
-          <div class="ai-module__bar" role="img" aria-label="推理与智能体 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
-          <p class="ai-module__meta">尚无知识点</p>
+          <div class="ai-module__meter"><div class="ai-module__bar" role="img" aria-label="推理与智能体 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
+          <p class="ai-module__meta">尚无知识点</p></div>
         </article>
         <article class="ai-module ai-reveal ai-spot" style="--d: 3" data-status="skeleton">
-          <header><span class="ai-module__code">M-04</span><h3 class="ai-module__name">知识与记忆</h3><span class="ai-module__badge">骨架</span></header>
+          <header><span class="ai-module__code">M-04</span><span class="ai-module__badge">骨架</span></header>
+          <h3 class="ai-module__name">知识与记忆</h3>
           <p class="ai-module__summary">待每日演进填充：检索增强、长期记忆与知识组织。</p>
-          <div class="ai-module__bar" role="img" aria-label="知识与记忆 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
-          <p class="ai-module__meta">尚无知识点</p>
+          <div class="ai-module__meter"><div class="ai-module__bar" role="img" aria-label="知识与记忆 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
+          <p class="ai-module__meta">尚无知识点</p></div>
         </article>
         <article class="ai-module ai-reveal ai-spot" style="--d: 4" data-status="skeleton">
-          <header><span class="ai-module__code">M-05</span><h3 class="ai-module__name">工程与系统</h3><span class="ai-module__badge">骨架</span></header>
+          <header><span class="ai-module__code">M-05</span><span class="ai-module__badge">骨架</span></header>
+          <h3 class="ai-module__name">工程与系统</h3>
           <p class="ai-module__summary">待每日演进填充：推理服务、评测体系与工程实践。</p>
-          <div class="ai-module__bar" role="img" aria-label="工程与系统 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
-          <p class="ai-module__meta">尚无知识点</p>
+          <div class="ai-module__meter"><div class="ai-module__bar" role="img" aria-label="工程与系统 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
+          <p class="ai-module__meta">尚无知识点</p></div>
         </article>
         <article class="ai-module ai-reveal ai-spot" style="--d: 5" data-status="skeleton">
-          <header><span class="ai-module__code">M-06</span><h3 class="ai-module__name">安全与治理</h3><span class="ai-module__badge">骨架</span></header>
+          <header><span class="ai-module__code">M-06</span><span class="ai-module__badge">骨架</span></header>
+          <h3 class="ai-module__name">安全与治理</h3>
           <p class="ai-module__summary">待每日演进填充：安全边界、可解释性与治理框架。</p>
-          <div class="ai-module__bar" role="img" aria-label="安全与治理 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
-          <p class="ai-module__meta">尚无知识点</p>
+          <div class="ai-module__meter"><div class="ai-module__bar" role="img" aria-label="安全与治理 演进进度 8%"><span data-w="8%" style="width: 8%"></span></div>
+          <p class="ai-module__meta">尚无知识点</p></div>
         </article>
       </div>
     </section>

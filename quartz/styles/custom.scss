@@ -261,6 +261,21 @@ body {
   font-size: 1.45rem;
 }
 
+/* AI 自我进化首页：上述 article 级标题样式不得侵入 .ai-home 的卡片与区块标题。
+   组件样式被打包进 @layer quartz-base（层内），custom.scss 在层外，
+   层外规则恒胜层内，故覆盖必须写在这里（同层外、更高特异性）。 */
+.center article .ai-home h2 {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 1.85rem;
+}
+
+.center article .ai-home h3 {
+  margin-top: 0;
+  font-size: 1.35rem;
+}
+
 .center article a {
   color: var(--garden-cyan);
   text-decoration-color: color-mix(in srgb, var(--garden-cyan) 38%, transparent);
