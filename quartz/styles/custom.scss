@@ -492,6 +492,16 @@ body[data-slug="index"] .center article {
   padding: 0;
 }
 
+/* 上面的全幅 article 规则（层外恒胜）会连带命中 .ai-home 里嵌套的
+   模块卡片 <article class="ai-module">，把卡片自身内边距清零，导致
+   文字贴边框。这里用更高特异性把卡片从全幅规则中摘出来并恢复 padding。 */
+body[data-slug="index"] .center article.ai-module {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 2.05rem 2.1rem 1.9rem;
+}
+
 body[data-slug="index"] .quantum-home a.internal {
   padding: 0;
   border-radius: 0;
