@@ -109,6 +109,20 @@
   z-index: 1;
 }
 
+/* Neutralize Quartz's internal-link highlight: the markdown transform tags
+   every in-site <a> with .internal, whose pale background-color turns the
+   brand and ghost CTA into washed-out pills. Only the color layer is
+   neutralized here — padding/radius belong to each component's own rules. */
+.ai-home a.internal {
+  background-color: transparent;
+}
+
+.ai-home .ai-brand {
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
 /* ---------- masthead ---------- */
 /* The Quartz floating toolbar (search/theme/reader) is fixed at the top-right
    on the index page, so reserve that corner for it. */
@@ -163,10 +177,10 @@
 
 .ai-brand small {
   display: block;
-  color: var(--ai-muted);
+  color: color-mix(in srgb, var(--ai-muted) 82%, var(--ai-ice));
   font-family: var(--codeFont);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
 }
 
 .ai-masthead__status {
@@ -335,9 +349,16 @@
   background: linear-gradient(
     100deg,
     var(--ai-cyan),
-    color-mix(in srgb, var(--ai-cyan) 55%, var(--ai-violet))
+    color-mix(in srgb, var(--ai-cyan) 45%, var(--ai-violet))
   );
   box-shadow: 0 0.6rem 1.8rem color-mix(in srgb, var(--ai-cyan) 25%, transparent);
+}
+
+/* Light theme: the gradient end is deep teal-violet, so pure white text
+   keeps AA contrast across the whole button face. */
+:root[saved-theme="light"] .ai-cta--primary {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(23, 43, 58, 0.18);
 }
 
 .ai-cta--primary:hover {
@@ -442,6 +463,11 @@
       transparent 62%
     ),
     var(--ai-panel);
+}
+
+:root[saved-theme="light"] .ai-core__label {
+  border-color: var(--ai-line-strong);
+  background: rgba(255, 255, 255, 0.85);
 }
 
 :root[saved-theme="light"] .ai-core__ring {

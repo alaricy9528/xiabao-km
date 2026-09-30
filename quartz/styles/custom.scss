@@ -276,14 +276,17 @@ body {
   font-size: 1.35rem;
 }
 
-.center article a {
+/* .ai-home 首页有独立的链接配色体系（品牌、CTA、卡片、日志），
+   article 级链接规则若在层外命中会恒胜组件层内样式——曾把主 CTA 文字
+   强制成 garden-cyan 压在同色渐变上导致不可读。故整树豁免 .ai-home。 */
+.center article a:not(.ai-home *) {
   color: var(--garden-cyan);
   text-decoration-color: color-mix(in srgb, var(--garden-cyan) 38%, transparent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
-.center article a:hover {
+.center article a:not(.ai-home *):hover {
   color: var(--garden-violet);
   text-decoration-color: currentColor;
 }
