@@ -1133,8 +1133,29 @@
   border-radius: 12px;
 }
 
-.ai-concept__name {
+.ai-concept__namerow {
   grid-area: name;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.ai-concept__kind {
+  flex: none;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 14%, transparent);
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 82%, var(--ai-ice));
+  font-family: var(--codeFont);
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.ai-concept__name {
   color: var(--ai-ice);
   font-size: 0.9rem;
   font-weight: 600;

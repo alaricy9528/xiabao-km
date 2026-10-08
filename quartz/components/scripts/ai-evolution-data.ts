@@ -1,10 +1,15 @@
+export type ConceptField = {
+  label: string
+  points: string[]
+}
+
 export type ConceptCard = {
   id: string
   name: string
+  /** Knowledge kind (机制/模式/阶段/规律/实践/格局/攻防) — decides the analysis lens, i.e. which fields the card carries. */
+  kind: string
   definition: string
-  pros: string[]
-  cons: string[]
-  fit: string[]
+  fields: ConceptField[]
 }
 
 export type TopicEntry = {
@@ -74,13 +79,26 @@ function normalizeConcept(raw: unknown): ConceptCard | undefined {
     typeof concept.definition !== "string"
   )
     return undefined
+  const fields = Array.isArray(concept.fields)
+    ? concept.fields
+        .filter(
+          (field): field is ConceptField =>
+            typeof field?.label === "string" &&
+            field.label.length > 0 &&
+            Array.isArray(field.points),
+        )
+        .map((field) => ({
+          label: field.label,
+          points: field.points.filter((point): point is string => typeof point === "string"),
+        }))
+        .filter((field) => field.points.length > 0)
+    : []
   return {
     id: concept.id,
     name: concept.name,
+    kind: typeof concept.kind === "string" && concept.kind ? concept.kind : "概念",
     definition: concept.definition,
-    pros: stringArray(concept.pros),
-    cons: stringArray(concept.cons),
-    fit: stringArray(concept.fit),
+    fields,
   }
 }
 

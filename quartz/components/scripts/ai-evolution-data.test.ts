@@ -15,10 +15,9 @@ import {
 const concept = (id: string, extras: Partial<ConceptCard> = {}): ConceptCard => ({
   id,
   name: `概念 ${id}`,
+  kind: "机制",
   definition: `${id} 的一句话定义`,
-  pros: ["优点一"],
-  cons: ["局限一"],
-  fit: ["场景一"],
+  fields: [{ label: "解决的问题", points: ["要点一"] }],
   ...extras,
 })
 
@@ -125,7 +124,15 @@ test("normalizes concept cards and drops malformed ones", () => {
             concept("c1"),
             { id: "c2" }, // missing name/definition → dropped
             "not-an-object", // dropped
-            concept("c3", { pros: "not-an-array" as unknown as string[] }),
+            concept("c3", { kind: undefined as unknown as string }),
+            concept("c4", {
+              fields: [
+                { label: "有效", points: ["a"] },
+                { label: "空点", points: [] }, // dropped (no points)
+                { points: ["无标签"] }, // dropped (no label)
+                { label: "非数组", points: "oops" }, // dropped
+              ] as unknown as ConceptCard["fields"],
+            }),
           ] as unknown[],
         }),
       ],
@@ -133,9 +140,10 @@ test("normalizes concept cards and drops malformed ones", () => {
   )
   assert.ok(normalized)
   const concepts = normalized.modules[0].concepts
-  assert.equal(concepts.length, 2)
+  assert.equal(concepts.length, 3)
   assert.equal(concepts[0].id, "c1")
-  assert.deepEqual(concepts[1].pros, [])
+  assert.equal(concepts[1].kind, "概念") // missing kind → fallback
+  assert.deepEqual(concepts[2].fields, [{ label: "有效", points: ["a"] }])
 })
 
 test("caps concepts per module", () => {

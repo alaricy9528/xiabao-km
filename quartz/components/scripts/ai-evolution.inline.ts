@@ -37,36 +37,36 @@ function renderConcept(concept: ConceptCard, linkedCount: number): HTMLElement {
   head.type = "button"
   head.className = "ai-concept__head"
   head.setAttribute("aria-expanded", "false")
+  const nameRow = document.createElement("span")
+  nameRow.className = "ai-concept__namerow"
+  const kind = document.createElement("em")
+  kind.className = "ai-concept__kind"
+  kind.textContent = concept.kind
   const name = document.createElement("span")
   name.className = "ai-concept__name"
   name.textContent = concept.name
+  nameRow.append(kind, name)
   const definition = document.createElement("span")
   definition.className = "ai-concept__definition"
   definition.textContent = concept.definition
   const meta = document.createElement("span")
   meta.className = "ai-concept__meta"
   meta.textContent = linkedCount > 0 ? `前沿 ×${linkedCount}` : "待挂载前沿"
-  head.append(name, definition, meta)
+  head.append(nameRow, definition, meta)
 
   const fold = document.createElement("div")
   fold.className = "ai-concept__fold"
   const inner = document.createElement("div")
   inner.className = "ai-concept__inner"
-  const columns: Array<[string, string[]]> = [
-    ["优点", concept.pros],
-    ["局限", concept.cons],
-    ["适用场景", concept.fit],
-  ]
-  for (const [label, entries] of columns) {
-    if (entries.length === 0) continue
+  for (const field of concept.fields) {
     const block = document.createElement("div")
     block.className = "ai-concept__col"
     const heading = document.createElement("strong")
-    heading.textContent = label
+    heading.textContent = field.label
     const list = document.createElement("ul")
-    for (const entry of entries) {
+    for (const point of field.points) {
       const li = document.createElement("li")
-      li.textContent = entry
+      li.textContent = point
       list.append(li)
     }
     block.append(heading, list)
@@ -192,7 +192,7 @@ function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
     conceptSection.className = "ai-module__layer"
     const label = document.createElement("p")
     label.className = "ai-module__layer-label"
-    label.textContent = "概念骨架 · 点击展开优缺点与适用场景"
+    label.textContent = "概念骨架 · 按知识类型展开对应分析"
     const list = document.createElement("ul")
     list.className = "ai-concepts"
     for (const concept of module.concepts)
