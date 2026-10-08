@@ -69,6 +69,7 @@ function renderTopic(raw: string): HTMLElement {
 function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
   const card = document.createElement("article")
   card.className = "ai-module ai-reveal ai-spot"
+  card.id = `ai-module-${module.code}`
   card.style.setProperty("--d", String(index))
   card.dataset.status = module.status
 
@@ -302,6 +303,9 @@ async function mountEvolutionHome(): Promise<void> {
   const statTopics = root.querySelector<HTMLElement>("[data-ai-stat-topics]")
   const statUpdated = root.querySelector<HTMLElement>("[data-ai-stat-updated]")
   const statCycle = root.querySelector<HTMLElement>("[data-ai-stat-cycle]")
+  const coreNodes = root.querySelector<HTMLElement>("[data-ai-core-nodes]")
+  const coreTopics = root.querySelector<HTMLElement>("[data-ai-core-topics]")
+  const coreVersion = root.querySelector<HTMLElement>("[data-ai-core-version]")
 
   if (data) {
     root.dataset.evolutionState = "live"
@@ -310,6 +314,26 @@ async function mountEvolutionHome(): Promise<void> {
     if (logList) logList.replaceChildren(...renderLog(data.log))
     if (statModules) countUp(statModules, stats.moduleCount, reduced)
     if (statTopics) countUp(statTopics, stats.topicCount, reduced)
+    // Constellation nodes mirror the live module data: status, progress dial,
+    // topic count and jump target all refresh with every daily evolution.
+    if (coreNodes) {
+      const nodes = coreNodes.querySelectorAll<HTMLAnchorElement>("a.ai-node")
+      data.modules.forEach((module, index) => {
+        const node = nodes[index]
+        if (!node) return
+        node.dataset.status = module.status
+        node.style.setProperty("--p", String(Math.round(moduleProgress(module) * 100)))
+        node.setAttribute("href", `#ai-module-${module.code}`)
+        const code = node.querySelector<HTMLElement>(".ai-node__code")
+        if (code) code.textContent = module.code
+        const name = node.querySelector<HTMLElement>(".ai-node__name")
+        if (name) name.textContent = module.name
+        const count = node.querySelector<HTMLElement>(".ai-node__count")
+        if (count) count.textContent = `${module.topics.length} 点`
+      })
+    }
+    if (coreTopics) countUp(coreTopics, stats.topicCount, reduced)
+    if (coreVersion) coreVersion.textContent = `v${data.version}`
     if (statUpdated) {
       statUpdated.textContent = data.lastUpdated
       const age = daysSince(data.lastUpdated, new Date())
@@ -342,6 +366,34 @@ async function mountEvolutionHome(): Promise<void> {
   }
   root.addEventListener("click", onClick)
   cleanups.push(() => root.removeEventListener("click", onClick))
+
+  // Constellation node clicks: smooth-scroll to the target module card and
+  // flash it. The SPA router would otherwise scroll instantly on same-page
+  // hash links, so we handle these anchors ourselves (capture phase, before
+  // the router's window-level listener) and mirror the hash into the URL.
+  const onNodeClick = (event: MouseEvent) => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0)
+      return
+    const node = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>("a.ai-node")
+    if (!node || !root.contains(node)) return
+    const id = node.getAttribute("href")?.slice(1)
+    if (!id) return
+    const target = document.getElementById(id)
+    if (!target) return
+    event.preventDefault()
+    event.stopPropagation()
+    target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" })
+    history.pushState({}, "", `#${encodeURIComponent(id)}`)
+    target.classList.remove("is-flash")
+    // Restart the flash animation even on rapid repeated clicks.
+    void target.offsetWidth
+    target.classList.add("is-flash")
+    const stop = () => target.classList.remove("is-flash")
+    target.addEventListener("animationend", stop, { once: true })
+    cleanups.push(() => target.removeEventListener("animationend", stop))
+  }
+  root.addEventListener("click", onNodeClick, true)
+  cleanups.push(() => root.removeEventListener("click", onNodeClick, true))
 
   if (!reduced) {
     // Pointer spotlight + hero parallax, rAF-throttled and delegated.

@@ -376,14 +376,20 @@
   background: var(--ai-soft);
 }
 
-/* ---------- core visual (pure CSS neural lattice + parallax) ---------- */
+/* ---------- core visual: knowledge-module constellation ----------
+   Data-driven orbital map: six module nodes ring a central hub, connected by
+   energy spokes with travelling packets and a slow radar sweep. Node values
+   (topic count / progress ring / status) are filled at runtime from
+   /static/ai-evolution.json, so the constellation grows with every daily
+   evolution; the static markup keeps a skeleton fallback for no-JS visitors. */
 .ai-core {
   --px: 0px;
   --py: 0px;
+  --ai-orbit: 9.6rem;
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 24rem;
+  min-height: 27rem;
   border: 1px solid var(--ai-line);
   border-radius: 24px;
   background:
@@ -440,18 +446,331 @@
   }
 }
 
-.ai-core__label {
+/* Radar sweep: a rotating conic wedge masked into an annulus */
+.ai-core__sweep {
+  position: absolute;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    color-mix(in srgb, var(--ai-cyan) 26%, transparent),
+    transparent 26%
+  );
+  -webkit-mask-image: radial-gradient(circle, transparent 22%, #000 38%, #000 78%, transparent 88%);
+  mask-image: radial-gradient(circle, transparent 22%, #000 38%, #000 78%, transparent 88%);
+  opacity: 0.45;
+  animation: ai-spin 10s linear infinite;
+}
+
+:root[saved-theme="light"] .ai-core__sweep {
+  opacity: 0.3;
+}
+
+/* Energy spokes from hub to each node, with a travelling packet */
+.ai-core__links {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ai-core__link {
+  --ang: calc(-90deg + var(--i) * 60deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ai-orbit);
+  height: 1px;
+  transform-origin: 0 50%;
+  transform: rotate(var(--ang));
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ai-cyan) 34%, transparent),
+    color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 42%, transparent)
+  );
+}
+
+.ai-core__link:nth-child(1) {
+  --ai-accent: var(--ai-cyan);
+}
+.ai-core__link:nth-child(2) {
+  --ai-accent: var(--ai-violet);
+}
+.ai-core__link:nth-child(3) {
+  --ai-accent: var(--ai-magenta);
+}
+.ai-core__link:nth-child(4) {
+  --ai-accent: var(--ai-green);
+}
+.ai-core__link:nth-child(5) {
+  --ai-accent: var(--ai-amber);
+}
+.ai-core__link:nth-child(6) {
+  --ai-accent: var(--ai-blue);
+}
+
+.ai-core__packet {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ai-accent, var(--ai-cyan));
+  box-shadow: 0 0 9px var(--ai-accent, var(--ai-cyan));
+  animation: ai-travel 3.6s linear infinite;
+  animation-delay: calc(var(--i) * -0.6s);
+}
+
+@keyframes ai-travel {
+  0% {
+    left: 10%;
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    left: 96%;
+    opacity: 0;
+  }
+}
+
+/* Central hub: live knowledge-point total + data version */
+.ai-core__hub {
   position: relative;
-  z-index: 1;
-  padding: 0.55rem 1.2rem;
-  border: 1px solid var(--ai-line);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ai-void) 72%, transparent);
-  color: var(--ai-cyan);
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  padding: 1.05rem 1.6rem;
+  border: 1px solid var(--ai-line-strong);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--ai-void) 76%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.ai-core__hub strong {
+  font-family: var(--headerFont);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ai-ice);
+  font-variant-numeric: tabular-nums;
+}
+
+.ai-core__hub small {
+  color: var(--ai-muted);
   font-family: var(--codeFont);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  backdrop-filter: blur(6px);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+}
+
+.ai-core__hub-pulse {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid color-mix(in srgb, var(--ai-cyan) 45%, transparent);
+  border-radius: inherit;
+  animation: ai-hub-pulse 3.2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ai-hub-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Orbital module nodes */
+.ai-core__nodes {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.ai-node__slot {
+  --ang: calc(-90deg + var(--i) * 60deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--ang)) translate(var(--ai-orbit))
+    rotate(calc(-1 * var(--ang)));
+}
+
+.ai-node__slot:nth-child(1) .ai-node {
+  --ai-accent: var(--ai-cyan);
+}
+.ai-node__slot:nth-child(2) .ai-node {
+  --ai-accent: var(--ai-violet);
+}
+.ai-node__slot:nth-child(3) .ai-node {
+  --ai-accent: var(--ai-magenta);
+}
+.ai-node__slot:nth-child(4) .ai-node {
+  --ai-accent: var(--ai-green);
+}
+.ai-node__slot:nth-child(5) .ai-node {
+  --ai-accent: var(--ai-amber);
+}
+.ai-node__slot:nth-child(6) .ai-node {
+  --ai-accent: var(--ai-blue);
+}
+
+.ai-node {
+  --ai-accent: var(--ai-cyan);
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.12rem;
+  width: 6.5rem;
+  padding: 0.7rem 0.4rem 0.62rem;
+  border: 1px solid var(--ai-line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--ai-panel-solid) 86%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--ai-text);
+  text-decoration: none;
+  box-shadow: 0 0.4rem 1.2rem rgba(2, 6, 20, 0.28);
+  transition:
+    transform 0.3s var(--ai-ease),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease;
+}
+
+:root[saved-theme="light"] .ai-node {
+  box-shadow:
+    0 1px 2px rgba(23, 43, 58, 0.06),
+    0 0.5rem 1.4rem rgba(23, 43, 58, 0.1);
+}
+
+.ai-node:hover,
+.ai-node:focus-visible {
+  transform: translateY(-3px) scale(1.05);
+  border-color: color-mix(in srgb, var(--ai-accent) 55%, var(--ai-line));
+  box-shadow: 0 0 1.3rem color-mix(in srgb, var(--ai-accent) 32%, transparent);
+}
+
+/* Progress dial: conic ring driven by --p (0-100) set from live data */
+.ai-node__ring {
+  width: 2.15rem;
+  height: 2.15rem;
+  margin-bottom: 0.3rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--ai-accent) calc(var(--p, 8) * 1%),
+    color-mix(in srgb, var(--ai-line) 90%, transparent) 0
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+}
+
+.ai-node[data-status="growing"] .ai-node__ring {
+  animation: ai-node-breathe 3.6s ease-in-out infinite;
+}
+
+.ai-node[data-status="mature"] .ai-node__ring {
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ai-accent) 45%, transparent);
+}
+
+@keyframes ai-node-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--ai-accent) 55%, transparent));
+  }
+}
+
+.ai-node__code {
+  color: var(--ai-accent);
+  font-family: var(--codeFont);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.ai-node__name {
+  color: var(--ai-ice);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.ai-node__count {
+  color: var(--ai-muted);
+  font-family: var(--codeFont);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+
+.ai-node[data-status="skeleton"] {
+  opacity: 0.62;
+  border-style: dashed;
+}
+
+/* Staggered entrance for nodes (JS-gated so no-JS keeps them visible) */
+.ai-home.ai-anim .ai-node {
+  animation: ai-node-in 0.7s var(--ai-ease) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms + 250ms);
+}
+
+.ai-node__slot:nth-child(1) {
+  --i: 0;
+}
+.ai-node__slot:nth-child(2) {
+  --i: 1;
+}
+.ai-node__slot:nth-child(3) {
+  --i: 2;
+}
+.ai-node__slot:nth-child(4) {
+  --i: 3;
+}
+.ai-node__slot:nth-child(5) {
+  --i: 4;
+}
+.ai-node__slot:nth-child(6) {
+  --i: 5;
+}
+
+@keyframes ai-node-in {
+  from {
+    opacity: 0;
+    scale: 0.55;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* Jump-target flash when a constellation node is clicked */
+.ai-module.is-flash {
+  animation: ai-flash 1.6s var(--ai-ease);
+}
+
+@keyframes ai-flash {
+  0% {
+    border-color: var(--ai-accent, var(--ai-cyan));
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 50%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 16px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
 }
 
 /* Light theme: the dashed rings need stronger contrast to read on white */
@@ -465,11 +784,6 @@
     var(--ai-panel);
 }
 
-:root[saved-theme="light"] .ai-core__label {
-  border-color: var(--ai-line-strong);
-  background: rgba(255, 255, 255, 0.85);
-}
-
 :root[saved-theme="light"] .ai-core__ring {
   border-color: color-mix(in srgb, var(--ai-cyan) 45%, transparent);
 }
@@ -480,6 +794,10 @@
 
 :root[saved-theme="light"] .ai-core__ring--c {
   border-color: color-mix(in srgb, var(--ai-magenta) 45%, transparent);
+}
+
+:root[saved-theme="light"] .ai-core__hub {
+  background: rgba(255, 255, 255, 0.88);
 }
 
 /* ---------- sections ---------- */
@@ -582,6 +900,7 @@
 .ai-module {
   --ai-accent: var(--ai-cyan);
   overflow: hidden;
+  scroll-margin-top: 6rem;
 }
 
 .ai-module:nth-child(1) {
@@ -1132,7 +1451,34 @@
     padding-top: 2.5rem;
   }
   .ai-core {
-    min-height: 16rem;
+    min-height: 24rem;
+    --ai-orbit: 7.2rem;
+  }
+  .ai-core__sweep {
+    width: 20rem;
+    height: 20rem;
+  }
+  .ai-node {
+    width: 5.2rem;
+    padding: 0.55rem 0.25rem 0.5rem;
+  }
+  .ai-node__ring {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-bottom: 0.2rem;
+  }
+  .ai-node__name {
+    font-size: 0.66rem;
+  }
+  .ai-core__hub {
+    padding: 0.7rem 0.9rem;
+  }
+  .ai-core__hub strong {
+    font-size: 1.5rem;
+  }
+  .ai-core__hub small {
+    font-size: 0.46rem;
+    letter-spacing: 0.06em;
   }
   .ai-log__head {
     grid-template-columns: minmax(0, 1fr) 1.2rem;
@@ -1166,7 +1512,22 @@
 @media (prefers-reduced-motion: reduce) {
   .ai-live-dot,
   .ai-core__ring,
+  .ai-core__sweep,
+  .ai-core__packet,
+  .ai-core__hub-pulse,
   .ai-hero h1 em {
+    animation: none;
+  }
+  .ai-home.ai-anim .ai-node {
+    animation: none;
+  }
+  .ai-node,
+  .ai-node:hover,
+  .ai-node:focus-visible {
+    transition: none;
+    transform: none;
+  }
+  .ai-module.is-flash {
     animation: none;
   }
   .ai-home.ai-anim .ai-reveal {

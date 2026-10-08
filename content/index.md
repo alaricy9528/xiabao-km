@@ -32,13 +32,34 @@ description: 一座每天自我更新的 AI 学习框架。六大知识模块持
           <div><dt data-ai-stat-updated>—</dt><dd>最近演进</dd></div>
         </dl>
       </div>
-      <div class="ai-core" aria-hidden="true">
+      <div class="ai-core" aria-label="知识模块星座图">
         <div class="ai-core__parallax">
           <span class="ai-core__ring ai-core__ring--a"></span>
           <span class="ai-core__ring ai-core__ring--b"></span>
           <span class="ai-core__ring ai-core__ring--c"></span>
+          <span class="ai-core__sweep"></span>
         </div>
-        <span class="ai-core__label">NEURAL LATTICE / GROWING</span>
+        <div class="ai-core__links" aria-hidden="true" data-ai-core-links>
+          <span class="ai-core__link" style="--i: 0"><span class="ai-core__packet"></span></span>
+          <span class="ai-core__link" style="--i: 1"><span class="ai-core__packet"></span></span>
+          <span class="ai-core__link" style="--i: 2"><span class="ai-core__packet"></span></span>
+          <span class="ai-core__link" style="--i: 3"><span class="ai-core__packet"></span></span>
+          <span class="ai-core__link" style="--i: 4"><span class="ai-core__packet"></span></span>
+          <span class="ai-core__link" style="--i: 5"><span class="ai-core__packet"></span></span>
+        </div>
+        <div class="ai-core__hub">
+          <span class="ai-core__hub-pulse" aria-hidden="true"></span>
+          <strong data-ai-core-topics>00</strong>
+          <small>KNOWLEDGE POINTS · <span data-ai-core-version>v—</span></small>
+        </div>
+        <nav class="ai-core__nodes" data-ai-core-nodes aria-label="知识模块星座导航">
+          <span class="ai-node__slot" style="--i: 0"><a class="ai-node" href="#ai-module-M-01" data-status="skeleton" data-no-popover="true" style="--p: 8"><span class="ai-node__ring" aria-hidden="true"></span><span class="ai-node__code">M-01</span><span class="ai-node__name">模型与架构</span><span class="ai-node__count">0 点</span></a></span>
+          <span class="ai-node__slot" style="--i: 1"><a class="ai-node" href="#ai-module-M-02" data-status="skeleton" data-no-popover="true" style="--p: 8"><span class="ai-node__ring" aria-hidden="true"></span><span class="ai-node__code">M-02</span><span class="ai-node__name">训练与对齐</span><span class="ai-node__count">0 点</span></a></span>
+          <span class="ai-node__slot" style="--i: 2"><a class="ai-node" href="#ai-module-M-03" data-status="skeleton" data-no-popover="true" style="--p: 8"><span class="ai-node__ring" aria-hidden="true"></span><span class="ai-node__code">M-03</span><span class="ai-node__name">推理与智能体</span><span class="ai-node__count">0 点</span></a></span>
+          <span class="ai-node__slot" style="--i: 3"><a class="ai-node" href="#ai-module-M-04" data-status="skeleton" data-no-popover="true" style="--p: 8"><span class="ai-node__ring" aria-hidden="true"></span><span class="ai-node__code">M-04</span><span class="ai-node__name">知识与记忆</span><span class="ai-node__count">0 点</span></a></span>
+          <span class="ai-node__slot" style="--i: 4"><a class="ai-node" href="#ai-module-M-05" data-status="skeleton" data-no-popover="true" style="--p: 8"><span class="ai-node__ring" aria-hidden="true"></span><span class="ai-node__code">M-05</span><span class="ai-node__name">工程与系统</span><span class="ai-node__count">0 点</span></a></span>
+          <span class="ai-node__slot" style="--i: 5"><a class="ai-node" href="#ai-module-M-06" data-status="skeleton" data-no-popover="true" style="--p: 8"><span class="ai-node__ring" aria-hidden="true"></span><span class="ai-node__code">M-06</span><span class="ai-node__name">安全与治理</span><span class="ai-node__count">0 点</span></a></span>
+        </nav>
       </div>
     </section>
     <section aria-labelledby="ai-modules-title">
