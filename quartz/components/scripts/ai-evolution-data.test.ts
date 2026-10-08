@@ -7,19 +7,47 @@ import {
   moduleProgress,
   normalizeEvolutionData,
   splitTopic,
+  type ConceptCard,
   type EvolutionData,
+  type TopicEntry,
 } from "./ai-evolution-data"
 
-const module = (code: string, extras: Partial<EvolutionData["modules"][number]> = {}) => ({
+const concept = (id: string, extras: Partial<ConceptCard> = {}): ConceptCard => ({
+  id,
+  name: `概念 ${id}`,
+  definition: `${id} 的一句话定义`,
+  pros: ["优点一"],
+  cons: ["局限一"],
+  fit: ["场景一"],
+  ...extras,
+})
+
+const topic = (title: string, extras: Partial<TopicEntry> = {}): TopicEntry => ({
+  title,
+  tldr: `${title} 的一句话结论`,
+  body: `${title} 的正文`,
+  concepts: [],
+  ...extras,
+})
+
+type LooseModule = Omit<EvolutionData["modules"][number], "concepts" | "topics"> & {
+  concepts?: unknown[]
+  topics?: unknown[]
+}
+
+const module = (code: string, extras: Partial<LooseModule> = {}): LooseModule => ({
   code,
   name: `模块 ${code}`,
   summary: `${code} 的摘要`,
+  concepts: [],
   topics: [],
   status: "skeleton" as const,
   ...extras,
 })
 
-const data = (extras: Partial<EvolutionData> = {}): EvolutionData => ({
+type LooseData = Omit<EvolutionData, "modules"> & { modules: LooseModule[] }
+
+const data = (extras: Partial<LooseData> = {}): LooseData => ({
   version: 1,
   cycle: "daily",
   lastUpdated: "2026-09-22",
@@ -40,7 +68,11 @@ test("rejects malformed evolution payloads", () => {
 test("normalizes topics and log entries with caps and ordering", () => {
   const normalized = normalizeEvolutionData(
     data({
-      modules: [module("M-01", { topics: ["a", "b", "c", "d", "e", "f", "g"] })],
+      modules: [
+        module("M-01", {
+          topics: ["a", "b", "c", "d", "e", "f", "g"].map((t) => topic(t)),
+        }),
+      ],
       log: [
         { date: "2026-09-20", title: "旧", detail: "旧条目" },
         { date: "2026-09-22", title: "新", detail: "新条目" },
@@ -60,26 +92,120 @@ test("normalizes topics and log entries with caps and ordering", () => {
   assert.equal(normalized.log[1].date, "2026-09-20")
 })
 
+test("keeps legacy string topics working via splitTopic fallback", () => {
+  const normalized = normalizeEvolutionData(
+    data({
+      modules: [
+        module("M-01", {
+          topics: [
+            "旧式标题：旧式正文（来源：某处 arXiv 1234，方向：模型与架构）",
+            { title: "", body: "没有标题的对象应被丢弃" },
+            null,
+          ] as unknown[],
+        }),
+      ],
+    }),
+  )
+  assert.ok(normalized)
+  assert.equal(normalized.modules[0].topics.length, 1)
+  const legacy = normalized.modules[0].topics[0]
+  assert.equal(legacy.title, "旧式标题")
+  assert.equal(legacy.body, "旧式正文")
+  assert.equal(legacy.source, "某处 arXiv 1234")
+  assert.equal(legacy.tldr, "")
+  assert.deepEqual(legacy.concepts, [])
+})
+
+test("normalizes concept cards and drops malformed ones", () => {
+  const normalized = normalizeEvolutionData(
+    data({
+      modules: [
+        module("M-01", {
+          concepts: [
+            concept("c1"),
+            { id: "c2" }, // missing name/definition → dropped
+            "not-an-object", // dropped
+            concept("c3", { pros: "not-an-array" as unknown as string[] }),
+          ] as unknown[],
+        }),
+      ],
+    }),
+  )
+  assert.ok(normalized)
+  const concepts = normalized.modules[0].concepts
+  assert.equal(concepts.length, 2)
+  assert.equal(concepts[0].id, "c1")
+  assert.deepEqual(concepts[1].pros, [])
+})
+
+test("caps concepts per module", () => {
+  const normalized = normalizeEvolutionData(
+    data({
+      modules: [
+        module("M-01", {
+          concepts: Array.from({ length: 12 }, (_, i) => concept(`c${i}`)),
+        }),
+      ],
+    }),
+  )
+  assert.ok(normalized)
+  assert.equal(normalized.modules[0].concepts.length, 8)
+})
+
+test("filters topic concept refs to known concept ids", () => {
+  const normalized = normalizeEvolutionData(
+    data({
+      modules: [
+        module("M-01", {
+          concepts: [concept("c1")],
+          topics: [topic("t1", { concepts: ["c1", "ghost", ""] })],
+        }),
+      ],
+    }),
+  )
+  assert.ok(normalized)
+  assert.deepEqual(normalized.modules[0].topics[0].concepts, ["c1"])
+})
+
 test("maps module status to progress", () => {
-  assert.equal(moduleProgress(module("M-01")), 0.08)
-  assert.equal(moduleProgress(module("M-01", { status: "mature" })), 1)
-  const growing = moduleProgress(module("M-01", { status: "growing", topics: ["a", "b"] }))
+  const asModule = (m: LooseModule) => m as unknown as EvolutionData["modules"][number]
+  assert.equal(moduleProgress(asModule(module("M-01"))), 0.08)
+  assert.equal(moduleProgress(asModule(module("M-01", { status: "mature" }))), 1)
+  const growing = moduleProgress(
+    asModule(
+      module("M-01", {
+        status: "growing",
+        topics: [topic("a"), topic("b")],
+        concepts: [concept("c1"), concept("c2")],
+      }),
+    ),
+  )
   assert.ok(growing > 0.35 && growing < 0.9)
   const capped = moduleProgress(
-    module("M-01", { status: "growing", topics: ["a", "b", "c", "d", "e", "f", "g", "h"] }),
+    asModule(
+      module("M-01", {
+        status: "growing",
+        topics: Array.from({ length: 8 }, (_, i) => topic(`t${i}`)),
+        concepts: Array.from({ length: 8 }, (_, i) => concept(`c${i}`)),
+      }),
+    ),
   )
   assert.equal(capped, 0.9)
 })
 
-test("aggregates evolution stats", () => {
+test("aggregates evolution stats including concept count", () => {
   const stats = evolutionStats(
     data({
-      modules: [module("M-01", { topics: ["a", "b"] }), module("M-02", { topics: ["c"] })],
+      modules: [
+        module("M-01", { topics: [topic("a"), topic("b")], concepts: [concept("c1")] }),
+        module("M-02", { topics: [topic("c")], concepts: [concept("c2"), concept("c3")] }),
+      ],
       log: [{ date: "2026-09-22", title: "x", detail: "y" }],
-    }),
+    }) as unknown as EvolutionData,
   )
   assert.deepEqual(stats, {
     moduleCount: 2,
+    conceptCount: 3,
     topicCount: 3,
     logCount: 1,
     lastUpdated: "2026-09-22",

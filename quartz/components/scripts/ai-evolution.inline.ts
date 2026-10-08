@@ -3,9 +3,10 @@ import {
   evolutionStats,
   moduleProgress,
   normalizeEvolutionData,
-  splitTopic,
+  type ConceptCard,
   type EvolutionData,
   type EvolutionModule,
+  type TopicEntry,
 } from "./ai-evolution-data"
 
 type EvolutionWindow = Window & { __aiEvolutionRuntime?: boolean }
@@ -27,8 +28,57 @@ function statusLabel(status: EvolutionModule["status"]): string {
 
 /* ---------- rendering ---------- */
 
-function renderTopic(raw: string): HTMLElement {
-  const { title, body, source } = splitTopic(raw)
+function renderConcept(concept: ConceptCard, linkedCount: number): HTMLElement {
+  const item = document.createElement("li")
+  item.className = "ai-concept"
+  item.dataset.concept = concept.id
+
+  const head = document.createElement("button")
+  head.type = "button"
+  head.className = "ai-concept__head"
+  head.setAttribute("aria-expanded", "false")
+  const name = document.createElement("span")
+  name.className = "ai-concept__name"
+  name.textContent = concept.name
+  const definition = document.createElement("span")
+  definition.className = "ai-concept__definition"
+  definition.textContent = concept.definition
+  const meta = document.createElement("span")
+  meta.className = "ai-concept__meta"
+  meta.textContent = linkedCount > 0 ? `前沿 ×${linkedCount}` : "待挂载前沿"
+  head.append(name, definition, meta)
+
+  const fold = document.createElement("div")
+  fold.className = "ai-concept__fold"
+  const inner = document.createElement("div")
+  inner.className = "ai-concept__inner"
+  const columns: Array<[string, string[]]> = [
+    ["优点", concept.pros],
+    ["局限", concept.cons],
+    ["适用场景", concept.fit],
+  ]
+  for (const [label, entries] of columns) {
+    if (entries.length === 0) continue
+    const block = document.createElement("div")
+    block.className = "ai-concept__col"
+    const heading = document.createElement("strong")
+    heading.textContent = label
+    const list = document.createElement("ul")
+    for (const entry of entries) {
+      const li = document.createElement("li")
+      li.textContent = entry
+      list.append(li)
+    }
+    block.append(heading, list)
+    inner.append(block)
+  }
+  fold.append(inner)
+
+  item.append(head, fold)
+  return item
+}
+
+function renderTopic(topic: TopicEntry, conceptNames: Map<string, string>): HTMLElement {
   const item = document.createElement("li")
   item.className = "ai-topic"
 
@@ -36,28 +86,47 @@ function renderTopic(raw: string): HTMLElement {
   head.type = "button"
   head.className = "ai-topic__head"
   head.setAttribute("aria-expanded", "false")
+  const titleWrap = document.createElement("span")
+  titleWrap.className = "ai-topic__titlewrap"
   const titleSpan = document.createElement("span")
   titleSpan.className = "ai-topic__title"
-  titleSpan.textContent = title
+  titleSpan.textContent = topic.title
+  titleWrap.append(titleSpan)
+  if (topic.tldr) {
+    const tldr = document.createElement("span")
+    tldr.className = "ai-topic__tldr"
+    tldr.textContent = topic.tldr
+    titleWrap.append(tldr)
+  }
   const chevron = document.createElement("span")
   chevron.className = "ai-topic__chevron"
   chevron.setAttribute("aria-hidden", "true")
-  head.append(titleSpan, chevron)
+  head.append(titleWrap, chevron)
 
   const fold = document.createElement("div")
   fold.className = "ai-topic__fold"
   const inner = document.createElement("div")
   inner.className = "ai-topic__inner"
-  if (body) {
+  if (topic.concepts.length > 0) {
+    const chips = document.createElement("p")
+    chips.className = "ai-topic__concepts"
+    for (const id of topic.concepts) {
+      const chip = document.createElement("span")
+      chip.textContent = conceptNames.get(id) ?? id
+      chips.append(chip)
+    }
+    inner.append(chips)
+  }
+  if (topic.body) {
     const bodyP = document.createElement("p")
     bodyP.className = "ai-topic__body"
-    bodyP.textContent = body
+    bodyP.textContent = topic.body
     inner.append(bodyP)
   }
-  if (source) {
+  if (topic.source) {
     const sourceP = document.createElement("p")
     sourceP.className = "ai-topic__source"
-    sourceP.textContent = `来源：${source}`
+    sourceP.textContent = `来源：${topic.source}`
     inner.append(sourceP)
   }
   fold.append(inner)
@@ -103,7 +172,10 @@ function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
 
   const meta = document.createElement("p")
   meta.className = "ai-module__meta"
-  meta.textContent = module.topics.length > 0 ? `${module.topics.length} 个知识点` : "尚无知识点"
+  const parts: string[] = []
+  if (module.concepts.length > 0) parts.push(`${module.concepts.length} 概念`)
+  parts.push(module.topics.length > 0 ? `${module.topics.length} 前沿` : "尚无前沿")
+  meta.textContent = parts.join(" · ")
 
   const meter = document.createElement("div")
   meter.className = "ai-module__meter"
@@ -111,11 +183,36 @@ function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
 
   card.append(head, name, summary, meter)
 
+  if (module.concepts.length > 0) {
+    const linkedCounts = new Map<string, number>()
+    for (const topic of module.topics) {
+      for (const id of topic.concepts) linkedCounts.set(id, (linkedCounts.get(id) ?? 0) + 1)
+    }
+    const conceptSection = document.createElement("div")
+    conceptSection.className = "ai-module__layer"
+    const label = document.createElement("p")
+    label.className = "ai-module__layer-label"
+    label.textContent = "概念骨架 · 点击展开优缺点与适用场景"
+    const list = document.createElement("ul")
+    list.className = "ai-concepts"
+    for (const concept of module.concepts)
+      list.append(renderConcept(concept, linkedCounts.get(concept.id) ?? 0))
+    conceptSection.append(label, list)
+    card.append(conceptSection)
+  }
+
   if (module.topics.length > 0) {
+    const conceptNames = new Map(module.concepts.map((concept) => [concept.id, concept.name]))
+    const topicSection = document.createElement("div")
+    topicSection.className = "ai-module__layer"
+    const label = document.createElement("p")
+    label.className = "ai-module__layer-label"
+    label.textContent = "前沿演进 · 点击展开全文"
     const list = document.createElement("ul")
     list.className = "ai-module__topics"
-    for (const topic of module.topics) list.append(renderTopic(topic))
-    card.append(list)
+    for (const topic of module.topics) list.append(renderTopic(topic, conceptNames))
+    topicSection.append(label, list)
+    card.append(topicSection)
   }
   return card
 }
@@ -225,7 +322,7 @@ function setupReveal(root: HTMLElement, reduced: boolean): IntersectionObserver 
 }
 
 function toggleFold(button: HTMLElement): void {
-  const holder = button.closest(".ai-topic, .ai-log__entry")
+  const holder = button.closest(".ai-topic, .ai-concept, .ai-log__entry")
   if (!holder) return
   const open = holder.classList.toggle("is-open")
   button.setAttribute("aria-expanded", open ? "true" : "false")
@@ -300,6 +397,7 @@ async function mountEvolutionHome(): Promise<void> {
   const grid = root.querySelector<HTMLElement>("[data-ai-modules]")
   const logList = root.querySelector<HTMLElement>("[data-ai-log]")
   const statModules = root.querySelector<HTMLElement>("[data-ai-stat-modules]")
+  const statConcepts = root.querySelector<HTMLElement>("[data-ai-stat-concepts]")
   const statTopics = root.querySelector<HTMLElement>("[data-ai-stat-topics]")
   const statUpdated = root.querySelector<HTMLElement>("[data-ai-stat-updated]")
   const statCycle = root.querySelector<HTMLElement>("[data-ai-stat-cycle]")
@@ -313,6 +411,7 @@ async function mountEvolutionHome(): Promise<void> {
     if (grid) grid.replaceChildren(...data.modules.map(renderModuleCard))
     if (logList) logList.replaceChildren(...renderLog(data.log))
     if (statModules) countUp(statModules, stats.moduleCount, reduced)
+    if (statConcepts) countUp(statConcepts, stats.conceptCount, reduced)
     if (statTopics) countUp(statTopics, stats.topicCount, reduced)
     // Constellation nodes mirror the live module data: status, progress dial,
     // topic count and jump target all refresh with every daily evolution.
@@ -329,10 +428,14 @@ async function mountEvolutionHome(): Promise<void> {
         const name = node.querySelector<HTMLElement>(".ai-node__name")
         if (name) name.textContent = module.name
         const count = node.querySelector<HTMLElement>(".ai-node__count")
-        if (count) count.textContent = `${module.topics.length} 点`
+        if (count)
+          count.textContent =
+            module.concepts.length > 0 || module.topics.length > 0
+              ? `${module.concepts.length} 概念 · ${module.topics.length} 前沿`
+              : "0 点"
       })
     }
-    if (coreTopics) countUp(coreTopics, stats.topicCount, reduced)
+    if (coreTopics) countUp(coreTopics, stats.conceptCount + stats.topicCount, reduced)
     if (coreVersion) coreVersion.textContent = `v${data.version}`
     if (statUpdated) {
       statUpdated.textContent = data.lastUpdated
@@ -360,7 +463,7 @@ async function mountEvolutionHome(): Promise<void> {
   // Fold toggling via delegation (works for dynamically rendered items).
   const onClick = (event: MouseEvent) => {
     const button = (event.target as HTMLElement | null)?.closest<HTMLElement>(
-      ".ai-topic__head, .ai-log__head",
+      ".ai-topic__head, .ai-concept__head, .ai-log__head",
     )
     if (button && root.contains(button)) toggleFold(button)
   }

@@ -1072,6 +1072,141 @@
   white-space: nowrap;
 }
 
+/* ---------- module layers (concepts / topics) ---------- */
+.ai-module__layer {
+  margin-top: 0.4rem;
+}
+
+.ai-module__layer-label {
+  margin: 0 0 0.55rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ai-line);
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 72%, var(--ai-muted));
+  font-family: var(--codeFont);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+}
+
+/* ---------- concept skeleton grid ---------- */
+.ai-concepts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-concept {
+  border: 1px solid color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 18%, var(--ai-line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 4%, transparent);
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.ai-concept:hover {
+  border-color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 42%, var(--ai-line));
+}
+
+.ai-concept.is-open {
+  border-color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 50%, var(--ai-line));
+  background: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 7%, transparent);
+}
+
+.ai-concept__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "name meta"
+    "definition definition";
+  gap: 0.25rem 0.7rem;
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.ai-concept__name {
+  grid-area: name;
+  color: var(--ai-ice);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.ai-concept__meta {
+  grid-area: meta;
+  align-self: start;
+  padding: 0.14rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 30%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 78%, var(--ai-muted));
+  font-family: var(--codeFont);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.ai-concept__definition {
+  grid-area: definition;
+  color: var(--ai-muted);
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.ai-concept__fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ai-ease);
+}
+
+.ai-concept.is-open .ai-concept__fold {
+  grid-template-rows: 1fr;
+}
+
+.ai-concept__inner {
+  overflow: hidden;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.7rem;
+  padding: 0 0.95rem;
+}
+
+.ai-concept.is-open .ai-concept__inner {
+  padding-bottom: 0.95rem;
+}
+
+.ai-concept__col strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--ai-ice);
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.ai-concept__col ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--ai-muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  list-style: disc;
+}
+
+.ai-concept__col li + li {
+  margin-top: 0.25rem;
+}
+
 /* ---------- topic list (two-level fold) ----------
    Ledger-style rows: hairline separators, an auto-numbered accent index and a
    circular chevron button give each knowledge point a clear hit target and a
@@ -1080,9 +1215,8 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin: 0.7rem 0 0;
-  padding: 0.5rem 0 0;
-  border-top: 1px solid var(--ai-line);
+  margin: 0;
+  padding: 0;
   list-style: none;
   counter-reset: ai-topic;
 }
@@ -1145,17 +1279,59 @@
   line-height: 1.5;
 }
 
-.ai-topic__title {
+.ai-topic__titlewrap {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.ai-topic__title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--ai-ice);
+}
+
+.ai-topic.is-open .ai-topic__title {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.ai-topic__tldr {
+  color: var(--ai-muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.ai-topic.is-open .ai-topic__title {
+.ai-topic.is-open .ai-topic__tldr {
   -webkit-line-clamp: unset;
   overflow: visible;
+}
+
+.ai-topic__concepts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0.95rem 0.6rem 2.65rem;
+}
+
+.ai-topic__concepts span {
+  padding: 0.16rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 32%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 8%, transparent);
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 80%, var(--ai-ice));
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
 }
 
 .ai-topic__chevron {
@@ -1575,6 +1751,7 @@
     transform: none;
   }
   .ai-topic__fold,
+  .ai-concept__fold,
   .ai-log__fold,
   .ai-module__bar span,
   .ai-core__parallax,

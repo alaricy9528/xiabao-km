@@ -1,8 +1,26 @@
+export type ConceptCard = {
+  id: string
+  name: string
+  definition: string
+  pros: string[]
+  cons: string[]
+  fit: string[]
+}
+
+export type TopicEntry = {
+  title: string
+  tldr: string
+  body: string
+  source?: string
+  concepts: string[]
+}
+
 export type EvolutionModule = {
   code: string
   name: string
   summary: string
-  topics: string[]
+  concepts: ConceptCard[]
+  topics: TopicEntry[]
   status: "skeleton" | "growing" | "mature"
 }
 
@@ -22,8 +40,15 @@ export type EvolutionData = {
 
 export const MAX_LOG_ENTRIES = 7
 export const MAX_TOPICS_PER_MODULE = 6
+export const MAX_CONCEPTS_PER_MODULE = 8
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/
+
+function stringArray(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === "string")
+    : []
+}
 
 export function isValidEvolutionData(value: unknown): value is EvolutionData {
   if (typeof value !== "object" || value === null) return false
@@ -39,6 +64,45 @@ export function isValidEvolutionData(value: unknown): value is EvolutionData {
   )
 }
 
+function normalizeConcept(raw: unknown): ConceptCard | undefined {
+  if (typeof raw !== "object" || raw === null) return undefined
+  const concept = raw as Partial<ConceptCard>
+  if (
+    typeof concept.id !== "string" ||
+    concept.id.length === 0 ||
+    typeof concept.name !== "string" ||
+    typeof concept.definition !== "string"
+  )
+    return undefined
+  return {
+    id: concept.id,
+    name: concept.name,
+    definition: concept.definition,
+    pros: stringArray(concept.pros),
+    cons: stringArray(concept.cons),
+    fit: stringArray(concept.fit),
+  }
+}
+
+function normalizeTopic(raw: unknown): TopicEntry | undefined {
+  // Legacy shape: a single long string produced by older automation runs.
+  if (typeof raw === "string") {
+    const { title, body, source } = splitTopic(raw)
+    if (!title) return undefined
+    return { title, tldr: "", body, source, concepts: [] }
+  }
+  if (typeof raw !== "object" || raw === null) return undefined
+  const topic = raw as Partial<TopicEntry>
+  if (typeof topic.title !== "string" || topic.title.length === 0) return undefined
+  return {
+    title: topic.title,
+    tldr: typeof topic.tldr === "string" ? topic.tldr : "",
+    body: typeof topic.body === "string" ? topic.body : "",
+    source: typeof topic.source === "string" && topic.source ? topic.source : undefined,
+    concepts: stringArray(topic.concepts),
+  }
+}
+
 export function normalizeEvolutionData(raw: unknown): EvolutionData | undefined {
   if (!isValidEvolutionData(raw)) return undefined
   const log = Array.isArray(raw.log) ? raw.log : []
@@ -46,13 +110,30 @@ export function normalizeEvolutionData(raw: unknown): EvolutionData | undefined 
     version: typeof raw.version === "number" ? raw.version : 1,
     cycle: typeof raw.cycle === "string" ? raw.cycle : "daily",
     lastUpdated: raw.lastUpdated,
-    modules: raw.modules.map((module) => ({
-      code: module.code,
-      name: module.name,
-      summary: module.summary,
-      topics: module.topics.slice(0, MAX_TOPICS_PER_MODULE),
-      status: module.status ?? "skeleton",
-    })),
+    modules: raw.modules.map((module) => {
+      const rawConcepts = Array.isArray((module as Partial<EvolutionModule>).concepts)
+        ? ((module as Partial<EvolutionModule>).concepts as unknown[])
+        : []
+      const concepts = rawConcepts
+        .map(normalizeConcept)
+        .filter((concept): concept is ConceptCard => concept !== undefined)
+        .slice(0, MAX_CONCEPTS_PER_MODULE)
+      const knownIds = new Set(concepts.map((concept) => concept.id))
+      const topics = (module.topics as unknown[])
+        .map(normalizeTopic)
+        .filter((topic): topic is TopicEntry => topic !== undefined)
+        .slice(0, MAX_TOPICS_PER_MODULE)
+        // Drop references to unknown concept ids so the UI never shows blanks.
+        .map((topic) => ({ ...topic, concepts: topic.concepts.filter((id) => knownIds.has(id)) }))
+      return {
+        code: module.code,
+        name: module.name,
+        summary: module.summary,
+        concepts,
+        topics,
+        status: module.status ?? "skeleton",
+      }
+    }),
     log: log
       .filter(
         (entry): entry is EvolutionLogEntry =>
@@ -67,18 +148,21 @@ export function normalizeEvolutionData(raw: unknown): EvolutionData | undefined 
 
 export function moduleProgress(module: EvolutionModule): number {
   if (module.status === "mature") return 1
-  if (module.status === "growing") return Math.min(0.9, 0.35 + module.topics.length * 0.08)
+  if (module.status === "growing")
+    return Math.min(0.9, 0.3 + module.topics.length * 0.05 + module.concepts.length * 0.04)
   return 0.08
 }
 
 export function evolutionStats(data: EvolutionData): {
   moduleCount: number
+  conceptCount: number
   topicCount: number
   logCount: number
   lastUpdated: string
 } {
   return {
     moduleCount: data.modules.length,
+    conceptCount: data.modules.reduce((total, module) => total + module.concepts.length, 0),
     topicCount: data.modules.reduce((total, module) => total + module.topics.length, 0),
     logCount: data.log.length,
     lastUpdated: data.lastUpdated,
