@@ -385,11 +385,11 @@
 .ai-core {
   --px: 0px;
   --py: 0px;
-  --ai-orbit: 9.6rem;
+  --ai-orbit: 10.4rem;
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 27rem;
+  min-height: 30.5rem;
   border: 1px solid var(--ai-line);
   border-radius: 24px;
   background:
@@ -629,16 +629,20 @@
   position: relative;
   display: grid;
   justify-items: center;
-  gap: 0.12rem;
-  width: 6.5rem;
-  padding: 0.7rem 0.4rem 0.62rem;
+  gap: 0.2rem;
+  width: 7.3rem;
+  padding: 1.05rem 0.55rem 0.85rem;
   border: 1px solid var(--ai-line);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--ai-panel-solid) 86%, transparent);
+  border-radius: 16px;
+  background:
+    linear-gradient(170deg, color-mix(in srgb, var(--ai-accent) 6%, transparent), transparent 42%),
+    color-mix(in srgb, var(--ai-panel-solid) 92%, transparent);
   backdrop-filter: blur(8px);
   color: var(--ai-text);
   text-decoration: none;
-  box-shadow: 0 0.4rem 1.2rem rgba(2, 6, 20, 0.28);
+  box-shadow:
+    0 0.4rem 1.2rem rgba(2, 6, 20, 0.28),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 7%, transparent);
   transition:
     transform 0.3s var(--ai-ease),
     border-color 0.3s ease,
@@ -649,7 +653,8 @@
 :root[saved-theme="light"] .ai-node {
   box-shadow:
     0 1px 2px rgba(23, 43, 58, 0.06),
-    0 0.5rem 1.4rem rgba(23, 43, 58, 0.1);
+    0 0.5rem 1.4rem rgba(23, 43, 58, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .ai-node:hover,
@@ -659,18 +664,22 @@
   box-shadow: 0 0 1.3rem color-mix(in srgb, var(--ai-accent) 32%, transparent);
 }
 
-/* Progress dial: conic ring driven by --p (0-100) set from live data */
+/* Progress dial: conic ring driven by --p (0-100) set from live data.
+   A soft radial "dish" behind the ring plus a wider 4px stroke reads as an
+   instrument gauge instead of a flat donut touching the card edges. */
 .ai-node__ring {
-  width: 2.15rem;
-  height: 2.15rem;
-  margin-bottom: 0.3rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-bottom: 0.55rem;
   border-radius: 50%;
-  background: conic-gradient(
-    var(--ai-accent) calc(var(--p, 8) * 1%),
-    color-mix(in srgb, var(--ai-line) 90%, transparent) 0
-  );
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--ai-accent) 10%, transparent), transparent 68%),
+    conic-gradient(
+      var(--ai-accent) calc(var(--p, 8) * 1%),
+      color-mix(in srgb, var(--ai-muted) 22%, transparent) 0
+    );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
 }
 
 .ai-node[data-status="growing"] .ai-node__ring {
@@ -692,26 +701,33 @@
 }
 
 .ai-node__code {
+  margin-bottom: 0.1rem;
+  padding: 0.14rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 32%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ai-accent) 9%, transparent);
   color: var(--ai-accent);
   font-family: var(--codeFont);
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
 }
 
 .ai-node__name {
   color: var(--ai-ice);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  line-height: 1.3;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
   text-align: center;
 }
 
 .ai-node__count {
-  color: var(--ai-muted);
+  margin-top: 0.15rem;
+  color: color-mix(in srgb, var(--ai-muted) 88%, transparent);
   font-family: var(--codeFont);
-  font-size: 0.58rem;
-  letter-spacing: 0.08em;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
 }
 
 .ai-node[data-status="skeleton"] {
@@ -1451,21 +1467,26 @@
     padding-top: 2.5rem;
   }
   .ai-core {
-    min-height: 24rem;
-    --ai-orbit: 7.2rem;
+    min-height: 25rem;
+    --ai-orbit: 7.4rem;
   }
   .ai-core__sweep {
     width: 20rem;
     height: 20rem;
   }
   .ai-node {
-    width: 5.2rem;
-    padding: 0.55rem 0.25rem 0.5rem;
+    width: 5.4rem;
+    padding: 0.7rem 0.3rem 0.6rem;
+    gap: 0.12rem;
   }
   .ai-node__ring {
-    width: 1.8rem;
-    height: 1.8rem;
-    margin-bottom: 0.2rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    margin-bottom: 0.35rem;
+  }
+  .ai-node__code {
+    padding: 0.1rem 0.4rem;
+    font-size: 0.5rem;
   }
   .ai-node__name {
     font-size: 0.66rem;
