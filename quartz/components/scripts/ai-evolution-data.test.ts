@@ -16,8 +16,10 @@ const concept = (id: string, extras: Partial<ConceptCard> = {}): ConceptCard => 
   id,
   name: `概念 ${id}`,
   kind: "机制",
+  group: "测试分组",
   definition: `${id} 的一句话定义`,
   fields: [{ label: "解决的问题", points: ["要点一"] }],
+  related: [],
   ...extras,
 })
 
@@ -143,7 +145,30 @@ test("normalizes concept cards and drops malformed ones", () => {
   assert.equal(concepts.length, 3)
   assert.equal(concepts[0].id, "c1")
   assert.equal(concepts[1].kind, "概念") // missing kind → fallback
+  assert.equal(concepts[1].group, "测试分组") // factory-provided group kept
+  assert.deepEqual(concepts[1].related, []) // missing related → empty array
   assert.deepEqual(concepts[2].fields, [{ label: "有效", points: ["a"] }])
+})
+
+test("normalizes concept related refs and group", () => {
+  const normalized = normalizeEvolutionData(
+    data({
+      modules: [
+        module("M-01", {
+          concepts: [
+            concept("c1", {
+              group: "效率线",
+              related: ["c3", "M-02:c1", 42, ""] as unknown as string[],
+            }),
+          ],
+        }),
+      ],
+    }),
+  )
+  assert.ok(normalized)
+  const cc = normalized.modules[0].concepts[0]
+  assert.equal(cc.group, "效率线")
+  assert.deepEqual(cc.related, ["c3", "M-02:c1"]) // non-string refs dropped
 })
 
 test("caps concepts per module", () => {

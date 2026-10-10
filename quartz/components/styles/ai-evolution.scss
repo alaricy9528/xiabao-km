@@ -1228,6 +1228,102 @@
   margin-top: 0.25rem;
 }
 
+/* Sub-theme cluster label inside the concept list */
+.ai-concept-group {
+  margin: 0.55rem 0 0.1rem;
+  padding-left: 0.15rem;
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 68%, var(--ai-muted));
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  list-style: none;
+}
+
+.ai-concept-group:first-child {
+  margin-top: 0;
+}
+
+/* Related-concept chips (cross-module refs allowed) */
+.ai-concept__related p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.ai-concept__related span {
+  padding: 0.14rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--ai-violet) 34%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ai-violet) 8%, transparent);
+  color: color-mix(in srgb, var(--ai-violet) 78%, var(--ai-ice));
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+}
+
+/* Mounted frontier inside a concept card */
+.ai-concept__frontier {
+  grid-column: 1 / -1;
+  margin-top: 0.2rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 30%, transparent);
+}
+
+.ai-concept__frontier > strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 80%, var(--ai-ice));
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.ai-concept__topics {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsed chronological fallback at the card tail */
+.ai-module__all-topics {
+  margin-top: 0.2rem;
+}
+
+.ai-module__all-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.7rem 0.35rem;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 72%, var(--ai-muted));
+  font-family: var(--codeFont);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.ai-module__all-toggle:hover {
+  color: var(--ai-accent, var(--ai-cyan));
+  background: var(--ai-soft);
+}
+
+.ai-module__all-topics .ai-topic__chevron {
+  margin-left: auto;
+}
+
+.ai-module__all-topics .ai-module__topics {
+  margin-top: 0.2rem;
+}
+
 /* ---------- topic list (two-level fold) ----------
    Ledger-style rows: hairline separators, an auto-numbered accent index and a
    circular chevron button give each knowledge point a clear hit target and a

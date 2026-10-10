@@ -8,8 +8,12 @@ export type ConceptCard = {
   name: string
   /** Knowledge kind (机制/模式/阶段/规律/实践/格局/攻防) — decides the analysis lens, i.e. which fields the card carries. */
   kind: string
+  /** Sub-theme cluster inside a module, used to group concept cards for scannability. */
+  group: string
   definition: string
   fields: ConceptField[]
+  /** Cross-references to related concepts, global refs shaped like "M-02:c5". */
+  related: string[]
 }
 
 export type TopicEntry = {
@@ -97,8 +101,10 @@ function normalizeConcept(raw: unknown): ConceptCard | undefined {
     id: concept.id,
     name: concept.name,
     kind: typeof concept.kind === "string" && concept.kind ? concept.kind : "概念",
+    group: typeof concept.group === "string" ? concept.group : "",
     definition: concept.definition,
     fields,
+    related: stringArray(concept.related).filter((ref) => ref.length > 0),
   }
 }
 

@@ -28,7 +28,12 @@ function statusLabel(status: EvolutionModule["status"]): string {
 
 /* ---------- rendering ---------- */
 
-function renderConcept(concept: ConceptCard, linkedCount: number): HTMLElement {
+function renderConcept(
+  concept: ConceptCard,
+  linkedTopics: TopicEntry[],
+  resolveRelated: (ref: string) => string | undefined,
+  renderLinkedTopic: (topic: TopicEntry) => HTMLElement,
+): HTMLElement {
   const item = document.createElement("li")
   item.className = "ai-concept"
   item.dataset.concept = concept.id
@@ -51,7 +56,7 @@ function renderConcept(concept: ConceptCard, linkedCount: number): HTMLElement {
   definition.textContent = concept.definition
   const meta = document.createElement("span")
   meta.className = "ai-concept__meta"
-  meta.textContent = linkedCount > 0 ? `前沿 ×${linkedCount}` : "待挂载前沿"
+  meta.textContent = linkedTopics.length > 0 ? `前沿 ×${linkedTopics.length}` : "待挂载前沿"
   head.append(nameRow, definition, meta)
 
   const fold = document.createElement("div")
@@ -72,13 +77,46 @@ function renderConcept(concept: ConceptCard, linkedCount: number): HTMLElement {
     block.append(heading, list)
     inner.append(block)
   }
+  if (concept.related.length > 0) {
+    const rel = document.createElement("div")
+    rel.className = "ai-concept__col ai-concept__related"
+    const heading = document.createElement("strong")
+    heading.textContent = "关联概念"
+    const chips = document.createElement("p")
+    for (const ref of concept.related) {
+      const label = resolveRelated(ref)
+      if (!label) continue
+      const chip = document.createElement("span")
+      chip.textContent = label
+      chips.append(chip)
+    }
+    if (chips.childElementCount > 0) {
+      rel.append(heading, chips)
+      inner.append(rel)
+    }
+  }
+  if (linkedTopics.length > 0) {
+    const frontier = document.createElement("div")
+    frontier.className = "ai-concept__frontier"
+    const heading = document.createElement("strong")
+    heading.textContent = `挂载前沿 · ${linkedTopics.length}`
+    const list = document.createElement("ul")
+    list.className = "ai-concept__topics"
+    for (const topic of linkedTopics) list.append(renderLinkedTopic(topic))
+    frontier.append(heading, list)
+    inner.append(frontier)
+  }
   fold.append(inner)
 
   item.append(head, fold)
   return item
 }
 
-function renderTopic(topic: TopicEntry, conceptNames: Map<string, string>): HTMLElement {
+function renderTopic(
+  topic: TopicEntry,
+  conceptNames: Map<string, string>,
+  showChips = true,
+): HTMLElement {
   const item = document.createElement("li")
   item.className = "ai-topic"
 
@@ -107,7 +145,7 @@ function renderTopic(topic: TopicEntry, conceptNames: Map<string, string>): HTML
   fold.className = "ai-topic__fold"
   const inner = document.createElement("div")
   inner.className = "ai-topic__inner"
-  if (topic.concepts.length > 0) {
+  if (showChips && topic.concepts.length > 0) {
     const chips = document.createElement("p")
     chips.className = "ai-topic__concepts"
     for (const id of topic.concepts) {
@@ -135,7 +173,11 @@ function renderTopic(topic: TopicEntry, conceptNames: Map<string, string>): HTML
   return item
 }
 
-function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
+function renderModuleCard(
+  module: EvolutionModule,
+  index: number,
+  relatedIndex: Map<string, string>,
+): HTMLElement {
   const card = document.createElement("article")
   card.className = "ai-module ai-reveal ai-spot"
   card.id = `ai-module-${module.code}`
@@ -183,36 +225,84 @@ function renderModuleCard(module: EvolutionModule, index: number): HTMLElement {
 
   card.append(head, name, summary, meter)
 
+  const conceptNames = new Map(module.concepts.map((concept) => [concept.id, concept.name]))
+  // Global resolver for cross-module related refs shaped like "M-02:c5".
+  const resolveRelated = (ref: string): string | undefined => {
+    const local = conceptNames.get(ref)
+    if (local) return local
+    const sep = ref.indexOf(":")
+    if (sep < 0) return undefined
+    const code = ref.slice(0, sep)
+    const id = ref.slice(sep + 1)
+    return relatedIndex.get(`${code}:${id}`)
+  }
+
   if (module.concepts.length > 0) {
-    const linkedCounts = new Map<string, number>()
+    const linkedByConcept = new Map<string, TopicEntry[]>()
     for (const topic of module.topics) {
-      for (const id of topic.concepts) linkedCounts.set(id, (linkedCounts.get(id) ?? 0) + 1)
+      for (const id of topic.concepts) {
+        const bucket = linkedByConcept.get(id)
+        if (bucket) bucket.push(topic)
+        else linkedByConcept.set(id, [topic])
+      }
     }
     const conceptSection = document.createElement("div")
     conceptSection.className = "ai-module__layer"
     const label = document.createElement("p")
     label.className = "ai-module__layer-label"
-    label.textContent = "概念骨架 · 按知识类型展开对应分析"
+    label.textContent = "概念骨架 · 展开看分析镜头与挂载前沿"
     const list = document.createElement("ul")
     list.className = "ai-concepts"
-    for (const concept of module.concepts)
-      list.append(renderConcept(concept, linkedCounts.get(concept.id) ?? 0))
+    // Group concept cards by sub-theme cluster, preserving first-seen order.
+    let currentGroup: string | undefined
+    for (const concept of module.concepts) {
+      const group = concept.group || ""
+      if (group !== currentGroup) {
+        currentGroup = group
+        if (group) {
+          const groupItem = document.createElement("li")
+          groupItem.className = "ai-concept-group"
+          groupItem.textContent = group
+          list.append(groupItem)
+        }
+      }
+      list.append(
+        renderConcept(concept, linkedByConcept.get(concept.id) ?? [], resolveRelated, (topic) =>
+          renderTopic(topic, conceptNames, false),
+        ),
+      )
+    }
     conceptSection.append(label, list)
     card.append(conceptSection)
   }
 
   if (module.topics.length > 0) {
-    const conceptNames = new Map(module.concepts.map((concept) => [concept.id, concept.name]))
-    const topicSection = document.createElement("div")
-    topicSection.className = "ai-module__layer"
-    const label = document.createElement("p")
-    label.className = "ai-module__layer-label"
-    label.textContent = "前沿演进 · 点击展开全文"
+    // Chronological fallback kept collapsed: the primary reading path is now
+    // "expand a concept → see its mounted frontier", so the flat list must not
+    // pile up at the card tail by default.
+    const allSection = document.createElement("div")
+    allSection.className = "ai-module__layer ai-module__all-topics"
+    const toggle = document.createElement("button")
+    toggle.type = "button"
+    toggle.className = "ai-module__all-toggle"
+    toggle.setAttribute("aria-expanded", "false")
+    const toggleLabel = document.createElement("span")
+    toggleLabel.textContent = `全部前沿 · ${module.topics.length} 条（按时间）`
+    const chevron = document.createElement("span")
+    chevron.className = "ai-topic__chevron"
+    chevron.setAttribute("aria-hidden", "true")
+    toggle.append(toggleLabel, chevron)
+    const fold = document.createElement("div")
+    fold.className = "ai-topic__fold"
+    const inner = document.createElement("div")
+    inner.className = "ai-topic__inner"
     const list = document.createElement("ul")
     list.className = "ai-module__topics"
     for (const topic of module.topics) list.append(renderTopic(topic, conceptNames))
-    topicSection.append(label, list)
-    card.append(topicSection)
+    inner.append(list)
+    fold.append(inner)
+    allSection.append(toggle, fold)
+    card.append(allSection)
   }
   return card
 }
@@ -322,7 +412,7 @@ function setupReveal(root: HTMLElement, reduced: boolean): IntersectionObserver 
 }
 
 function toggleFold(button: HTMLElement): void {
-  const holder = button.closest(".ai-topic, .ai-concept, .ai-log__entry")
+  const holder = button.closest(".ai-topic, .ai-concept, .ai-log__entry, .ai-module__all-topics")
   if (!holder) return
   const open = holder.classList.toggle("is-open")
   button.setAttribute("aria-expanded", open ? "true" : "false")
@@ -408,7 +498,15 @@ async function mountEvolutionHome(): Promise<void> {
   if (data) {
     root.dataset.evolutionState = "live"
     const stats = evolutionStats(data)
-    if (grid) grid.replaceChildren(...data.modules.map(renderModuleCard))
+    if (grid) {
+      // Global "moduleCode:conceptId" → concept name index for cross-module
+      // related references on concept cards.
+      const relatedIndex = new Map<string, string>()
+      for (const m of data.modules) {
+        for (const concept of m.concepts) relatedIndex.set(`${m.code}:${concept.id}`, concept.name)
+      }
+      grid.replaceChildren(...data.modules.map((m, i) => renderModuleCard(m, i, relatedIndex)))
+    }
     if (logList) logList.replaceChildren(...renderLog(data.log))
     if (statModules) countUp(statModules, stats.moduleCount, reduced)
     if (statConcepts) countUp(statConcepts, stats.conceptCount, reduced)
@@ -463,7 +561,7 @@ async function mountEvolutionHome(): Promise<void> {
   // Fold toggling via delegation (works for dynamically rendered items).
   const onClick = (event: MouseEvent) => {
     const button = (event.target as HTMLElement | null)?.closest<HTMLElement>(
-      ".ai-topic__head, .ai-concept__head, .ai-log__head",
+      ".ai-topic__head, .ai-concept__head, .ai-log__head, .ai-module__all-toggle",
     )
     if (button && root.contains(button)) toggleFold(button)
   }
