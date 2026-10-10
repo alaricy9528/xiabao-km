@@ -276,10 +276,13 @@ function renderModuleCard(
     card.append(conceptSection)
   }
 
-  if (module.topics.length > 0) {
-    // Chronological fallback kept collapsed: the primary reading path is now
-    // "expand a concept → see its mounted frontier", so the flat list must not
-    // pile up at the card tail by default.
+  // Safety net only: topics left with no concept reference (e.g. normalization
+  // dropped unknown refs) would otherwise be invisible anywhere on the page.
+  // In the normal case every topic is mounted inside its concept cards, so
+  // this section renders nothing and the card tail stays clean; chronological
+  // browsing lives in the evolution log section instead.
+  const orphans = module.topics.filter((topic) => topic.concepts.length === 0)
+  if (orphans.length > 0) {
     const allSection = document.createElement("div")
     allSection.className = "ai-module__layer ai-module__all-topics"
     const toggle = document.createElement("button")
@@ -287,7 +290,7 @@ function renderModuleCard(
     toggle.className = "ai-module__all-toggle"
     toggle.setAttribute("aria-expanded", "false")
     const toggleLabel = document.createElement("span")
-    toggleLabel.textContent = `全部前沿 · ${module.topics.length} 条（按时间）`
+    toggleLabel.textContent = `未挂载前沿 · ${orphans.length} 条（待挂到概念）`
     const chevron = document.createElement("span")
     chevron.className = "ai-topic__chevron"
     chevron.setAttribute("aria-hidden", "true")
@@ -298,7 +301,7 @@ function renderModuleCard(
     inner.className = "ai-topic__inner"
     const list = document.createElement("ul")
     list.className = "ai-module__topics"
-    for (const topic of module.topics) list.append(renderTopic(topic, conceptNames))
+    for (const topic of orphans) list.append(renderTopic(topic, conceptNames))
     inner.append(list)
     fold.append(inner)
     allSection.append(toggle, fold)
