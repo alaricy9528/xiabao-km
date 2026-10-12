@@ -177,6 +177,13 @@ plugins:
           const ra = rank(a)
           const rb = rank(b)
           if (ra !== rb) return ra - rb
+          if (ra === 1) {
+            // learn 组内：总览（无 s0x 段）在前，阶段页按 S-01..S-06 数字序
+            const stage = (n) => { const m = /\/s0(\d)/.exec(n.slug || ""); return m ? Number(m[1]) : 0 }
+            const sa = stage(a)
+            const sb = stage(b)
+            if (sa !== sb) return sa - sb
+          }
           if ((a.isFolder && b.isFolder) || (!a.isFolder && !b.isFolder)) {
             return (a.displayName || "").localeCompare(b.displayName || "", undefined, { numeric: true, sensitivity: "base" })
           }
