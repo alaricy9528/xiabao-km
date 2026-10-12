@@ -264,10 +264,24 @@ body {
   --stage-dot: #74a7ff;
 }
 
-/* learn 页右栏：原 canvas 力导向图让位给主图同款的迷你星座
-   （由 LearnMapRuntime 注入 .graph-outer），画布隐藏但容器保留。 */
-body[data-slug^="learn"] .graph-container {
-  display: none;
+/* learn 页右栏：保留原 canvas 力导向图谱，在其原风格上做容器优化——
+   加高面板让星图舒展、圆角与站点卡片一致、叠一层与主图同源的
+   双色微光底，让灰点星图不再「贴白底」。 */
+body[data-slug^="learn"] .graph-outer {
+  height: 19rem;
+  border-radius: 0.8rem;
+  background:
+    radial-gradient(
+      circle at 70% 18%,
+      color-mix(in srgb, var(--garden-violet) 7%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 25% 82%,
+      color-mix(in srgb, var(--garden-cyan) 6%, transparent),
+      transparent 55%
+    ),
+    var(--garden-surface);
 }
 
 .center article {

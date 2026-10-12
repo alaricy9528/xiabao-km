@@ -194,6 +194,22 @@ plugins:
       priority: 50
   - source: "@quartz-community/graph"
     enabled: true
+    options:
+      # 右栏星图调优（侧栏渲染的是 localGraph，全屏按钮才是 globalGraph）：
+      # 径向布局让 learn 的 hub+六阶段成环更可读；悬停聚焦、加大斥力与
+      # 连线距离，避免小面板里挤成一团。
+      localGraph:
+        enableRadial: true
+        focusOnHover: true
+        repelForce: 0.7
+        centerForce: 0.25
+        linkDistance: 42
+        scale: 1.15
+        fontSize: 0.62
+        opacityScale: 0.9
+      globalGraph:
+        enableRadial: true
+        focusOnHover: true
     layout:
       position: right
       priority: 10
