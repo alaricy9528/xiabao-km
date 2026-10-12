@@ -662,29 +662,43 @@ body[data-slug="index"] #quartz-body > footer {
     border-right: 0;
   }
 
-  /* 移动端目录抽屉面板化：实心底 + 毛玻璃 + 底边与投影，让展开的菜单
-     是「一块面板」而不是浮在页面背景上的裸文字；列布局修掉汉堡按钮
-     与树首行重叠；树列表限高内滚，避免抽屉无限撑高把正文推出首屏。 */
+  /* 移动端目录抽屉：Quartz 原生是全屏 overlay 抽屉（absolute + 100vw×
+     100dvh + 左滑入），裸用观感差、且半改会留下「大板浮顶/汉堡被压」
+     残局。这里重做成标准移动抽屉：fixed 浮层卡片（圆角/实底/投影/
+     内滚），不占文档流——不推标题、不压正文；汉堡按钮抬到浮层之上
+     保证可随时收起；默认收起由运行时负责（移动端首屏干净）。 */
   body:not([data-slug="index"]) .sidebar.left {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.4rem;
-    padding: 0.7rem 0.9rem 0.9rem;
     border-bottom: 1px solid var(--garden-line);
-    backdrop-filter: blur(14px);
-    background: color-mix(in srgb, var(--garden-void) 90%, transparent);
-    box-shadow: 0 1rem 3rem var(--garden-shadow);
   }
 
-  body:not([data-slug="index"]) .explorer-content {
-    max-height: 52vh;
-    padding: 0.45rem;
+  body:not([data-slug="index"]) .explorer button.mobile-explorer {
+    position: relative;
+    z-index: 95;
+  }
+
+  body:not([data-slug="index"]) .explorer.collapsed > .explorer-content {
+    display: none;
+  }
+
+  body:not([data-slug="index"]) .explorer:not(.collapsed) > .explorer-content {
+    position: fixed;
+    top: 3.6rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: calc(100dvh - 4.8rem);
+    transform: none;
+    visibility: visible;
+    z-index: 90;
+    margin-top: 0;
+    padding: 0.6rem;
     border: 1px solid var(--garden-line);
-    border-radius: 0.6rem;
+    border-radius: 0.9rem;
     background: var(--garden-surface-solid);
+    box-shadow: 0 1.2rem 3.5rem var(--garden-shadow);
+    overflow-y: auto;
   }
 
   .center article,
