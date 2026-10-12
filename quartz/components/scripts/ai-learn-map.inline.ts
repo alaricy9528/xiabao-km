@@ -28,14 +28,15 @@ const STAGE_ACCENTS = [
   "var(--ai-blue)",
 ]
 
-/* Elliptical orbit for six nodes, starting top-right and going clockwise. */
+/* Elliptical orbit for six nodes, sitting exactly on the decorative ring
+   (center 520,245 / rx 190 / ry 130), starting top-right, clockwise. */
 const NODE_POSITIONS: Array<{ x: number; y: number }> = [
-  { x: 664, y: 116 },
-  { x: 706, y: 250 },
-  { x: 610, y: 356 },
-  { x: 430, y: 372 },
-  { x: 334, y: 266 },
-  { x: 376, y: 132 },
+  { x: 615, y: 132 },
+  { x: 710, y: 245 },
+  { x: 615, y: 358 },
+  { x: 425, y: 358 },
+  { x: 330, y: 245 },
+  { x: 425, y: 132 },
 ]
 
 function readStages(root: HTMLElement): StageDatum[] {
@@ -55,7 +56,9 @@ function readStages(root: HTMLElement): StageDatum[] {
 function buildChart(stages: StageDatum[]): SVGSVGElement {
   const NS = "http://www.w3.org/2000/svg"
   const svg = document.createElementNS(NS, "svg")
-  svg.setAttribute("viewBox", "0 0 1040 470")
+  // Tight viewBox around the ring + labels so the constellation fills the
+  // panel instead of floating in empty margin.
+  svg.setAttribute("viewBox", "250 55 540 385")
   svg.setAttribute("role", "img")
   svg.setAttribute("aria-label", "学习路线星座图：六个阶段，点击节点跳转到对应阶段")
   svg.classList.add("ai-lm__svg")

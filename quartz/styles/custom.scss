@@ -187,6 +187,89 @@ body {
   box-shadow: inset 2px 0 var(--garden-cyan);
 }
 
+/* 左侧目录树美化：树线 + 层级缩进 + 行距收紧，为后续「阶段 → 学习单元」
+   子目录留好层级观感。 */
+.explorer .explorer-ul {
+  position: relative;
+}
+
+.explorer .explorer-ul .explorer-ul {
+  margin-left: 0.55rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--garden-line);
+}
+
+.explorer .tree-item-self {
+  min-height: 1.75rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* learn 目录下的阶段条目：前置一枚阶段色点，与星座图/时间线同色系。
+   用 href 子串匹配（纯 CSS，SPA 切换后 explorer 重渲染依然生效）。 */
+.explorer a.tree-item-self[href*="s01-"]::before,
+.explorer a.tree-item-self[href*="s02-"]::before,
+.explorer a.tree-item-self[href*="s03-"]::before,
+.explorer a.tree-item-self[href*="s04-"]::before,
+.explorer a.tree-item-self[href*="s05-"]::before,
+.explorer a.tree-item-self[href*="s06-"]::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: var(--stage-dot, var(--garden-cyan));
+  box-shadow: 0 0 0.45rem color-mix(in srgb, var(--stage-dot, var(--garden-cyan)) 60%, transparent);
+}
+
+.explorer a.tree-item-self[href*="s01-"] {
+  --stage-dot: #087c89;
+}
+.explorer a.tree-item-self[href*="s02-"] {
+  --stage-dot: #6246c7;
+}
+.explorer a.tree-item-self[href*="s03-"] {
+  --stage-dot: #bb337f;
+}
+.explorer a.tree-item-self[href*="s04-"] {
+  --stage-dot: #0d7a52;
+}
+.explorer a.tree-item-self[href*="s05-"] {
+  --stage-dot: #9a5b00;
+}
+.explorer a.tree-item-self[href*="s06-"] {
+  --stage-dot: #1e5bc9;
+}
+
+:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s01-"] {
+  --stage-dot: #5df7ff;
+}
+:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s02-"] {
+  --stage-dot: #9c82ff;
+}
+:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s03-"] {
+  --stage-dot: #ff79df;
+}
+:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s04-"] {
+  --stage-dot: #67f6bd;
+}
+:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s05-"] {
+  --stage-dot: #ffb454;
+}
+:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s06-"] {
+  --stage-dot: #74a7ff;
+}
+
+/* 学习目录页已有交互式星座图作唯一关系视觉，右侧全局图谱在该页隐藏，
+   避免两张图并存且形态不一致。 */
+body[data-slug^="learn"] .graph {
+  display: none;
+}
+
 .center article {
   max-width: 48rem;
   margin-inline: auto;
