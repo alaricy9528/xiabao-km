@@ -264,12 +264,6 @@ body {
   --stage-dot: #74a7ff;
 }
 
-/* 学习目录页已有交互式星座图作唯一关系视觉，右侧全局图谱在该页隐藏，
-   避免两张图并存且形态不一致。 */
-body[data-slug^="learn"] .graph {
-  display: none;
-}
-
 .center article {
   max-width: 48rem;
   margin-inline: auto;
