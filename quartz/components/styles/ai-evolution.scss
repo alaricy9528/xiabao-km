@@ -2322,6 +2322,17 @@
     padding: 0.7rem 0.9rem;
     font-size: 0.66rem;
   }
+  /* 窄屏星座图：隐藏 S-0x 小标签、放大阶段名（viewBox 单位），
+     避免缩放后文字糊成一团；面板内边距收紧。 */
+  .ai-lm {
+    padding: 0.5rem;
+  }
+  .ai-lm__code {
+    display: none;
+  }
+  .ai-lm__name {
+    font-size: 19px;
+  }
 }
 
 /* ---------- reduced motion ---------- */

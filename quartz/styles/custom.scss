@@ -662,6 +662,31 @@ body[data-slug="index"] #quartz-body > footer {
     border-right: 0;
   }
 
+  /* 移动端目录抽屉面板化：实心底 + 毛玻璃 + 底边与投影，让展开的菜单
+     是「一块面板」而不是浮在页面背景上的裸文字；列布局修掉汉堡按钮
+     与树首行重叠；树列表限高内滚，避免抽屉无限撑高把正文推出首屏。 */
+  body:not([data-slug="index"]) .sidebar.left {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    padding: 0.7rem 0.9rem 0.9rem;
+    border-bottom: 1px solid var(--garden-line);
+    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--garden-void) 90%, transparent);
+    box-shadow: 0 1rem 3rem var(--garden-shadow);
+  }
+
+  body:not([data-slug="index"]) .explorer-content {
+    max-height: 52vh;
+    padding: 0.45rem;
+    border: 1px solid var(--garden-line);
+    border-radius: 0.6rem;
+    background: var(--garden-surface-solid);
+  }
+
   .center article,
   .page-header,
   .page-footer {
