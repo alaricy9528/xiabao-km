@@ -1,10 +1,12 @@
-/* Learning-map constellation runtime (content/learn/ai-learning-map).
-   Renders an interactive SVG star chart of the six principle stages:
-   - pointer parallax: the whole constellation drifts subtly with the cursor
-   - hover: node brightens, its halo grows and the linked stage card lifts
-   - click: smooth-scrolls to the stage card on the same page and flashes it
-   Stage data is read from the static DOM (the no-JS skeleton) so the chart
-   never drifts from the page content. */
+/* Learning-map constellation runtime (content/learn/*).
+   Two jobs:
+   1. Overview page: interactive SVG star chart of the six principle stages
+      (pointer parallax, hover halo + linked card lift, click to jump & flash).
+   2. Sidebar: replaces the stock canvas force-graph on learn pages with a
+      mini constellation in the same visual language (accent dots, halos,
+      dashed links, hover glow, click = SPA navigation).
+   Stage data is read from the static DOM / contentIndex so charts never
+   drift from the page content. */
 
 type LearnWindow = Window & { __aiLearnMapRuntime?: boolean }
 
@@ -246,5 +248,148 @@ function mountLearnMap(): void {
 if (!learnWindow.__aiLearnMapRuntime) {
   learnWindow.__aiLearnMapRuntime = true
   document.addEventListener("prenav", () => learnCleanup?.())
-  document.addEventListener("nav", () => mountLearnMap())
+  document.addEventListener("nav", () => {
+    mountLearnMap()
+    mountSidebarChart()
+  })
+}
+
+/* ---------- sidebar mini constellation ----------
+   On learn pages the stock canvas force-graph is hidden by CSS and replaced
+   by a mini chart in the main constellation's visual language: hub = the
+   overview page, six stage satellites in stage accent colors, dashed links,
+   hover halo, click = SPA navigation. The current page's node wears a ring. */
+
+const SIDEBAR_HUB = "learn/ai-learning-map"
+
+function sidebarPositions(count: number): Array<{ x: number; y: number }> {
+  const pts: Array<{ x: number; y: number }> = []
+  for (let i = 0; i < count; i++) {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / Math.max(count, 1)
+    pts.push({ x: 120 + 86 * Math.cos(angle), y: 122 + 86 * Math.sin(angle) })
+  }
+  return pts
+}
+
+async function mountSidebarChart(): Promise<void> {
+  const slug = document.body.dataset.slug ?? ""
+  if (!slug.startsWith("learn/")) return
+  const outer = document.querySelector<HTMLElement>(".graph .graph-outer")
+  if (!outer) return
+  // Re-mount cleanly on SPA navigation.
+  outer.querySelector(".ai-lms")?.remove()
+
+  let titles = new Map<string, string>()
+  try {
+    if (typeof fetchData !== "undefined") {
+      const index = (await fetchData) ?? {}
+      for (const [key, value] of Object.entries(index)) {
+        if (key.startsWith("learn/") && typeof value?.title === "string") {
+          titles.set(key, value.title)
+        }
+      }
+    }
+  } catch {
+    titles = new Map()
+  }
+  if (!outer.isConnected) return
+
+  const stageSlugs = Array.from(titles.keys())
+    .filter((key) => key !== SIDEBAR_HUB && /\/s0\d/.test(key))
+    .sort()
+  if (stageSlugs.length === 0) return
+
+  const heading = document.querySelector<HTMLElement>(".graph > h3")
+  if (heading) heading.textContent = "学习关系图谱"
+
+  const NS = "http://www.w3.org/2000/svg"
+  const svg = document.createElementNS(NS, "svg")
+  svg.setAttribute("viewBox", "0 0 240 244")
+  svg.setAttribute("role", "img")
+  svg.setAttribute("aria-label", "学习关系星座：中心为学习目录，周围为六个阶段，点击跳转")
+  svg.classList.add("ai-lms")
+
+  const links = document.createElementNS(NS, "g")
+  const positions = sidebarPositions(stageSlugs.length)
+  stageSlugs.forEach((_stageSlug, index) => {
+    const pos = positions[index]
+    if (!pos) return
+    const line = document.createElementNS(NS, "line")
+    line.setAttribute("x1", "120")
+    line.setAttribute("y1", "122")
+    line.setAttribute("x2", String(pos.x))
+    line.setAttribute("y2", String(pos.y))
+    line.classList.add("ai-lms__link")
+    links.append(line)
+  })
+  svg.append(links)
+
+  const makeNode = (
+    seg: string,
+    fullSlug: string,
+    x: number,
+    y: number,
+    accent: string | undefined,
+    isCurrent: boolean,
+    label?: string,
+  ) => {
+    const anchor = document.createElementNS(NS, "a")
+    anchor.setAttribute("href", `./${seg}`)
+    anchor.classList.add("ai-lms__node")
+    if (accent) anchor.style.setProperty("--accent", accent)
+    if (isCurrent) anchor.classList.add("ai-lms__node--current")
+    const title = document.createElementNS(NS, "title")
+    title.textContent = titles.get(fullSlug) ?? seg
+    const halo = document.createElementNS(NS, "circle")
+    halo.setAttribute("cx", String(x))
+    halo.setAttribute("cy", String(y))
+    halo.setAttribute("r", "16")
+    halo.classList.add("ai-lms__halo")
+    const dot = document.createElementNS(NS, "circle")
+    dot.setAttribute("cx", String(x))
+    dot.setAttribute("cy", String(y))
+    dot.setAttribute("r", "6")
+    dot.classList.add("ai-lms__dot")
+    anchor.append(title, halo, dot)
+    if (label) {
+      const text = document.createElementNS(NS, "text")
+      text.setAttribute("x", String(x))
+      text.setAttribute("y", String(y + 27))
+      text.setAttribute("text-anchor", "middle")
+      text.classList.add("ai-lms__label")
+      text.textContent = label
+      anchor.append(text)
+    }
+    return anchor
+  }
+
+  // Hub first, then satellites in stage order.
+  svg.append(
+    makeNode(
+      "ai-learning-map",
+      SIDEBAR_HUB,
+      120,
+      122,
+      "var(--ai-cyan)",
+      slug === SIDEBAR_HUB,
+      "目录",
+    ),
+  )
+  stageSlugs.forEach((stageSlug, index) => {
+    const pos = positions[index]
+    if (!pos) return
+    const seg = stageSlug.slice("learn/".length)
+    svg.append(
+      makeNode(
+        seg,
+        stageSlug,
+        pos.x,
+        pos.y,
+        STAGE_ACCENTS[index % STAGE_ACCENTS.length],
+        slug === stageSlug,
+      ),
+    )
+  })
+
+  outer.prepend(svg)
 }
