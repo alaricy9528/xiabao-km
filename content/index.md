@@ -25,6 +25,7 @@ description: 一座每天自我更新的 AI 学习框架：六大方向的概念
         <div class="ai-cta">
           <a class="ai-cta--primary" href="#ai-modules-title" data-no-popover="true">浏览知识模块</a>
           <a class="ai-cta--ghost" href="#ai-log-title" data-no-popover="true">查看演进日志</a>
+          <a class="ai-cta--ghost ai-cta--out" href="./learn/ai-learning-map" data-no-popover="true">学习目录</a>
         </div>
         <dl class="ai-readout" aria-label="框架实时读数">
           <div><dt data-ai-stat-modules>06</dt><dd>知识模块</dd></div>
@@ -143,8 +144,4 @@ description: 一座每天自我更新的 AI 学习框架：六大方向的概念
       </ol>
     </section>
   </main>
-  <footer class="ai-home-footer">
-    <p><span class="ai-live-dot" aria-hidden="true"></span> 框架仍在生长，下一次演进将在明日清晨抵达。</p>
-    <a href="./archive/quantum-garden" data-no-popover="true">旧版量子生态舱 ↗</a>
-  </footer>
 </div>

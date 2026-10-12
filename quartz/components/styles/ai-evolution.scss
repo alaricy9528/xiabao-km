@@ -3,7 +3,8 @@
    设计语言：夜色神经网格 / 呼吸感间距 / 光标聚光 / 平滑展开
    ================================================================ */
 
-.ai-home {
+.ai-home,
+.ai-learn {
   --ai-void: #050713;
   --ai-panel: rgba(9, 15, 38, 0.72);
   --ai-panel-solid: #0a1026;
@@ -33,7 +34,8 @@
   font-family: var(--bodyFont);
 }
 
-:root[saved-theme="light"] .ai-home {
+:root[saved-theme="light"] .ai-home,
+:root[saved-theme="light"] .ai-learn {
   --ai-void: #eef4f7;
   --ai-panel: rgba(255, 255, 255, 0.72);
   --ai-panel-solid: #ffffff;
@@ -54,11 +56,14 @@
 }
 
 .ai-home,
-.ai-home * {
+.ai-home *,
+.ai-learn,
+.ai-learn * {
   box-sizing: border-box;
 }
 
-.ai-home :focus-visible {
+.ai-home :focus-visible,
+.ai-learn :focus-visible {
   outline: 2px solid var(--ai-cyan);
   outline-offset: 3px;
   border-radius: 6px;
@@ -113,7 +118,8 @@
    every in-site <a> with .internal, whose pale background-color turns the
    brand and ghost CTA into washed-out pills. Only the color layer is
    neutralized here — padding/radius belong to each component's own rules. */
-.ai-home a.internal {
+.ai-home a.internal,
+.ai-learn a.internal {
   background-color: transparent;
 }
 
@@ -374,6 +380,17 @@
 .ai-cta--ghost:hover {
   border-color: color-mix(in srgb, var(--ai-cyan) 55%, var(--ai-line-strong));
   background: var(--ai-soft);
+}
+
+/* Outbound CTA variant: the arrow points to another page, not down the
+   current one. Selector keeps the `.ai-cta a` element step so it outranks
+   the base `.ai-cta a::after` rule at equal specificity-by-order. */
+.ai-cta a.ai-cta--out::after {
+  content: "↗";
+}
+
+.ai-cta a.ai-cta--out:hover::after {
+  transform: translate(2px, -2px);
 }
 
 /* ---------- core visual: knowledge-module constellation ----------
@@ -1713,6 +1730,185 @@
   line-height: 1.8;
 }
 
+/* ---------- learning map (content/learn/ai-learning-map) ----------
+   A vertical route: six stage cards joined by a dashed path with a node
+   dot per stage. Skeleton-only for now — each stage carries one line of
+   positioning plus a dashed placeholder where daily-organized learning
+   units will be mounted later. */
+.ai-learn {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 4rem) 5rem;
+  color: var(--ai-text);
+  font-family: var(--bodyFont);
+}
+
+/* NOTE: `.ai-learn a.ai-learn__back` (0,2,1) on purpose — Quartz tags every
+   in-site anchor with `.internal`, whose padding / border-radius /
+   line-height would otherwise flatten the pill. */
+.ai-learn a.ai-learn__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--ai-line-strong);
+  border-radius: 999px;
+  color: var(--ai-cyan);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  text-decoration: none;
+  transition:
+    transform 0.3s var(--ai-ease),
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.ai-learn a.ai-learn__back:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--ai-cyan) 55%, var(--ai-line-strong));
+  background: var(--ai-soft);
+}
+
+.ai-learn .ai-eyebrow {
+  margin: 2.2rem 0 0;
+}
+
+.ai-learn__lede {
+  max-width: 40rem;
+  margin: 1.1rem 0 0;
+  color: var(--ai-muted);
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+
+.ai-learn__path {
+  position: relative;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The route line: a dashed vertical path running through every node */
+.ai-learn__path::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: 0.55rem;
+  border-left: 1px dashed var(--ai-line-strong);
+}
+
+.ai-learn__stage {
+  --ai-accent: var(--ai-cyan);
+  position: relative;
+  padding: 0 0 2.2rem 2.6rem;
+}
+
+.ai-learn__stage:last-child {
+  padding-bottom: 0;
+}
+
+.ai-learn__stage:nth-child(1) {
+  --ai-accent: var(--ai-cyan);
+}
+.ai-learn__stage:nth-child(2) {
+  --ai-accent: var(--ai-violet);
+}
+.ai-learn__stage:nth-child(3) {
+  --ai-accent: var(--ai-magenta);
+}
+.ai-learn__stage:nth-child(4) {
+  --ai-accent: var(--ai-green);
+}
+.ai-learn__stage:nth-child(5) {
+  --ai-accent: var(--ai-amber);
+}
+.ai-learn__stage:nth-child(6) {
+  --ai-accent: var(--ai-blue);
+}
+
+/* Stage node dot sitting on the route line */
+.ai-learn__stage::before {
+  content: "";
+  position: absolute;
+  top: 0.55rem;
+  left: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--ai-accent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ai-void) 70%, transparent);
+  box-shadow: 0 0 0.9rem color-mix(in srgb, var(--ai-accent) 35%, transparent);
+}
+
+.ai-learn__stage header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.ai-learn__code {
+  padding: 0.24rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 38%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ai-accent) 9%, transparent);
+  color: var(--ai-accent);
+  font-family: var(--codeFont);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.ai-learn__name {
+  margin: 0;
+  color: var(--ai-ice);
+  font-family: var(--headerFont);
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+}
+
+.ai-learn__aim {
+  margin: 0.55rem 0 0;
+  color: var(--ai-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* Placeholder for future learning units: dashed slot, no content yet */
+.ai-learn__units {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-learn__unit {
+  padding: 0.85rem 1.1rem;
+  border: 1px dashed var(--ai-line-strong);
+  border-radius: 12px;
+  color: color-mix(in srgb, var(--ai-muted) 92%, transparent);
+  font-family: var(--codeFont);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.ai-learn__note {
+  max-width: 42rem;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--ai-line);
+  border-left: 2px solid var(--ai-violet);
+  border-radius: 0 14px 14px 0;
+  background: color-mix(in srgb, var(--ai-violet) 6%, transparent);
+  color: var(--ai-muted);
+  font-size: 0.88rem;
+  line-height: 1.9;
+}
+
 /* ---------- footer ---------- */
 .ai-home-footer {
   display: flex;
@@ -1916,6 +2112,23 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .ai-learn {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .ai-learn__stage {
+    padding-left: 2rem;
+  }
+  .ai-learn__name {
+    font-size: 1.12rem;
+  }
+  .ai-learn__aim {
+    font-size: 0.84rem;
+  }
+  .ai-learn__unit {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.66rem;
+  }
 }
 
 /* ---------- reduced motion ---------- */
@@ -1951,10 +2164,13 @@
   .ai-protocol li:hover,
   .ai-cta a,
   .ai-cta a:hover,
+  .ai-cta a.ai-cta--out:hover,
   .ai-brand,
   .ai-brand:hover,
   .ai-home-footer a,
-  .ai-home-footer a:hover {
+  .ai-home-footer a:hover,
+  .ai-learn a.ai-learn__back,
+  .ai-learn a.ai-learn__back:hover {
     transition: none;
     transform: none;
   }
