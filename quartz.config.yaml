@@ -166,6 +166,22 @@ plugins:
     enabled: true
   - source: "@quartz-community/explorer"
     enabled: true
+    options:
+      # 左侧菜单只保留学习目录骨架：历史杂项页隐藏，tags 沿用默认隐藏。
+      filterFn: (node) => !["发布链路测试", "quartz-v5-+-github-pages-执行方案", "codex-部署-quartz-方案", "quartz-知识库发布方案", "obsidian-公网发布方案"].includes(node.slug) && node.slugSegment !== "tags"
+      # 阶段页在菜单里去掉 S-0x 前缀（顺序由 sortFn 保证），总览页保持全名。
+      mapFn: (node) => { if (!node.isFolder && node.slug.startsWith("learn/s0")) { node.displayName = node.displayName.replace(/^S-\d+\s*/, "") } return node }
+      sortFn: |
+        (a, b) => {
+          const rank = (n) => (n.isFolder ? 0 : n.slug.startsWith("learn/") ? 1 : 2)
+          const ra = rank(a)
+          const rb = rank(b)
+          if (ra !== rb) return ra - rb
+          if ((a.isFolder && b.isFolder) || (!a.isFolder && !b.isFolder)) {
+            return (a.displayName || "").localeCompare(b.displayName || "", undefined, { numeric: true, sensitivity: "base" })
+          }
+          return a.isFolder ? -1 : 1
+        }
     layout:
       position: left
       priority: 50

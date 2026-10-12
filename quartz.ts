@@ -2,6 +2,7 @@ import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/conf
 import { componentRegistry } from "./quartz/components"
 import QuantumGardenRuntime from "./quartz/components/QuantumGardenRuntime"
 import AiEvolutionRuntime from "./quartz/components/AiEvolutionRuntime"
+import LearnMapRuntime from "./quartz/components/LearnMapRuntime"
 
 componentRegistry.register(
   "QuantumGardenRuntime",
@@ -10,6 +11,8 @@ componentRegistry.register(
 )
 
 componentRegistry.register("AiEvolutionRuntime", AiEvolutionRuntime, "project/ai-evolution-runtime")
+
+componentRegistry.register("LearnMapRuntime", LearnMapRuntime, "project/learn-map-runtime")
 
 const config = await loadQuartzConfig()
 export default config

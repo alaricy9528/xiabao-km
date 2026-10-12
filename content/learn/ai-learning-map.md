@@ -4,10 +4,15 @@ publish: true
 description: 一张按 AI 技术原理铺开的学习地图骨架：六个阶段从数学直觉到前沿边界，只问为什么与如何运作；学习单元将按日整理挂载。
 ---
 
-<div class="ai-learn">
+<div class="ai-learn ai-learn--map">
   <a class="ai-learn__back" href="../" data-no-popover="true">← 返回首页</a>
   <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>SKELETON v0</span></p>
   <p class="ai-learn__lede">这张地图写给想搞懂并掌握 AI 技术原理的人：只问为什么、如何运作，从数学直觉一路到前沿边界。工程实践不在这条线上——不部署、不服务化、不自己造系统；工程出现的地方，止步于看懂原理。六个阶段，原理通透。现在只有骨架，各阶段的学习单元将在每日整理中逐步挂载。</p>
+  <div class="ai-lm" data-ai-lm-chart>
+    <noscript>
+      <p class="ai-lm__fallback">星座图需要 JavaScript；下方目录模块指引不受影响。</p>
+    </noscript>
+  </div>
   <ol class="ai-learn__path">
     <li class="ai-learn__stage">
       <header><span class="ai-learn__code">S-01</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="./s01-math-intuition" data-no-popover="true">数学直觉与学习原理</a></h2></header>
@@ -52,5 +57,5 @@ description: 一张按 AI 技术原理铺开的学习地图骨架：六个阶段
       </ul>
     </li>
   </ol>
-  <p class="ai-learn__note">这张地图与首页的六大知识模块互为经纬：模块记录「AI 正在变成什么」的前沿认知，地图规划「AI 如何运作」的学习顺序。左侧菜单列出六个阶段的骨架；点击阶段名进入阶段页，学习单元在那里按日整理挂载。阶段骨架保持稳定，学习单元按日生长。</p>
+  <p class="ai-learn__note">这张地图与首页的六大知识模块互为经纬：模块记录「AI 正在变成什么」的前沿认知，地图规划「AI 如何运作」的学习顺序。上方星座图是六个阶段的关系总览：移动鼠标星图随之漂移，悬停节点点亮对应阶段，点击节点直达该阶段；点击阶段名进入阶段页，学习单元在那里按日整理挂载。阶段骨架保持稳定，学习单元按日生长。</p>
 </div>

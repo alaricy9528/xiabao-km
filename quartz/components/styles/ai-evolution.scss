@@ -1843,6 +1843,9 @@
   border-radius: 50%;
   background: color-mix(in srgb, var(--ai-void) 70%, transparent);
   box-shadow: 0 0 0.9rem color-mix(in srgb, var(--ai-accent) 35%, transparent);
+  transition:
+    transform 0.3s var(--ai-ease),
+    box-shadow 0.3s ease;
 }
 
 .ai-learn__stage header {
@@ -1942,6 +1945,161 @@
   flex-wrap: wrap;
   gap: 0.8rem;
   margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+}
+
+/* ---------- learning constellation (overview hero chart) ----------
+   An interactive star chart of the six stages: pointer parallax drift,
+   hover halo + linked card lift, click to jump & flash the stage card. */
+.ai-lm {
+  position: relative;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: clamp(0.8rem, 2vw, 1.6rem);
+  border: 1px solid var(--ai-line);
+  border-radius: 20px;
+  background:
+    radial-gradient(
+      circle at 72% 18%,
+      color-mix(in srgb, var(--ai-violet) 8%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 24% 82%,
+      color-mix(in srgb, var(--ai-cyan) 7%, transparent),
+      transparent 50%
+    ),
+    color-mix(in srgb, var(--ai-panel) 55%, transparent);
+  overflow: hidden;
+}
+
+.ai-lm__fallback {
+  margin: 0;
+  color: var(--ai-muted);
+  font-size: 0.8rem;
+}
+
+.ai-lm__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Parallax layer: JS writes --lm-px/--lm-py on the <svg>, this group drifts */
+.ai-lm__drift {
+  transform: translate(var(--lm-px, 0px), var(--lm-py, 0px));
+  transition: transform 0.3s ease-out;
+}
+
+.ai-lm__orbit {
+  fill: none;
+  stroke: var(--ai-line);
+  stroke-dasharray: 3 8;
+}
+
+.ai-lm__links line {
+  stroke: var(--ai-line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 7;
+  opacity: 0.65;
+}
+
+.ai-lm__node {
+  cursor: pointer;
+  outline: none;
+}
+
+.ai-lm__node .ai-lm__halo {
+  fill: color-mix(in srgb, var(--accent) 13%, transparent);
+  stroke: color-mix(in srgb, var(--accent) 38%, transparent);
+  stroke-width: 1;
+  opacity: 0.5;
+  transition:
+    opacity 0.3s ease,
+    stroke-width 0.3s ease;
+}
+
+.ai-lm__node .ai-lm__dot {
+  fill: var(--accent);
+  stroke: var(--ai-void);
+  stroke-width: 2.5;
+  transition: filter 0.3s ease;
+}
+
+.ai-lm__node:hover .ai-lm__halo,
+.ai-lm__node:focus-visible .ai-lm__halo {
+  opacity: 1;
+  stroke-width: 1.6;
+}
+
+.ai-lm__node:hover .ai-lm__dot,
+.ai-lm__node:focus-visible .ai-lm__dot {
+  filter: drop-shadow(0 0 7px var(--accent));
+}
+
+.ai-lm__code {
+  fill: var(--accent);
+  font-family: var(--codeFont);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.ai-lm__name {
+  fill: var(--ai-ice);
+  font-family: var(--headerFont);
+  font-size: 15px;
+  font-weight: 600;
+  transition: fill 0.25s ease;
+}
+
+.ai-lm__node:hover .ai-lm__name,
+.ai-lm__node:focus-visible .ai-lm__name {
+  fill: var(--accent);
+}
+
+/* Entrance: nodes bloom in sequence */
+.ai-learn--map.ai-anim .ai-lm__node {
+  animation: ai-lm-in 0.7s var(--ai-ease) both;
+  animation-delay: var(--d, 0ms);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes ai-lm-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Stage card reacts to node hover (is-lit) and click jump (is-flash) */
+.ai-learn__stage {
+  border-radius: 14px;
+}
+
+.ai-learn__stage.is-lit .ai-learn__name a {
+  color: var(--ai-accent);
+}
+
+.ai-learn__stage.is-lit::before {
+  transform: scale(1.2);
+  box-shadow: 0 0 1.3rem color-mix(in srgb, var(--ai-accent) 55%, transparent);
+}
+
+.ai-learn__stage.is-flash {
+  animation: ai-lm-flash 1.1s var(--ai-ease);
+}
+
+@keyframes ai-lm-flash {
+  0% {
+    background: color-mix(in srgb, var(--ai-accent) 15%, transparent);
+  }
+  100% {
+    background: transparent;
+  }
 }
 
 /* ---------- footer ---------- */
@@ -2208,6 +2366,16 @@
   .ai-learn a.ai-learn__back:hover {
     transition: none;
     transform: none;
+  }
+  .ai-learn--map.ai-anim .ai-lm__node {
+    animation: none;
+  }
+  .ai-lm__drift {
+    transition: none;
+    transform: none;
+  }
+  .ai-learn__stage.is-flash {
+    animation: none;
   }
   .ai-topic__fold,
   .ai-concept__fold,
