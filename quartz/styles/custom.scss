@@ -285,6 +285,17 @@ body {
   font-size: 1.3rem;
 }
 
+/* 阶段页的「学习单元」小标题也是 h2，层外恒胜会把它撑成 1.3rem
+   标题字号，故在层外还原成 code 体小标签。 */
+.center article .ai-learn h2.ai-learn__h {
+  margin: 0 0 0.9rem;
+  color: var(--ai-muted);
+  font-family: var(--codeFont);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 /* .ai-home 首页与 .ai-learn 学习地图都有独立的链接配色体系（品牌、CTA、
    卡片、日志、返回按钮），article 级链接规则若在层外命中会恒胜组件层内
    样式——曾把主 CTA 文字强制成 garden-cyan 压在同色渐变上导致不可读。

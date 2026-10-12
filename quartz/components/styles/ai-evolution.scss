@@ -1909,6 +1909,41 @@
   line-height: 1.9;
 }
 
+/* Stage name as a route entry: the overview timeline doubles as the index
+   into the six stage pages (also listed in the sidebar explorer). */
+.ai-learn a.ai-learn__link {
+  color: var(--ai-ice);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.ai-learn a.ai-learn__link:hover {
+  color: var(--ai-cyan);
+}
+
+/* Stage page: mount slot for daily-organized learning units */
+.ai-learn__block {
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+}
+
+.ai-learn__h {
+  margin: 0 0 0.9rem;
+  color: var(--ai-muted);
+  font-family: var(--codeFont);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Prev / next stage pager on stage pages */
+.ai-learn__pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+}
+
 /* ---------- footer ---------- */
 .ai-home-footer {
   display: flex;
