@@ -393,6 +393,27 @@ body[data-slug^="learn"] .graph-outer {
   text-transform: uppercase;
 }
 
+/* 每日知识点的二级（主题）/三级（知识点）标题同样落在 .ai-learn 子树内，
+   article 级 h2 的 3.8rem 上边距+顶线、h3 的 1.45rem 字号会撕裂卡片
+   节奏，层外还原为组件设计的层级样式。 */
+.center article .ai-learn h2.ai-kp__topic {
+  margin: 1.6rem 0 0.4rem;
+  padding-top: 0;
+  padding-left: 0.85rem;
+  border-top: 0;
+  border-left: 2px solid var(--ai-cyan);
+  font-size: 1.15rem;
+}
+
+.center article .ai-learn h3.ai-kp__point-h {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 1.02rem;
+}
+
 /* .ai-home 首页与 .ai-learn 学习地图都有独立的链接配色体系（品牌、CTA、
    卡片、日志、返回按钮），article 级链接规则若在层外命中会恒胜组件层内
    样式——曾把主 CTA 文字强制成 garden-cyan 压在同色渐变上导致不可读。
@@ -736,4 +757,10 @@ body[data-slug="index"] #quartz-body > footer {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* 每日知识点页（.ai-kp）：frontmatter 的 description 已作为摘要服务于
+   搜索/OG，页头 Properties 折叠块属冗余信息，隐藏以保持「一图一段」的纯粹。 */
+body:has(.ai-kp) .note-properties {
+  display: none;
 }

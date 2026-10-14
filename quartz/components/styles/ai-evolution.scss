@@ -1947,6 +1947,93 @@
   margin: clamp(2.5rem, 5vw, 4rem) 0 0;
 }
 
+/* ---------- daily knowledge point (inline in stage pages) ----------
+   Level 2 = topic heading, level 3 = one daily point: a portrait SVG
+   "engineer's whitepaper" card (structure first, modules + arrows +
+   readable bilingual labels) plus one short paragraph, nothing else. */
+.ai-kp__topic {
+  margin: 1.6rem 0 0.4rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--ai-cyan);
+  color: var(--ai-ice);
+  font-family: var(--headerFont);
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+}
+
+.ai-kp__point {
+  margin: 1.4rem 0 0;
+  padding: clamp(1rem, 2.5vw, 1.6rem);
+  border: 1px solid var(--ai-line);
+  border-radius: 18px;
+  background: var(--ai-panel);
+}
+
+.ai-kp__point-h {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--ai-ice);
+  font-family: var(--headerFont);
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+}
+
+.ai-kp__date {
+  padding: 0.18rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--ai-cyan) 38%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ai-cyan) 9%, transparent);
+  color: var(--ai-cyan);
+  font-family: var(--codeFont);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.ai-kp__fig {
+  margin: clamp(1.8rem, 4vw, 2.6rem) 0 0;
+  padding: clamp(0.7rem, 2vw, 1.3rem);
+  border: 1px solid var(--ai-line);
+  border-radius: 18px;
+  background: var(--ai-panel-solid);
+  box-shadow: var(--ai-shadow);
+}
+
+/* Portrait infographic: scales with the column, never needs sideways
+   scrolling — readability is carried by the viewBox, not by min-width. */
+.ai-kp__fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ai-kp__cap {
+  margin: 0.7rem 0.2rem 0;
+  color: var(--ai-muted);
+  font-size: 0.76rem;
+  line-height: 1.7;
+}
+
+.ai-kp__text {
+  max-width: 44rem;
+  margin: 1.6rem 0 0;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--ai-line);
+  border-left: 2px solid var(--ai-cyan);
+  border-radius: 0 14px 14px 0;
+  background: var(--ai-soft);
+  color: var(--ai-text);
+  font-size: 0.95rem;
+  line-height: 1.95;
+}
+
+.ai-kp__text p {
+  margin: 0;
+}
+
 /* ---------- learning constellation (overview hero chart) ----------
    An interactive star chart of the six stages: pointer parallax drift,
    hover halo + linked card lift, click to jump & flash the stage card. */
@@ -2321,6 +2408,19 @@
   .ai-learn__unit {
     padding: 0.7rem 0.9rem;
     font-size: 0.66rem;
+  }
+  /* 每日知识点：窄屏收紧卡片留白，信息图保持横向滑动不缩字 */
+  .ai-kp__fig {
+    padding: 0.55rem;
+    border-radius: 14px;
+  }
+  .ai-kp__cap {
+    font-size: 0.7rem;
+  }
+  .ai-kp__text {
+    padding: 0.9rem 1rem;
+    font-size: 0.88rem;
+    line-height: 1.85;
   }
   /* 窄屏星座图：隐藏 S-0x 小标签、放大阶段名（viewBox 单位），
      避免缩放后文字糊成一团；面板内边距收紧。 */
