@@ -167,22 +167,29 @@ plugins:
   - source: "@quartz-community/explorer"
     enabled: true
     options:
-      # 左侧菜单只保留学习目录骨架：历史杂项页隐藏，tags 沿用默认隐藏。
+      # 左侧菜单 = 学习目录层级树（阶段→主题→知识点），点击文件夹名直达其索引页。
+      folderClickBehavior: link
+      # 历史杂项页隐藏，tags 沿用默认隐藏。
       filterFn: (node) => !["发布链路测试", "quartz-v5-+-github-pages-执行方案", "codex-部署-quartz-方案", "quartz-知识库发布方案", "obsidian-公网发布方案"].includes(node.slug) && node.slugSegment !== "tags"
-      # 阶段页在菜单里去掉 S-0x 前缀（顺序由 sortFn 保证），总览页保持全名。
-      mapFn: (node) => { if (!node.isFolder && node.slug.startsWith("learn/s0")) { node.displayName = node.displayName.replace(/^S-\d+\s*/, "") } return node }
       sortFn: |
         (a, b) => {
-          const rank = (n) => (n.isFolder ? 0 : n.slug.startsWith("learn/") ? 1 : 2)
+          const slug = (n) => n.slug || ""
+          // 根 learn 文件夹最前，learn 子树次之，其余最后
+          const rank = (n) => (slug(n) === "learn/index" ? 0 : slug(n).startsWith("learn") ? 1 : 2)
           const ra = rank(a)
           const rb = rank(b)
           if (ra !== rb) return ra - rb
           if (ra === 1) {
-            // learn 组内：总览（无 s0x 段）在前，阶段页按 S-01..S-06 数字序
-            const stage = (n) => { const m = /\/s0(\d)/.exec(n.slug || ""); return m ? Number(m[1]) : 0 }
-            const sa = stage(a)
-            const sb = stage(b)
+            // 阶段按 S-01..S-06 数字序；同阶段内知识点按日期倒序（新在前）
+            const st = (n) => { const m = /\/s0(\d)/.exec(slug(n)); return m ? Number(m[1]) : 99 }
+            const sa = st(a)
+            const sb = st(b)
             if (sa !== sb) return sa - sb
+            const dt = (n) => { const m = /(\d{4}-\d{2}-\d{2})/.exec(slug(n)); return m ? m[1] : "" }
+            const da = dt(a)
+            const db = dt(b)
+            if (da && db && da !== db) return da < db ? 1 : -1
+            if (!!da !== !!db) return da ? -1 : 1
           }
           if ((a.isFolder && b.isFolder) || (!a.isFolder && !b.isFolder)) {
             return (a.displayName || "").localeCompare(b.displayName || "", undefined, { numeric: true, sensitivity: "base" })

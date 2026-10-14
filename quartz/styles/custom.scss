@@ -764,3 +764,10 @@ body[data-slug="index"] #quartz-body > footer {
 body:has(.ai-kp) .note-properties {
   display: none;
 }
+
+/* 学习目录各页（.ai-learn）：层级导航已由左侧菜单承担，页头面包屑与
+   Properties 折叠块属冗余信息，隐藏以保持「单页只放本页内容」。 */
+body[data-slug^="learn"] .breadcrumb-container,
+body[data-slug^="learn"] .note-properties {
+  display: none;
+}
