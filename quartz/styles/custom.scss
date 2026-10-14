@@ -771,3 +771,10 @@ body[data-slug^="learn"] .breadcrumb-container,
 body[data-slug^="learn"] .note-properties {
   display: none;
 }
+
+/* 知识点单页（.ai-kp）的页标题：article 级 h1 默认是首页 hero 字号
+   clamp(2.35rem,5vw,4.6rem)，单页上过于夸张；压到常规页标题尺寸。 */
+body:has(.ai-kp) .article-title {
+  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+  letter-spacing: -0.01em;
+}
