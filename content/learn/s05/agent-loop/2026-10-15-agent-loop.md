@@ -5,8 +5,8 @@ description: 每日知识点（S-05 推理、智能体与记忆 / Agent 循环�
 ---
 
 <div class="ai-learn ai-kp">
-  <a class="ai-learn__back" href="./" data-no-popover="true">← 返回主题 · Agent 循环</a>
-  <p class="ai-eyebrow"><span>DAILY · 2026-10-15</span><span>S-05 / Agent 循环</span></p>
+  <a class="ai-learn__back" href="learn/s05/agent-loop/" data-no-popover="true">← 返回主题 · 智能体循环</a>
+  <p class="ai-eyebrow"><span>DAILY · 2026-10-15</span><span>S-05 / 智能体循环</span></p>
   <figure class="ai-kp__fig">
     <svg viewBox="0 0 560 830" role="img" aria-label="Agent 循环信息图：推理-行动-观察的自主循环、与纯对话的差别、最小四件套" xmlns="http://www.w3.org/2000/svg">
       <title>Agent 循环 · Agent Loop</title>
@@ -85,6 +85,6 @@ description: 每日知识点（S-05 推理、智能体与记忆 / Agent 循环�
     <p>Chat 是一问一答；Agent 把模型放进「推理 → 行动 → 观察」的循环里：每一轮自己决定调用哪个工具，把结果回填给下一轮推理，直到任务完成才退出。最小四件套：模型管决策、工具管动手、上下文管记忆、停止条件管刹车——模型没变，变的是循环。</p>
   </div>
   <nav class="ai-learn__pager" aria-label="知识点导航">
-    <a class="ai-learn__back" href="./" data-no-popover="true">返回主题 · Agent 循环 →</a>
+    <a class="ai-learn__back" href="learn/s05/agent-loop/" data-no-popover="true">返回主题 · Agent 循环 →</a>
   </nav>
 </div>

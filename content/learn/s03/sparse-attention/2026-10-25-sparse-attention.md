@@ -5,7 +5,7 @@ description: 每日知识点（S-03 Transformer / 高效注意力与稀疏化）
 ---
 
 <div class="ai-learn ai-kp">
-  <a class="ai-learn__back" href="./" data-no-popover="true">← 返回主题 · 高效注意力与稀疏化</a>
+  <a class="ai-learn__back" href="learn/s03/sparse-attention/" data-no-popover="true">← 返回主题 · 高效注意力与稀疏化</a>
   <p class="ai-eyebrow"><span>DAILY · 2026-10-25</span><span>S-03 / 高效注意力与稀疏化</span></p>
   <figure class="ai-kp__fig">
     <svg viewBox="0 0 560 830" role="img" aria-label="稀疏注意力信息图：稠密与稀疏矩阵对比、三类稀疏模式、层间交错结构与两笔账" xmlns="http://www.w3.org/2000/svg">
@@ -58,6 +58,6 @@ description: 每日知识点（S-03 Transformer / 高效注意力与稀疏化）
     <p>注意力为每个位置算一整行 n×n 打分，序列翻倍计算翻四倍。稀疏注意力只算必要格：滑窗让每个位置只看邻近几个，全局 token 承载长程汇聚，块稀疏按块挑选。它省的是计算，KV 缓存仍须全量留存；且它是近似，漏掉的关键依赖不会报错。</p>
   </div>
   <nav class="ai-learn__pager" aria-label="知识点导航">
-    <a class="ai-learn__back" href="./" data-no-popover="true">返回主题 · 高效注意力与稀疏化 →</a>
+    <a class="ai-learn__back" href="learn/s03/sparse-attention/" data-no-popover="true">返回主题 · 高效注意力与稀疏化 →</a>
   </nav>
 </div>

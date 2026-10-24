@@ -1786,30 +1786,38 @@
 }
 
 .ai-learn__path {
-  position: relative;
-  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  display: grid;
+  /* min() guard: never overflow the column on very narrow screens */
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  gap: clamp(0.85rem, 1.7vw, 1.15rem);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
   padding: 0;
   list-style: none;
 }
 
-/* The route line: a dashed vertical path running through every node */
-.ai-learn__path::before {
-  content: "";
-  position: absolute;
-  top: 0.6rem;
-  bottom: 0.6rem;
-  left: 0.55rem;
-  border-left: 1px dashed var(--ai-line-strong);
-}
-
+/* Stage card: accent hairline on top, hover lift, flash on constellation click */
 .ai-learn__stage {
   --ai-accent: var(--ai-cyan);
   position: relative;
-  padding: 0 0 2.2rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.45rem 1.4rem 1.3rem;
+  border: 1px solid var(--ai-line);
+  border-radius: 18px;
+  background: var(--ai-panel-solid);
+  box-shadow: 0 0.7rem 2rem color-mix(in srgb, var(--ai-void) 40%, transparent);
+  overflow: hidden;
+  transition:
+    transform 0.35s var(--ai-ease),
+    border-color 0.3s ease,
+    box-shadow 0.35s var(--ai-ease);
 }
 
-.ai-learn__stage:last-child {
-  padding-bottom: 0;
+.ai-learn__stage:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--ai-accent) 45%, var(--ai-line));
+  box-shadow: 0 1.1rem 2.6rem color-mix(in srgb, var(--ai-void) 55%, transparent);
 }
 
 .ai-learn__stage:nth-child(1) {
@@ -1831,21 +1839,44 @@
   --ai-accent: var(--ai-blue);
 }
 
-/* Stage node dot sitting on the route line */
+/* Accent hairline across the card top + a faint corner wash of the accent */
 .ai-learn__stage::before {
   content: "";
   position: absolute;
-  top: 0.55rem;
+  top: 0;
+  right: 0;
   left: 0;
-  width: 1.1rem;
-  height: 1.1rem;
-  border: 2px solid var(--ai-accent);
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--ai-accent),
+    color-mix(in srgb, var(--ai-accent) 12%, transparent)
+  );
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.ai-learn__stage::after {
+  content: "";
+  position: absolute;
+  top: -3rem;
+  right: -3rem;
+  width: 9rem;
+  height: 9rem;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--ai-void) 70%, transparent);
-  box-shadow: 0 0 0.9rem color-mix(in srgb, var(--ai-accent) 35%, transparent);
-  transition:
-    transform 0.3s var(--ai-ease),
-    box-shadow 0.3s ease;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ai-accent) 12%, transparent),
+    transparent 70%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ai-learn__stage > * {
+  position: relative;
+  z-index: 1;
 }
 
 .ai-learn__stage header {
@@ -1871,32 +1902,328 @@
   margin: 0;
   color: var(--ai-ice);
   font-family: var(--headerFont);
-  font-size: 1.3rem;
+  font-size: 1.16rem;
   letter-spacing: -0.01em;
 }
 
 .ai-learn__aim {
-  margin: 0.55rem 0 0;
+  margin: 0;
   color: var(--ai-muted);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   line-height: 1.8;
 }
 
-/* Placeholder for future learning units: dashed slot, no content yet */
-.ai-learn__units {
-  margin: 0.9rem 0 0;
+/* ---------- shared building blocks ----------
+   Counters, stage chips, topic cards and daily rows are shared by the
+   overview, the six stage pages and every topic index. */
+.ai-lstats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.ai-lstat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ai-line);
+  border-radius: 999px;
+  background: var(--ai-panel);
+  color: var(--ai-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+}
+
+.ai-lstat b {
+  color: var(--ai-cyan);
+  font-family: var(--codeFont);
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+/* Stage chips: a horizontally scrollable shortcut row (mobile-friendly) */
+.ai-lchips {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.6rem 0 0;
+  padding: 0 0 0.4rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ai-lchips::-webkit-scrollbar {
+  display: none;
+}
+
+.ai-lchip {
+  flex: 0 0 auto;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--ai-line);
+  border-radius: 999px;
+  color: var(--ai-muted);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.ai-lchip:hover {
+  border-color: color-mix(in srgb, var(--ai-cyan) 55%, var(--ai-line));
+  background: var(--ai-soft);
+  color: var(--ai-ice);
+}
+
+.ai-lchip[aria-current="page"] {
+  border-color: var(--ai-cyan);
+  background: var(--ai-soft);
+  color: var(--ai-cyan);
+}
+
+.ai-lchip b {
+  font-family: var(--codeFont);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* Topic list inside a stage card: real links, not a dashed placeholder */
+.ai-ltopics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.ai-learn__unit {
-  padding: 0.85rem 1.1rem;
-  border: 1px dashed var(--ai-line-strong);
-  border-radius: 12px;
-  color: color-mix(in srgb, var(--ai-muted) 92%, transparent);
+.ai-ltopic {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--ai-text);
+  font-size: 0.83rem;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.ai-ltopic:hover {
+  border-color: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 40%, transparent);
+  background: color-mix(in srgb, var(--ai-accent, var(--ai-cyan)) 8%, transparent);
+  color: var(--ai-ice);
+}
+
+.ai-ltopic__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ai-ltopic__name::before {
+  content: "";
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: var(--ai-accent, var(--ai-cyan));
+}
+
+.ai-ltopic__n {
+  flex: 0 0 auto;
+  color: var(--ai-muted);
   font-family: var(--codeFont);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+}
+
+/* Empty stage: soft state instead of a dashed "to be filled" box */
+.ai-lempty {
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ai-line) 45%, transparent);
+  color: var(--ai-muted);
+  font-size: 0.78rem;
+}
+
+/* Route entry at the bottom of a stage card */
+.ai-lgo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--ai-line);
+  color: var(--ai-accent, var(--ai-cyan));
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: gap 0.25s var(--ai-ease);
+}
+
+.ai-lgo:hover {
+  gap: 0.75rem;
+}
+
+/* Topic cards on a stage page */
+.ai-lcards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.1rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-lcard {
+  --ai-accent: var(--ai-cyan);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-lcard__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.25rem 1.2rem 1.1rem;
+  border: 1px solid var(--ai-line);
+  border-radius: 16px;
+  background: var(--ai-panel-solid);
+  text-decoration: none;
+  transition:
+    transform 0.3s var(--ai-ease),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.ai-lcard__link:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--ai-accent) 50%, var(--ai-line));
+  box-shadow: 0 1rem 2.4rem color-mix(in srgb, var(--ai-void) 50%, transparent);
+}
+
+.ai-lcard__tag {
+  align-self: flex-start;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 35%, transparent);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ai-accent) 9%, transparent);
+  color: var(--ai-accent);
+  font-family: var(--codeFont);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.ai-lcard__title {
+  margin: 0;
+  color: var(--ai-ice);
+  font-family: var(--headerFont);
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.ai-lcard__desc {
+  margin: 0;
+  color: var(--ai-muted);
+  font-size: 0.83rem;
+  line-height: 1.75;
+}
+
+.ai-lcard__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--ai-line);
+  color: var(--ai-muted);
+  font-family: var(--codeFont);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.ai-lcard__foot b {
+  color: var(--ai-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.ai-lcard__go {
+  color: var(--ai-accent);
+}
+
+/* Daily knowledge rows on a topic page */
+.ai-lrows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-lrow__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.05rem;
+  border: 1px solid var(--ai-line);
+  border-left: 2px solid var(--ai-cyan);
+  border-radius: 12px;
+  background: var(--ai-panel-solid);
+  text-decoration: none;
+  transition:
+    transform 0.28s var(--ai-ease),
+    border-color 0.28s ease,
+    background-color 0.28s ease;
+}
+
+.ai-lrow__link:hover {
+  transform: translateX(3px);
+  border-color: color-mix(in srgb, var(--ai-cyan) 45%, var(--ai-line));
+  background: var(--ai-panel);
+}
+
+.ai-lrow__date {
+  flex: 0 0 auto;
+  padding: 0.16rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--ai-cyan) 35%, transparent);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ai-cyan) 9%, transparent);
+  color: var(--ai-cyan);
+  font-family: var(--codeFont);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.ai-lrow__title {
+  flex: 1 1 12rem;
+  color: var(--ai-ice);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.ai-lrow__go {
+  flex: 0 0 auto;
+  color: var(--ai-cyan);
+  font-family: var(--codeFont);
+  font-size: 0.78rem;
 }
 
 .ai-learn__note {
@@ -1939,12 +2266,21 @@
   text-transform: uppercase;
 }
 
-/* Prev / next stage pager on stage pages */
+/* Prev / next pager: arrow-led cards, stacking full width on narrow screens */
 .ai-learn__pager {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  gap: 0.7rem;
+  margin: clamp(2.2rem, 4.5vw, 3.4rem) 0 0;
+}
+
+.ai-learn__pager a.ai-learn__back {
+  flex: 1 1 13rem;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  background: var(--ai-panel-solid);
+  font-size: 0.84rem;
 }
 
 /* ---------- daily knowledge point (inline in stage pages) ----------
@@ -2393,21 +2729,59 @@
     align-items: flex-start;
   }
   .ai-learn {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-right: 0.7rem;
+    padding-left: 0.7rem;
   }
   .ai-learn__stage {
-    padding-left: 2rem;
+    padding: 1.15rem 1rem 1.05rem;
+    border-radius: 15px;
   }
   .ai-learn__name {
-    font-size: 1.12rem;
+    font-size: 1.08rem;
   }
   .ai-learn__aim {
-    font-size: 0.84rem;
+    font-size: 0.83rem;
+    line-height: 1.75;
   }
-  .ai-learn__unit {
-    padding: 0.7rem 0.9rem;
-    font-size: 0.66rem;
+  .ai-learn__note {
+    padding: 1rem 1.1rem;
+    font-size: 0.82rem;
+  }
+  /* 窄屏：统计徽章与 chips 行收紧，chips 保持横滑不换行 */
+  .ai-lstat {
+    padding: 0.42rem 0.8rem;
+    font-size: 0.72rem;
+  }
+  .ai-lchip {
+    padding: 0.42rem 0.75rem;
+    font-size: 0.74rem;
+  }
+  .ai-ltopic {
+    padding: 0.48rem 0.55rem;
+    font-size: 0.8rem;
+  }
+  .ai-lrow__link {
+    gap: 0.5rem;
+    padding: 0.8rem 0.85rem;
+    border-radius: 11px;
+  }
+  .ai-lrow__title {
+    flex: 1 1 100%;
+    font-size: 0.86rem;
+  }
+  .ai-lrow__go {
+    margin-left: auto;
+  }
+  .ai-lcard__link {
+    padding: 1.1rem 1rem 0.95rem;
+    border-radius: 14px;
+  }
+  .ai-lcard__title {
+    font-size: 0.98rem;
+  }
+  .ai-learn__pager a.ai-learn__back {
+    flex: 1 1 100%;
+    font-size: 0.82rem;
   }
   /* 每日知识点：窄屏收紧卡片留白，信息图保持横向滑动不缩字 */
   .ai-kp__fig {

@@ -674,6 +674,96 @@ body[data-slug="index"] #quartz-body > footer {
   display: none;
 }
 
+/* 学习目录 · 卡片体系的标题字号必须在层外重置：组件样式在 @layer quartz-base
+   内，而 .center article h2/h3 的通用标题规则在层外恒胜，会把卡片标题撑成
+   正文标题。以下统一还原为卡片设计的层级。 */
+.center article .ai-learn h2.ai-learn__name {
+  margin: 0;
+  font-size: 1.16rem;
+}
+
+.center article .ai-learn .ai-lcard__title {
+  display: block;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+/* 移动端目录抽屉顶部的阶段快捷条（脚本注入 .ai-lnav）：
+   抽屉在 .sidebar 内，拿不到 .ai-learn 的 --ai-* 变量，故走全站变量。 */
+.ai-lnav {
+  margin: 0 0 0.55rem;
+  padding: 0.55rem 0.6rem 0.45rem;
+  border: 1px solid var(--garden-line);
+  border-radius: 0.7rem;
+  background: var(--garden-surface);
+}
+
+.ai-lnav__chips {
+  display: flex;
+  gap: 0.35rem;
+  padding-bottom: 0.2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ai-lnav__chips::-webkit-scrollbar {
+  display: none;
+}
+
+.ai-lnav__chip {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: baseline;
+  gap: 0.32rem;
+  padding: 0.42rem 0.62rem;
+  border: 1px solid var(--garden-line);
+  border-radius: 0.55rem;
+  color: var(--garden-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.ai-lnav__chip b {
+  color: var(--garden-cyan);
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.ai-lnav__chip[aria-current="page"] {
+  border-color: var(--garden-cyan);
+  background: color-mix(in srgb, var(--garden-cyan) 13%, transparent);
+  color: var(--garden-ice);
+}
+
+.ai-lnav__hint {
+  margin: 0.4rem 0 0;
+  color: var(--garden-muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+}
+
+/* 左侧目录树：脚本给指向当前页的条目打 .is-current，这里统一呈现。
+   层外书写，避免被 sidebar 自身的层内规则压掉。 */
+.explorer-content a.is-current {
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--garden-cyan) 14%, transparent);
+  color: var(--garden-cyan);
+  font-weight: 600;
+}
+
+.explorer-content li.is-current > .folder-container > div > .folder-button .folder-title,
+.explorer-content li.is-current > .folder-container .folder-title {
+  color: var(--garden-cyan);
+}
+
 @media (max-width: 800px) {
   #quartz-body {
     gap: 0;
@@ -681,6 +771,42 @@ body[data-slug="index"] #quartz-body > footer {
 
   .sidebar.left {
     border-right: 0;
+  }
+
+  /* 移动端顶栏：吸附在顶部，滚动时目录入口与工具常驻 */
+  body:not([data-slug="index"]) .sidebar.left {
+    position: sticky;
+    top: 0;
+    z-index: 120;
+    align-self: start;
+    background: color-mix(in srgb, var(--garden-void) 86%, transparent);
+    backdrop-filter: blur(14px);
+  }
+
+  /* 标题过长时截断，避免顶栏被撑成两行 */
+  body .sidebar.left .page-title {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  body .sidebar.left .page-title a {
+    display: block;
+    overflow: hidden;
+    max-width: 46vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* 目录树项：加大触控区，手指点得准 */
+  .explorer-content .folder-container,
+  .explorer-content > ul > li > a {
+    min-height: 2.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .explorer-content .folder-button {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
   }
 
   /* 移动端目录抽屉：Quartz 原生是全屏 overlay 抽屉（absolute + 100vw×
@@ -766,10 +892,24 @@ body:has(.ai-kp) .note-properties {
 }
 
 /* 学习目录各页（.ai-learn）：层级导航已由左侧菜单承担，页头面包屑与
-   Properties 折叠块属冗余信息，隐藏以保持「单页只放本页内容」。 */
+   Properties 折叠块属冗余信息，隐藏以保持「单页只放本页内容」。
+   folder index 页还会在正文后附加默认文件列表，与卡片体系重复，一并隐藏；
+   页头大标题与阅读时长也换成紧凑版本，把首屏让给卡片。 */
 body[data-slug^="learn"] .breadcrumb-container,
-body[data-slug^="learn"] .note-properties {
+body[data-slug^="learn"] .note-properties,
+body[data-slug^="learn"] .page-listing {
   display: none;
+}
+
+body[data-slug^="learn"] .article-title {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+}
+
+body[data-slug^="learn"] .content-meta {
+  display: none;
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 /* 知识点单页（.ai-kp）的页标题：article 级 h1 默认是首页 hero 字号

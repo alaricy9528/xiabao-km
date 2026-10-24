@@ -5,7 +5,7 @@ description: 每日知识点（S-03 Transformer / 稀疏架构与 MoE）：一�
 ---
 
 <div class="ai-learn ai-kp">
-  <a class="ai-learn__back" href="./" data-no-popover="true">← 返回主题 · 稀疏架构与 MoE</a>
+  <a class="ai-learn__back" href="learn/s03/moe/" data-no-popover="true">← 返回主题 · 稀疏架构与 MoE</a>
   <p class="ai-eyebrow"><span>DAILY · 2026-10-14</span><span>S-03 / 稀疏架构与 MoE</span></p>
   <figure class="ai-kp__fig">
     <svg viewBox="0 0 560 830" role="img" aria-label="混合专家 MoE 信息图：路由按需唤醒专家、总参数与激活参数分离、稀疏的三笔账" xmlns="http://www.w3.org/2000/svg">
@@ -90,6 +90,6 @@ description: 每日知识点（S-03 Transformer / 稀疏架构与 MoE）：一�
     <p>MoE 把稠密前馈层换成一堆专家子网加一个路由器：每个 token 只唤醒少数专家，于是「总参数」（知识容量、决定内存）与「激活参数」（每 token 算力）被拉开一到两个数量级——2026 年开源模型普遍「万亿参数、百亿算力」的底气。代价：全部专家仍须常驻显存，路由器还要学会负载均衡。</p>
   </div>
   <nav class="ai-learn__pager" aria-label="知识点导航">
-    <a class="ai-learn__back" href="./" data-no-popover="true">返回主题 · 稀疏架构与 MoE →</a>
+    <a class="ai-learn__back" href="learn/s03/moe/" data-no-popover="true">返回主题 · 稀疏架构与 MoE →</a>
   </nav>
 </div>

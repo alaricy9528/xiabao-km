@@ -5,7 +5,7 @@ description: 每日知识点（S-01 数学直觉 / 优化与梯度）：一张�
 ---
 
 <div class="ai-learn ai-kp">
-  <a class="ai-learn__back" href="./" data-no-popover="true">← 返回主题 · 优化与梯度</a>
+  <a class="ai-learn__back" href="learn/s01/optimization/" data-no-popover="true">← 返回主题 · 优化与梯度</a>
   <p class="ai-eyebrow"><span>DAILY · 2026-10-14</span><span>S-01 / 优化与梯度</span></p>
   <figure class="ai-kp__fig">
     <svg viewBox="0 0 560 830" role="img" aria-label="梯度下降信息图：损失面上的下山路径、三步循环与学习率对比" xmlns="http://www.w3.org/2000/svg">
@@ -105,6 +105,6 @@ description: 每日知识点（S-01 数学直觉 / 优化与梯度）：一张�
     <p><strong>损失函数 L</strong> 给「模型错得有多离谱」打分，<strong>参数 θ</strong> 决定「模型怎么想」。梯度 ∇L 指向误差上升最快的方向，反过来就是下坡；每一步把参数沿反方向挪一小段（步幅由学习率 η 控制），亿万次重复后，参数滑进谷底、误差最低。深度学习的训练，本质上就是这一个动作的无数次循环。</p>
   </div>
   <nav class="ai-learn__pager" aria-label="知识点导航">
-    <a class="ai-learn__back" href="./" data-no-popover="true">返回主题 · 优化与梯度 →</a>
+    <a class="ai-learn__back" href="learn/s01/optimization/" data-no-popover="true">返回主题 · 优化与梯度 →</a>
   </nav>
 </div>
