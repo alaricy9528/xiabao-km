@@ -6,7 +6,7 @@ description: 学习目录阶段 S-02：深度学习与神经网络——分层�
 
 <div class="ai-learn">
   <a class="ai-learn__back" href="learn/" data-no-popover="true">← 返回学习目录</a>
-  <p class="ai-eyebrow"><span>STAGE / S-02</span><span>主题尚未挂载</span></p>
+  <p class="ai-eyebrow"><span>STAGE / S-02</span><span>1 个主题 · 1 篇知识点</span></p>
   <p class="ai-learn__lede">分层表示与反向传播：为什么网络堆得越深，越能长出抽象的智能。本阶段的知识将按主题分册，每个主题一条线往下讲。</p>
   <ul class="ai-lchips">
     <li><a class="ai-lchip" href="learn/s01/" data-no-popover="true"><b>S-01</b> 数学直觉</a></li>
@@ -18,7 +18,14 @@ description: 学习目录阶段 S-02：深度学习与神经网络——分层�
   </ul>
   <section class="ai-learn__block">
     <h2 class="ai-learn__h">本阶段主题</h2>
-    <p class="ai-lempty">主题尚未挂载 · 每日整理会从本阶段的概念里挑最热的，按主题归入这里</p>
+    <ul class="ai-lcards">
+      <li class="ai-lcard"><a class="ai-lcard__link" href="learn/s02/world-model/" data-no-popover="true">
+        <span class="ai-lcard__tag">TOPIC</span>
+        <span class="ai-lcard__title">世界模型</span>
+        <p class="ai-lcard__desc">学的是状态在动作之下如何演化：与视频生成的分界、潜空间预测与三条硬约束。</p>
+        <span class="ai-lcard__foot"><span><b>1</b> 篇知识点 · 最近 10-28</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
+      </a></li>
+    </ul>
   </section>
   <nav class="ai-learn__pager" aria-label="阶段导航">
     <a class="ai-learn__back" href="learn/s01/" data-no-popover="true">← 上一阶段：数学直觉与学习原理</a>
