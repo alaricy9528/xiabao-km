@@ -6,12 +6,12 @@ description: 一张按 AI 技术原理铺开的学习地图：六个阶段从数
 
 <div class="ai-learn ai-learn--map">
   <a class="ai-learn__back" href="../" data-no-popover="true">← 返回首页</a>
-  <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>9 个知识点 · 9 个主题</span></p>
+  <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>10 个知识点 · 10 个主题</span></p>
   <p class="ai-learn__lede">这张地图写给想搞懂并掌握 AI 技术原理的人：只问为什么、如何运作，从数学直觉一路到前沿边界。工程实践不在这条线上——不部署、不服务化、不自己造系统；工程出现的地方，止步于看懂原理。六个阶段，原理通透。各阶段的学习单元按日整理挂载到主题下。</p>
   <p class="ai-lstats">
     <span class="ai-lstat"><b>6</b> 阶段</span>
-    <span class="ai-lstat"><b>9</b> 主题</span>
-    <span class="ai-lstat"><b>9</b> 知识点</span>
+    <span class="ai-lstat"><b>10</b> 主题</span>
+    <span class="ai-lstat"><b>10</b> 知识点</span>
   </p>
   <div class="ai-lm" data-ai-lm-chart>
     <noscript>
@@ -50,6 +50,7 @@ description: 一张按 AI 技术原理铺开的学习地图：六个阶段从数
       <p class="ai-learn__aim">预训练、微调、强化学习与对齐：能力如何被炼出来，又被塑造成可用、可信的样子。</p>
       <ul class="ai-ltopics">
         <li><a class="ai-ltopic" href="learn/s04/rlvr/" data-no-popover="true"><span class="ai-ltopic__name">可验证奖励与策略优化</span><span class="ai-ltopic__n">1 篇</span></a></li>
+        <li><a class="ai-ltopic" href="learn/s04/formal-verification/" data-no-popover="true"><span class="ai-ltopic__name">形式化验证与机器可检查证明</span><span class="ai-ltopic__n">1 篇</span></a></li>
       </ul>
       <a class="ai-lgo" href="learn/s04/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
     </li>
