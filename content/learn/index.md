@@ -6,12 +6,12 @@ description: 一张按 AI 技术原理铺开的学习地图：六个阶段从数
 
 <div class="ai-learn ai-learn--map">
   <a class="ai-learn__back" href="../" data-no-popover="true">← 返回首页</a>
-  <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>18 个知识点 · 18 个主题</span></p>
+  <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>19 个知识点 · 18 个主题</span></p>
   <p class="ai-learn__lede">这张地图写给想搞懂并掌握 AI 技术原理的人：只问为什么、如何运作，从数学直觉一路到前沿边界。工程实践不在这条线上——不部署、不服务化、不自己造系统；工程出现的地方，止步于看懂原理。六个阶段，原理通透。各阶段的学习单元按日整理挂载到主题下。</p>
   <p class="ai-lstats">
     <span class="ai-lstat"><b>6</b> 阶段</span>
     <span class="ai-lstat"><b>18</b> 主题</span>
-    <span class="ai-lstat"><b>18</b> 知识点</span>
+    <span class="ai-lstat"><b>19</b> 知识点</span>
   </p>
   <div class="ai-lm" data-ai-lm-chart>
     <noscript>
@@ -40,7 +40,7 @@ description: 一张按 AI 技术原理铺开的学习地图：六个阶段从数
       <p class="ai-learn__aim">注意力、位置编码与 KV 缓存：大模型的核心架构，如何读进并记住上下文。</p>
       <ul class="ai-ltopics">
         <li><a class="ai-ltopic" href="learn/s03/moe/" data-no-popover="true"><span class="ai-ltopic__name">稀疏架构与 MoE</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s03/kv-cache/" data-no-popover="true"><span class="ai-ltopic__name">KV 缓存与上下文</span><span class="ai-ltopic__n">1 篇</span></a></li>
+        <li><a class="ai-ltopic" href="learn/s03/kv-cache/" data-no-popover="true"><span class="ai-ltopic__name">KV 缓存与上下文</span><span class="ai-ltopic__n">2 篇</span></a></li>
         <li><a class="ai-ltopic" href="learn/s03/sparse-attention/" data-no-popover="true"><span class="ai-ltopic__name">高效注意力与稀疏化</span><span class="ai-ltopic__n">1 篇</span></a></li>
         <li><a class="ai-ltopic" href="learn/s03/diffusion-lm/" data-no-popover="true"><span class="ai-ltopic__name">扩散语言模型与并行解码</span><span class="ai-ltopic__n">1 篇</span></a></li>
         <li><a class="ai-ltopic" href="learn/s03/linear-attention/" data-no-popover="true"><span class="ai-ltopic__name">线性注意力与状态空间模型</span><span class="ai-ltopic__n">1 篇</span></a></li>

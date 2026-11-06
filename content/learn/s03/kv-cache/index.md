@@ -11,6 +11,7 @@ description: S-03 Transformer 与注意力机制 · 主题：KV 缓存与长上�
   <section class="ai-learn__block">
     <h2 class="ai-learn__h">本主题知识点</h2>
     <ul class="ai-lrows">
+      <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s03/kv-cache/2026-11-07-kv-cache-compression" data-no-popover="true"><span class="ai-lrow__date">2026-11-07</span><span class="ai-lrow__title">KV 缓存压缩 · 让大多数层不看原文</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
       <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s03/kv-cache/2026-10-15-kv-cache" data-no-popover="true"><span class="ai-lrow__date">2026-10-15</span><span class="ai-lrow__title">KV 缓存 · 上下文的显存账单</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
     </ul>
   </section>
