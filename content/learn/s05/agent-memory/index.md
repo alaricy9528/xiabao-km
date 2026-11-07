@@ -11,6 +11,7 @@ description: S-05 推理、智能体与记忆 · 主题：智能体记忆——�
   <section class="ai-learn__block">
     <h2 class="ai-learn__h">本主题知识点</h2>
     <ul class="ai-lrows">
+      <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/agent-memory/2026-11-08-memory-consolidation" data-no-popover="true"><span class="ai-lrow__date">2026-11-08</span><span class="ai-lrow__title">记忆巩固 · 空闲时改自己的笔记</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
       <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/agent-memory/2026-11-05-agent-memory" data-no-popover="true"><span class="ai-lrow__date">2026-11-05</span><span class="ai-lrow__title">智能体记忆 · 记住什么，比记住多少更重要</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
     </ul>
   </section>
