@@ -6,12 +6,12 @@ description: 一张按 AI 技术原理铺开的学习地图：六个阶段从数
 
 <div class="ai-learn ai-learn--map">
   <a class="ai-learn__back" href="../" data-no-popover="true">← 返回首页</a>
-  <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>24 个知识点 · 21 个主题</span></p>
+  <p class="ai-eyebrow"><span>PRINCIPLES PATH</span><span>25 个知识点 · 21 个主题</span></p>
   <p class="ai-learn__lede">这张地图写给想搞懂并掌握 AI 技术原理的人：只问为什么、如何运作，从数学直觉一路到前沿边界。工程实践不在这条线上——不部署、不服务化、不自己造系统；工程出现的地方，止步于看懂原理。六个阶段，原理通透。各阶段的学习单元按日整理挂载到主题下。</p>
   <p class="ai-lstats">
     <span class="ai-lstat"><b>6</b> 阶段</span>
-    <span class="ai-lstat"><b>20</b> 主题</span>
-    <span class="ai-lstat"><b>23</b> 知识点</span>
+    <span class="ai-lstat"><b>21</b> 主题</span>
+    <span class="ai-lstat"><b>25</b> 知识点</span>
   </p>
   <div class="ai-lm" data-ai-lm-chart>
     <noscript>
