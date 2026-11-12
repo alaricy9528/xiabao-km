@@ -6,7 +6,7 @@ description: 学习目录阶段 S-06：边界、安全与前沿——幻觉、�
 
 <div class="ai-learn">
   <a class="ai-learn__back" href="learn/" data-no-popover="true">← 返回学习目录</a>
-  <p class="ai-eyebrow"><span>STAGE / S-06</span><span>2 个主题 · 2 篇知识点</span></p>
+  <p class="ai-eyebrow"><span>STAGE / S-06</span><span>3 个主题 · 3 篇知识点</span></p>
   <p class="ai-learn__lede">幻觉、对齐失败、攻防现实与治理：知道 AI 的能力边界在哪里，以及它正在往哪里去。本阶段的知识按主题分册，每个主题一条线往下讲。</p>
   <ul class="ai-lchips">
     <li><a class="ai-lchip" href="learn/s01/" data-no-popover="true"><b>S-01</b> 数学直觉</a></li>
@@ -30,6 +30,12 @@ description: 学习目录阶段 S-06：边界、安全与前沿——幻觉、�
         <span class="ai-lcard__title">提示注入</span>
         <p class="ai-lcard__desc">模型分不清「指令」与「数据」：污染从哪三个方向进来，以及为什么栏杆只能装在动作那一侧。</p>
         <span class="ai-lcard__foot"><span><b>1</b> 篇知识点 · 最近 11-11</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li class="ai-lcard"><a class="ai-lcard__link" href="learn/s06/memory-poisoning/" data-no-popover="true">
+        <span class="ai-lcard__tag">TOPIC</span>
+        <span class="ai-lcard__title">记忆投毒</span>
+        <p class="ai-lcard__desc">一次注入如何借持久记忆跨会话存活：骗的是管线的抽取、改写与检索，防线装在写入那一侧。</p>
+        <span class="ai-lcard__foot"><span><b>1</b> 篇知识点 · 最近 11-12</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
       </a></li>
     </ul>
   </section>
