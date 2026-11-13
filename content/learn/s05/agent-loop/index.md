@@ -11,6 +11,7 @@ description: S-05 推理、智能体与记忆 · 主题：智能体循环——�
   <section class="ai-learn__block">
     <h2 class="ai-learn__h">本主题知识点</h2>
     <ul class="ai-lrows">
+      <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/agent-loop/2026-11-14-termination-lag" data-no-popover="true"><span class="ai-lrow__date">2026-11-14</span><span class="ai-lrow__title">终止滞后 · 做对了，却不知道已经做完</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
       <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/agent-loop/2026-10-15-agent-loop" data-no-popover="true"><span class="ai-lrow__date">2026-10-15</span><span class="ai-lrow__title">Agent 循环 · 给模型装上手脚</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
     </ul>
   </section>
