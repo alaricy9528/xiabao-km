@@ -11,6 +11,7 @@ description: S-05 推理、智能体与记忆 · 主题：上下文工程——�
   <section class="ai-learn__block">
     <h2 class="ai-learn__h">本主题知识点</h2>
     <ul class="ai-lrows">
+      <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/context-engineering/2026-11-15-observation-compression" data-no-popover="true"><span class="ai-lrow__date">2026-11-15</span><span class="ai-lrow__title">观察压缩 · 压得好不好，由下一步动作说了算</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
       <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/context-engineering/2026-10-26-context-engineering" data-no-popover="true"><span class="ai-lrow__date">2026-10-26</span><span class="ai-lrow__title">上下文工程 · 窗口是个要分配的预算</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
     </ul>
   </section>
