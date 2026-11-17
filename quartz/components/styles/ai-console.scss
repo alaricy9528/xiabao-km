@@ -1229,11 +1229,10 @@
   .ac-topbar__wordmark small {
     display: none;
   }
+  /* Narrow screens can't fit the full wordmark + status + two icons — the
+     LIVE dot/v53 used to overlap "CONSOLE". LIVE state and last-sync date are
+     already in the hero SYSTEM READOUT card, so drop the duplicate badge here. */
   .ac-topbar__status {
-    padding-left: 0.7rem;
-    font-size: 0.6rem;
-  }
-  .ac-topbar__status span:not(.ac-live) {
     display: none;
   }
   .ac-hero {
