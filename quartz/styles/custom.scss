@@ -587,20 +587,23 @@ body[data-slug="index"] :is(.page-header, .sidebar.right, .page-footer) {
   display: none;
 }
 
+/* 首页新框架（.ac-topbar）自带一条 sticky 顶栏，搜索/主题工具栏原属旧框架的
+   「白胶囊」浮层（border+阴影+背景+fixed），叠在新顶栏右端像块补丁且贴边溢出。
+   这里把外壳整个摘掉，让两个图标作为顶栏右端的细线控件融入，不另起一层。 */
 body[data-slug="index"] .sidebar.left {
   position: fixed;
-  top: 0.85rem;
-  right: 1rem;
+  top: 0.55rem;
+  right: 1.15rem;
   left: auto;
-  z-index: 20;
+  z-index: 31;
   width: auto;
   height: auto;
-  padding: 0.28rem;
-  border: 1px solid var(--garden-line);
-  border-radius: 0.55rem;
-  backdrop-filter: blur(16px);
-  background: color-mix(in srgb, var(--garden-void) 76%, transparent);
-  box-shadow: 0 0.7rem 2.5rem var(--garden-shadow);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 body[data-slug="index"] .sidebar.left > :not(.flex-component) {
@@ -608,16 +611,37 @@ body[data-slug="index"] .sidebar.left > :not(.flex-component) {
 }
 
 body[data-slug="index"] .sidebar.left .flex-component {
-  gap: 0.18rem !important;
+  gap: 0.1rem !important;
 }
 
 body[data-slug="index"] .sidebar.left .search-button {
-  min-width: 5.6rem;
+  min-width: 2.2rem;
+  width: 2.2rem;
+}
+
+body[data-slug="index"] .sidebar.left .search-button p {
+  display: none;
 }
 
 body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode) {
-  height: 2.3rem;
+  width: 2.2rem;
+  height: 2.2rem;
   margin: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--garden-muted);
+  background: transparent;
+}
+
+body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode):hover {
+  border: 0;
+  color: var(--garden-cyan);
+  background: color-mix(in srgb, var(--garden-cyan) 10%, transparent);
+}
+
+/* 首页顶栏空间有限，阅读模式按钮隐藏，只留搜索 + 主题两个图标 */
+body[data-slug="index"] .sidebar.left .readermode {
+  display: none;
 }
 
 body[data-slug="index"] .center {
@@ -929,18 +953,13 @@ body[data-slug="index"] #quartz-body > footer {
   }
 
   body[data-slug="index"] .sidebar.left {
-    top: 0.72rem;
-    right: 0.72rem;
+    top: 0.45rem;
+    right: 0.75rem;
   }
 
-  body[data-slug="index"] .sidebar.left .search-button {
-    min-width: 2.3rem;
-    width: 2.3rem;
-  }
-
-  body[data-slug="index"] .sidebar.left .search-button p,
-  body[data-slug="index"] .sidebar.left .readermode {
-    display: none;
+  body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode) {
+    width: 2.1rem;
+    height: 2.1rem;
   }
 }
 
