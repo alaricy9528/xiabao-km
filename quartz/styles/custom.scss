@@ -587,13 +587,14 @@ body[data-slug="index"] :is(.page-header, .sidebar.right, .page-footer) {
   display: none;
 }
 
-/* 首页新框架（.ac-topbar）自带一条 sticky 顶栏，搜索/主题工具栏原属旧框架的
-   「白胶囊」浮层（border+阴影+背景+fixed），叠在新顶栏右端像块补丁且贴边溢出。
-   这里把外壳整个摘掉，让两个图标作为顶栏右端的细线控件融入，不另起一层。 */
+/* 首页搜索/主题工具栏（Quartz 原生 .sidebar.left，fixed 浮层）需与新框架的
+   .ac-topbar 协同：既不能回到旧框架那个带阴影的笨重白胶囊，也不能完全透明——
+   后者会让图标陷进半透明顶栏与网格线里、和 v53 标记糊成一片（观感像被遮住）。
+   这里做一枚克制的控件条：细边框 + 淡面板底 + 青色图标，收进顶栏右端内缘。 */
 body[data-slug="index"] .sidebar.left {
   position: fixed;
-  top: 0.55rem;
-  right: 1.15rem;
+  top: 0.62rem;
+  right: 1.35rem;
   left: auto;
   z-index: 31;
   width: auto;
@@ -612,11 +613,17 @@ body[data-slug="index"] .sidebar.left > :not(.flex-component) {
 
 body[data-slug="index"] .sidebar.left .flex-component {
   gap: 0.1rem !important;
+  padding: 0.14rem;
+  border: 1px solid var(--garden-line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--garden-void) 82%, transparent);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--garden-cyan) 8%, transparent);
+  backdrop-filter: blur(10px);
 }
 
 body[data-slug="index"] .sidebar.left .search-button {
-  min-width: 2.2rem;
-  width: 2.2rem;
+  min-width: 2.05rem;
+  width: 2.05rem;
 }
 
 body[data-slug="index"] .sidebar.left .search-button p {
@@ -624,19 +631,18 @@ body[data-slug="index"] .sidebar.left .search-button p {
 }
 
 body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode) {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.05rem;
+  height: 2.05rem;
   margin: 0;
   border: 0;
-  border-radius: 7px;
-  color: var(--garden-muted);
+  border-radius: 6px;
+  color: var(--garden-cyan);
   background: transparent;
 }
 
 body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode):hover {
   border: 0;
-  color: var(--garden-cyan);
-  background: color-mix(in srgb, var(--garden-cyan) 10%, transparent);
+  background: color-mix(in srgb, var(--garden-cyan) 12%, transparent);
 }
 
 /* 首页顶栏空间有限，阅读模式按钮隐藏，只留搜索 + 主题两个图标 */
@@ -953,13 +959,13 @@ body[data-slug="index"] #quartz-body > footer {
   }
 
   body[data-slug="index"] .sidebar.left {
-    top: 0.45rem;
-    right: 0.75rem;
+    top: 0.62rem;
+    right: 1rem;
   }
 
   body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode) {
-    width: 2.1rem;
-    height: 2.1rem;
+    width: 2.05rem;
+    height: 2.05rem;
   }
 }
 
