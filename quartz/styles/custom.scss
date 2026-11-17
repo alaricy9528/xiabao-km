@@ -688,6 +688,36 @@ body[data-slug="index"] .center article.ac-module {
   font-size: 1.2rem;
 }
 
+/* CTA 按钮是 <a>，被 Quartz 全局 a.internal（base.scss，层外，0,2,0）压成
+   半透明贴字条：padding:0 .1rem / background:--highlight / radius:5px。
+   组件层内 .ac-btn 恒输，必须在层外用更高特异性整组夺回，按钮观感才立得住。 */
+.center article .ai-console a.ac-btn {
+  padding: 0.8rem 1.4rem;
+  border-radius: 8px;
+  line-height: 1.2;
+  background-color: transparent;
+  text-decoration: none;
+}
+.center article .ai-console a.ac-btn--primary {
+  background-color: var(--ac-signal);
+  color: var(--ac-bg);
+}
+.center article .ai-console a.ac-btn--primary:hover {
+  background-color: color-mix(in srgb, var(--ac-signal) 84%, white);
+}
+.center article .ai-console a.ac-btn--ghost {
+  background-color: transparent;
+  color: var(--ac-ink);
+}
+.center article .ai-console a.ac-btn--ghost:hover {
+  background-color: var(--ac-soft);
+}
+@media (max-width: 600px) {
+  .center article .ai-console a.ac-btn {
+    padding: 0.85rem 0.7rem;
+  }
+}
+
 body[data-slug="index"] .quantum-home a.internal {
   padding: 0;
   border-radius: 0;

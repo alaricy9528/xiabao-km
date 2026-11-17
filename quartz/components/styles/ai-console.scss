@@ -256,54 +256,78 @@
 .ac-hero__cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
+  gap: 0.75rem;
   margin-top: 2rem;
 }
 
 .ac-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  min-height: 2.9rem;
-  padding: 0.7rem 1.3rem;
-  border: 1px solid var(--ac-line-2);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3.15rem;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-decoration: none;
   transition:
     transform 0.25s var(--ac-ease),
     border-color 0.25s,
     background 0.25s,
-    color 0.25s;
+    color 0.25s,
+    box-shadow 0.25s;
 }
 
 .ac-btn span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
   font-family: var(--ac-mono);
+  font-size: 0.9em;
   transition: transform 0.25s var(--ac-ease);
 }
 
 .ac-btn:hover span {
-  transform: translate(3px, -2px);
+  transform: translateX(3px);
 }
 
 .ac-btn--primary {
   border-color: var(--ac-signal);
   background: var(--ac-signal);
   color: var(--ac-bg);
+  box-shadow: 0 8px 24px -10px var(--ac-glow);
+}
+
+.ac-btn--primary span {
+  background: color-mix(in srgb, var(--ac-bg) 16%, transparent);
 }
 
 .ac-btn--primary:hover {
   background: color-mix(in srgb, var(--ac-signal) 84%, white);
   transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px var(--ac-glow);
 }
 
 .ac-btn--ghost {
   color: var(--ac-ink);
-  background: var(--ac-panel);
+  background: transparent;
+  border-color: var(--ac-line-2);
+}
+
+.ac-btn--ghost span {
+  color: var(--ac-signal);
+  background: var(--ac-soft);
 }
 
 .ac-btn--ghost:hover {
   border-color: var(--ac-signal);
+  background: var(--ac-soft);
   transform: translateY(-2px);
 }
 
@@ -1152,6 +1176,22 @@
   .ac-hero__lede {
     font-size: 0.92rem;
     line-height: 1.8;
+  }
+  .ac-hero__cta {
+    gap: 0.6rem;
+  }
+  .ac-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 3.25rem;
+    padding: 0.85rem 0.7rem;
+    font-size: 0.9rem;
+    gap: 0.4rem;
+  }
+  .ac-btn span {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex: none;
   }
   .ac-telemetry__head,
   .ac-telemetry__foot {
