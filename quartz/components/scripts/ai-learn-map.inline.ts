@@ -19,13 +19,16 @@ type StageDatum = {
   href: string
 }
 
+/* Single-family cool ramp, matching the console language: the six stages read
+   as one system rather than six unrelated neon colors. color-mix keeps the
+   ramp theme-aware (both tokens flip in light mode). */
 const STAGE_ACCENTS = [
-  "var(--ai-cyan)",
-  "var(--ai-violet)",
-  "var(--ai-magenta)",
-  "var(--ai-green)",
-  "var(--ai-amber)",
-  "var(--ai-blue)",
+  "var(--ac-signal)",
+  "var(--ac-signal-2)",
+  "color-mix(in srgb, var(--ac-signal) 55%, var(--ac-signal-2))",
+  "color-mix(in srgb, var(--ac-signal-2) 70%, var(--ac-ink))",
+  "color-mix(in srgb, var(--ac-signal) 45%, var(--ac-signal-2))",
+  "var(--ac-signal-2)",
 ]
 
 /* Elliptical orbit for six nodes, sitting exactly on the decorative ring

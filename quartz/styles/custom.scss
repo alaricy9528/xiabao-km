@@ -923,17 +923,14 @@ body:has(.ai-kp) .note-properties {
 
 /* 学习目录各页（.ai-learn）：层级导航已由左侧菜单承担，页头面包屑与
    Properties 折叠块属冗余信息，隐藏以保持「单页只放本页内容」。
-   folder index 页还会在正文后附加默认文件列表，与卡片体系重复，一并隐藏；
-   页头大标题与阅读时长也换成紧凑版本，把首屏让给卡片。 */
+   folder index 页还会在正文后附加默认文件列表，与卡片体系重复，一并隐藏。
+   新控制台框架用 eyebrow + lede 自述页面身份，总览/阶段/主题页的 Quartz
+   article-title 与之重复，隐藏以让首屏直接进入 console 面板。 */
 body[data-slug^="learn"] .breadcrumb-container,
 body[data-slug^="learn"] .note-properties,
-body[data-slug^="learn"] .page-listing {
+body[data-slug^="learn"] .page-listing,
+body[data-slug^="learn"]:not(:has(.ai-kp)) .article-title {
   display: none;
-}
-
-body[data-slug^="learn"] .article-title {
-  margin: 0 0 0.4rem;
-  font-size: clamp(1.5rem, 4.5vw, 2.1rem);
 }
 
 body[data-slug^="learn"] .content-meta {
@@ -942,9 +939,20 @@ body[data-slug^="learn"] .content-meta {
   border-bottom: 0;
 }
 
-/* 知识点单页（.ai-kp）的页标题：article 级 h1 默认是首页 hero 字号
-   clamp(2.35rem,5vw,4.6rem)，单页上过于夸张；压到常规页标题尺寸。 */
+/* 知识点单页（.ai-kp）保留 H1：它是这篇知识点的语义标题。article 级 h1
+   默认是首页 hero 字号 clamp(2.35rem,5vw,4.6rem)，单页上过于夸张；改为
+   控制台标题风格——青蓝等宽、克制的字号，与下方 console 面板同源。 */
 body:has(.ai-kp) .article-title {
-  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+  margin: 0.6rem 0 0;
+  color: var(--garden-cyan);
+  font-family: var(--codeFont, monospace);
+  font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+  font-weight: 600;
   letter-spacing: -0.01em;
+}
+
+body:has(.ai-kp) .article-title::before {
+  content: "// ";
+  color: var(--garden-muted, #8196a8);
+  font-weight: 400;
 }
