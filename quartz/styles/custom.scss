@@ -418,14 +418,14 @@ body[data-slug^="learn"] .graph-outer {
    卡片、日志、返回按钮），article 级链接规则若在层外命中会恒胜组件层内
    样式——曾把主 CTA 文字强制成 garden-cyan 压在同色渐变上导致不可读。
    故整树豁免这两棵子树。 */
-.center article a:not(.ai-home *):not(.ai-learn *) {
+.center article a:not(.ai-home *):not(.ai-learn *):not(.ai-console *) {
   color: var(--garden-cyan);
   text-decoration-color: color-mix(in srgb, var(--garden-cyan) 38%, transparent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
-.center article a:not(.ai-home *):not(.ai-learn *):hover {
+.center article a:not(.ai-home *):not(.ai-learn *):not(.ai-console *):hover {
   color: var(--garden-violet);
   text-decoration-color: currentColor;
 }
@@ -651,6 +651,41 @@ body[data-slug="index"] .center article.ai-module {
   body[data-slug="index"] .center article.ai-module {
     padding: 1.15rem 0.95rem 1.05rem;
   }
+}
+
+/* ===== EVOLUTION CONSOLE（首页新框架 .ai-console）层外覆盖 =====
+   新框架卡片是 <article class="ac-module">，同样被上面的全幅规则清掉内边距；
+   组件样式在 @layer quartz-base 内层内，恒输给层外，故在此恢复。 */
+body[data-slug="index"] .center article.ac-module {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 1.5rem 1.5rem 1.35rem;
+}
+
+@media (max-width: 600px) {
+  body[data-slug="index"] .center article.ac-module {
+    padding: 1.2rem 1.1rem 1.1rem;
+  }
+}
+
+/* 新框架的 section 标题用 h2、模块名用 h3，会被 article 级标题规则
+   （margin-top / 顶部分隔线 / 大字号）撕裂控制台节奏，层外还原设计层级。 */
+.center article .ai-console h2.ac-section__title {
+  margin: 0;
+  padding-top: 0;
+  border-top: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+.center article .ai-console h3.ac-module__name {
+  margin: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1.2rem;
 }
 
 body[data-slug="index"] .quantum-home a.internal {
