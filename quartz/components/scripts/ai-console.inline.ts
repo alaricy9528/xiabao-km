@@ -488,19 +488,22 @@ function restoreAll(list: RelocatedNode[]): void {
 }
 
 /**
- * Quartz renders search + theme toggles inside `.sidebar.left`. On the home
- * console that sidebar is a fixed overlay; its backdrop-filter (and the
- * topbar's own blur) becomes the containing block for the search panel's
- * `position: fixed`, so opening search collapses the full-screen overlay into
- * the little toolbar. Lift the controls into a body-level `.ac-toolbar` that
- * has no transformed/filtered ancestor, and put them back before SPA nav so
- * micromorph still sees the original DOM shape.
+ * Quartz renders search + theme toggles inside `.sidebar.left`, which is
+ * hidden on the home console. Rather than float a second toolbar over the
+ * topbar (a patch that never looks native), lift the controls into the
+ * topbar's own `.ac-topbar__tools` slot so they sit on the same row and in the
+ * same visual system as the wordmark. The search panel stays `position: fixed`
+ * and still goes full-screen: the topbar's blur was removed for exactly this
+ * reason (backdrop-filter would become the panel's containing block). Put the
+ * controls back before SPA nav so micromorph sees the original DOM shape.
  */
 function mountToolbar(): void {
   toolbarCleanup?.()
   toolbarCleanup = undefined
 
   if (!document.querySelector<HTMLElement>(".ai-console")) return
+  const slot = document.querySelector<HTMLElement>(".ai-console .ac-topbar__tools")
+  if (!slot) return
   const sidebar = document.querySelector<HTMLElement>(".sidebar.left")
   if (!sidebar) return
   const search = sidebar.querySelector<HTMLElement>(".search")
@@ -511,18 +514,10 @@ function mountToolbar(): void {
   remember(search, relocated)
   remember(darkmode, relocated)
 
-  const toolbar = document.createElement("div")
-  toolbar.className = "ac-toolbar"
-  if (search) toolbar.appendChild(search)
-  if (darkmode) toolbar.appendChild(darkmode)
-  document.body.appendChild(toolbar)
-  sidebar.classList.add("ac-sidebar-relocated")
+  if (search) slot.appendChild(search)
+  if (darkmode) slot.appendChild(darkmode)
 
-  toolbarCleanup = () => {
-    restoreAll(relocated)
-    toolbar.remove()
-    sidebar.classList.remove("ac-sidebar-relocated")
-  }
+  toolbarCleanup = () => restoreAll(relocated)
 }
 
 /* ---------- mount ---------- */

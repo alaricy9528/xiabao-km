@@ -89,8 +89,9 @@
   margin: 0 calc(-1 * clamp(1.1rem, 5vw, 5rem));
   padding: 0.6rem clamp(1.1rem, 5vw, 5rem);
   border-bottom: 1px solid var(--ac-line);
-  background: color-mix(in srgb, var(--ac-bg) 82%, transparent);
-  backdrop-filter: blur(18px);
+  /* No backdrop-filter: it would become the containing block for the search
+     panel's position:fixed and shrink the full-screen overlay into this bar. */
+  background: color-mix(in srgb, var(--ac-bg) 94%, transparent);
 }
 
 .ac-topbar__brand {
@@ -175,6 +176,74 @@
 .ac-topbar__status b {
   color: var(--ac-signal);
   font-weight: 600;
+}
+
+/* Quartz-native search + theme controls are relocated into this slot at runtime
+   (see ai-console.inline.ts). Style them as plain topbar icons — same row, same
+   ink as the wordmark, no floating capsule. */
+.ac-topbar__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--ac-line);
+
+  .search {
+    min-width: 0;
+    max-width: none;
+    flex-grow: 0;
+  }
+
+  :is(.search-button, .darkmode) {
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: 2.05rem;
+    min-width: 2.05rem;
+    height: 2.05rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    color: var(--ac-muted);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      background 0.2s;
+
+    &:hover {
+      color: var(--ac-signal);
+      background: var(--ac-soft);
+    }
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  .search-button p {
+    display: none;
+  }
+
+  .search-button svg {
+    width: 18px;
+    min-width: 18px;
+    height: 18px;
+    margin: 0;
+  }
+
+  .search-button svg .search-path {
+    stroke: currentColor;
+    stroke-width: 1.6px;
+  }
+
+  .darkmode svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    stroke: none;
+  }
 }
 
 .ac-live {

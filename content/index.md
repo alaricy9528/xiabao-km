@@ -20,6 +20,7 @@ description: 一套每天自我更新的 AI 知识系统：六大方向的概念
       <span data-ac-freshness>静态骨架</span>
       <b data-ac-version>v53</b>
     </div>
+    <div class="ac-topbar__tools" data-ac-tools role="group" aria-label="工具栏"></div>
   </header>
   <main class="ac-main">
     <section class="ac-hero" aria-labelledby="ac-title">

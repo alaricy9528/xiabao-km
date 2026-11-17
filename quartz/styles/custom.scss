@@ -587,81 +587,12 @@ body[data-slug="index"] :is(.page-header, .sidebar.right, .page-footer) {
   display: none;
 }
 
-/* 首页工具栏已从 Quartz sidebar 整体迁出（见 ai-console.inline.ts 的
-   mountToolbar）。搜索面板是 position: fixed；任何带 backdrop-filter /
-   transform 的祖先都会成为它的 containing block，把本该铺满全屏的搜索层压成
-   右上角小条、一点就错位。新工具栏直接挂 <body>、不使用任何滤镜/变换，
-   搜索面板才能稳定全屏；sidebar 在首页整体让位。 */
+/* 首页搜索/主题控件在运行时迁入顶栏原生的 .ac-topbar__tools 插槽
+   （见 ai-console.inline.ts），与 AE 字标同一行、同一套视觉——不再是浮在
+   顶栏之上的独立胶囊。顶栏的 backdrop-filter 已移除，避免它成为搜索面板
+   position:fixed 的 containing block 而把全屏遮罩压成小条。 */
 body[data-slug="index"] .sidebar.left {
   display: none;
-}
-
-.ac-toolbar {
-  position: fixed;
-  top: 0.62rem;
-  right: 1.35rem;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  gap: 0.1rem;
-  padding: 0.14rem;
-  border: 1px solid var(--garden-line);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--garden-surface-solid) 94%, transparent);
-  box-shadow: 0 2px 12px color-mix(in srgb, var(--garden-cyan) 12%, transparent);
-
-  .search {
-    min-width: 0;
-    max-width: none;
-    flex-grow: 0;
-  }
-
-  .search-button,
-  .darkmode {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 2.05rem;
-    min-width: 2.05rem;
-    height: 2.05rem;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 6px;
-    color: var(--garden-cyan);
-    background: transparent;
-    cursor: pointer;
-    transition:
-      background 160ms ease,
-      color 160ms ease;
-
-    &:hover {
-      color: var(--garden-cyan);
-      background: color-mix(in srgb, var(--garden-cyan) 14%, transparent);
-    }
-
-    p {
-      display: none;
-    }
-
-    svg {
-      width: 18px;
-      min-width: 18px;
-      height: 18px;
-      margin: 0;
-    }
-  }
-
-  .search-button svg .search-path {
-    stroke: currentColor;
-    stroke-width: 1.6px;
-  }
-
-  .darkmode svg {
-    fill: currentColor;
-    stroke: none;
-  }
 }
 
 body[data-slug="index"] .center {
@@ -970,12 +901,6 @@ body[data-slug="index"] #quartz-body > footer {
   .center article {
     font-size: 0.98rem;
     line-height: 1.78;
-  }
-
-  .ac-toolbar {
-    top: 0.5rem;
-    right: 0.75rem;
-    padding: 0.1rem;
   }
 
   .search > .search-container > .search-space {
