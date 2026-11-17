@@ -587,67 +587,81 @@ body[data-slug="index"] :is(.page-header, .sidebar.right, .page-footer) {
   display: none;
 }
 
-/* 首页搜索/主题工具栏（Quartz 原生 .sidebar.left，fixed 浮层）需与新框架的
-   .ac-topbar 协同：既不能回到旧框架那个带阴影的笨重白胶囊，也不能完全透明——
-   后者会让图标陷进半透明顶栏与网格线里、和 v53 标记糊成一片（观感像被遮住）。
-   这里做一枚克制的控件条：细边框 + 淡面板底 + 青色图标，收进顶栏右端内缘。 */
+/* 首页工具栏已从 Quartz sidebar 整体迁出（见 ai-console.inline.ts 的
+   mountToolbar）。搜索面板是 position: fixed；任何带 backdrop-filter /
+   transform 的祖先都会成为它的 containing block，把本该铺满全屏的搜索层压成
+   右上角小条、一点就错位。新工具栏直接挂 <body>、不使用任何滤镜/变换，
+   搜索面板才能稳定全屏；sidebar 在首页整体让位。 */
 body[data-slug="index"] .sidebar.left {
+  display: none;
+}
+
+.ac-toolbar {
   position: fixed;
   top: 0.62rem;
   right: 1.35rem;
-  left: auto;
-  z-index: 31;
-  width: auto;
-  height: auto;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-body[data-slug="index"] .sidebar.left > :not(.flex-component) {
-  display: none;
-}
-
-body[data-slug="index"] .sidebar.left .flex-component {
-  gap: 0.1rem !important;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
   padding: 0.14rem;
   border: 1px solid var(--garden-line);
   border-radius: 8px;
-  background: color-mix(in srgb, var(--garden-void) 82%, transparent);
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--garden-cyan) 8%, transparent);
-  backdrop-filter: blur(10px);
-}
+  background: color-mix(in srgb, var(--garden-surface-solid) 94%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--garden-cyan) 12%, transparent);
 
-body[data-slug="index"] .sidebar.left .search-button {
-  min-width: 2.05rem;
-  width: 2.05rem;
-}
+  .search {
+    min-width: 0;
+    max-width: none;
+    flex-grow: 0;
+  }
 
-body[data-slug="index"] .sidebar.left .search-button p {
-  display: none;
-}
+  .search-button,
+  .darkmode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 2.05rem;
+    min-width: 2.05rem;
+    height: 2.05rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    color: var(--garden-cyan);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background 160ms ease,
+      color 160ms ease;
 
-body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode) {
-  width: 2.05rem;
-  height: 2.05rem;
-  margin: 0;
-  border: 0;
-  border-radius: 6px;
-  color: var(--garden-cyan);
-  background: transparent;
-}
+    &:hover {
+      color: var(--garden-cyan);
+      background: color-mix(in srgb, var(--garden-cyan) 14%, transparent);
+    }
 
-body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode):hover {
-  border: 0;
-  background: color-mix(in srgb, var(--garden-cyan) 12%, transparent);
-}
+    p {
+      display: none;
+    }
 
-/* 首页顶栏空间有限，阅读模式按钮隐藏，只留搜索 + 主题两个图标 */
-body[data-slug="index"] .sidebar.left .readermode {
-  display: none;
+    svg {
+      width: 18px;
+      min-width: 18px;
+      height: 18px;
+      margin: 0;
+    }
+  }
+
+  .search-button svg .search-path {
+    stroke: currentColor;
+    stroke-width: 1.6px;
+  }
+
+  .darkmode svg {
+    fill: currentColor;
+    stroke: none;
+  }
 }
 
 body[data-slug="index"] .center {
@@ -958,14 +972,15 @@ body[data-slug="index"] #quartz-body > footer {
     line-height: 1.78;
   }
 
-  body[data-slug="index"] .sidebar.left {
-    top: 0.62rem;
-    right: 1rem;
+  .ac-toolbar {
+    top: 0.5rem;
+    right: 0.75rem;
+    padding: 0.1rem;
   }
 
-  body[data-slug="index"] .sidebar.left :is(.search-button, .darkmode, .readermode) {
-    width: 2.05rem;
-    height: 2.05rem;
+  .search > .search-container > .search-space {
+    width: calc(100% - 1.5rem);
+    margin-top: 9vh;
   }
 }
 

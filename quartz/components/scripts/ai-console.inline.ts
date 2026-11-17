@@ -465,6 +465,66 @@ async function loadEvolutionData(): Promise<EvolutionData | undefined> {
   }
 }
 
+/* ---------- toolbar relocation ---------- */
+
+interface RelocatedNode {
+  node: HTMLElement
+  parent: HTMLElement
+  next: Node | null
+}
+
+let toolbarCleanup: (() => void) | undefined
+
+function remember(node: HTMLElement | null, list: RelocatedNode[]): void {
+  if (node?.parentElement) list.push({ node, parent: node.parentElement, next: node.nextSibling })
+}
+
+function restoreAll(list: RelocatedNode[]): void {
+  for (const { node, parent, next } of list) {
+    if (!parent.isConnected) continue
+    if (next && next.parentElement === parent) parent.insertBefore(node, next)
+    else parent.appendChild(node)
+  }
+}
+
+/**
+ * Quartz renders search + theme toggles inside `.sidebar.left`. On the home
+ * console that sidebar is a fixed overlay; its backdrop-filter (and the
+ * topbar's own blur) becomes the containing block for the search panel's
+ * `position: fixed`, so opening search collapses the full-screen overlay into
+ * the little toolbar. Lift the controls into a body-level `.ac-toolbar` that
+ * has no transformed/filtered ancestor, and put them back before SPA nav so
+ * micromorph still sees the original DOM shape.
+ */
+function mountToolbar(): void {
+  toolbarCleanup?.()
+  toolbarCleanup = undefined
+
+  if (!document.querySelector<HTMLElement>(".ai-console")) return
+  const sidebar = document.querySelector<HTMLElement>(".sidebar.left")
+  if (!sidebar) return
+  const search = sidebar.querySelector<HTMLElement>(".search")
+  const darkmode = sidebar.querySelector<HTMLElement>(".darkmode")
+  if (!search && !darkmode) return
+
+  const relocated: RelocatedNode[] = []
+  remember(search, relocated)
+  remember(darkmode, relocated)
+
+  const toolbar = document.createElement("div")
+  toolbar.className = "ac-toolbar"
+  if (search) toolbar.appendChild(search)
+  if (darkmode) toolbar.appendChild(darkmode)
+  document.body.appendChild(toolbar)
+  sidebar.classList.add("ac-sidebar-relocated")
+
+  toolbarCleanup = () => {
+    restoreAll(relocated)
+    toolbar.remove()
+    sidebar.classList.remove("ac-sidebar-relocated")
+  }
+}
+
 /* ---------- mount ---------- */
 
 async function mountConsole(): Promise<void> {
@@ -589,6 +649,13 @@ async function mountConsole(): Promise<void> {
 
 if (!runtimeWindow.__aiConsoleRuntime) {
   runtimeWindow.__aiConsoleRuntime = true
-  document.addEventListener("prenav", () => activeCleanup?.())
-  document.addEventListener("nav", () => void mountConsole())
+  document.addEventListener("prenav", () => {
+    activeCleanup?.()
+    toolbarCleanup?.()
+    toolbarCleanup = undefined
+  })
+  document.addEventListener("nav", () => {
+    mountToolbar()
+    void mountConsole()
+  })
 }
