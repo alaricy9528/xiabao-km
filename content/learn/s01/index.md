@@ -6,7 +6,7 @@ description: 学习目录阶段 S-01：数学直觉与学习原理——线性�
 
 <div class="ai-learn">
   <a class="ai-learn__back" href="learn/" data-no-popover="true">← 返回学习目录</a>
-  <p class="ai-eyebrow"><span>STAGE / S-01</span><span>1 个主题 · 1 篇知识点</span></p>
+  <p class="ai-eyebrow"><span>STAGE / S-01</span><span>2 个主题 · 2 篇知识点</span></p>
   <p class="ai-learn__lede">线性代数、概率、优化，与损失、梯度、泛化：一次看懂「模型如何从数据中学会规律」的数学语言。本阶段的知识按主题分册，每个主题一条线往下讲。</p>
   <ul class="ai-lchips">
     <li><a class="ai-lchip" href="learn/s01/" data-no-popover="true" aria-current="page"><b>S-01</b> 数学直觉</a></li>
@@ -24,6 +24,12 @@ description: 学习目录阶段 S-01：数学直觉与学习原理——线性�
         <span class="ai-lcard__title">优化与梯度</span>
         <p class="ai-lcard__desc">损失曲面上的下山路线：梯度、学习率与小批量，模型如何一步步逼近最优解。</p>
         <span class="ai-lcard__foot"><span><b>1</b> 篇知识点 · 最近 10-14</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
+      </a></li>
+      <li class="ai-lcard"><a class="ai-lcard__link" href="learn/s01/compression-prediction/" data-no-popover="true">
+        <span class="ai-lcard__tag">TOPIC</span>
+        <span class="ai-lcard__title">压缩与预测</span>
+        <p class="ai-lcard__desc">信息、熵与算术编码：一个 token 的价格是它的意外程度，语言建模为什么就是压缩。</p>
+        <span class="ai-lcard__foot"><span><b>1</b> 篇知识点 · 最近 11-19</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
       </a></li>
     </ul>
   </section>
