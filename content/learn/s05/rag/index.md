@@ -11,6 +11,7 @@ description: S-05 推理、智能体与记忆 · 主题：检索增强生成—�
   <section class="ai-learn__block">
     <h2 class="ai-learn__h">本主题知识点</h2>
     <ul class="ai-lrows">
+      <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/rag/2026-11-20-utility-retrieval" data-no-popover="true"><span class="ai-lrow__date">2026-11-20</span><span class="ai-lrow__title">有用性检索 · 相似不等于有用</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
       <li class="ai-lrow"><a class="ai-lrow__link" href="learn/s05/rag/2026-11-06-rag" data-no-popover="true"><span class="ai-lrow__date">2026-11-06</span><span class="ai-lrow__title">检索增强生成 · 把「记住」换成「查得到」</span><span class="ai-lrow__go">阅读 <span aria-hidden="true">→</span></span></a></li>
     </ul>
   </section>
