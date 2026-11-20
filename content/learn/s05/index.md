@@ -6,7 +6,7 @@ description: 学习目录阶段 S-05：推理、智能体与记忆——推理�
 
 <div class="ai-learn">
   <a class="ai-learn__back" href="learn/" data-no-popover="true">← 返回学习目录</a>
-  <p class="ai-eyebrow"><span>STAGE / S-05</span><span>7 个主题 · 14 篇知识点</span></p>
+  <p class="ai-eyebrow"><span>STAGE / S-05</span><span>7 个主题 · 15 篇知识点</span></p>
   <p class="ai-learn__lede">推理、工具调用、检索增强、记忆与运行原理：智能在运行时如何被一步步组合出来——看懂原理，不动手造。本阶段的知识按主题分册，每个主题一条线往下讲。</p>
   <ul class="ai-lchips">
     <li><a class="ai-lchip" href="learn/s01/" data-no-popover="true"><b>S-01</b> 数学直觉</a></li>
@@ -53,7 +53,7 @@ description: 学习目录阶段 S-05：推理、智能体与记忆——推理�
         <span class="ai-lcard__tag">TOPIC</span>
         <span class="ai-lcard__title">检索增强生成</span>
         <p class="ai-lcard__desc">知识放到模型外面：切块、检索、增强三步，三个断点为什么全落在「查」这一侧。</p>
-        <span class="ai-lcard__foot"><span><b>2</b> 篇知识点 · 最近 11-20</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
+        <span class="ai-lcard__foot"><span><b>3</b> 篇知识点 · 最近 11-21</span><span class="ai-lcard__go">进入 <span aria-hidden="true">→</span></span></span>
       </a></li>
       <li class="ai-lcard"><a class="ai-lcard__link" href="learn/s05/multi-agent/" data-no-popover="true">
         <span class="ai-lcard__tag">TOPIC</span>

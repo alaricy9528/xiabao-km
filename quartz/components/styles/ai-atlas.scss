@@ -265,7 +265,164 @@
 }
 
 /* ================================================================
-   总览页 · 星座图
+   总览页 · 四域导航（D1 已开放 / D2–D4 生长中）
+   ================================================================ */
+
+.ai-domains {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: 0.7rem;
+  margin: 1.6rem 0 0;
+}
+
+.ai-domain {
+  --ai-accent: var(--ac-signal-2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 6.2rem;
+  padding: 1rem 0.95rem;
+  border: 1px solid var(--ac-line);
+  border-radius: 12px;
+  background: var(--ac-panel-solid);
+  box-shadow: 0 0.5rem 1.6rem rgba(0, 0, 0, 0.18);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    transform 0.35s var(--ac-ease),
+    border-color 0.3s ease,
+    box-shadow 0.35s var(--ac-ease);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--ai-accent), transparent);
+    opacity: 0.9;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -2.5rem;
+    right: -2rem;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--ai-accent) 14%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &--d1 {
+    --ai-accent: var(--ac-signal-2);
+  }
+  &--d2 {
+    --ai-accent: var(--ai-violet);
+  }
+  &--d3 {
+    --ai-accent: var(--ai-green);
+  }
+  &--d4 {
+    --ai-accent: var(--ai-amber);
+  }
+}
+
+a.ai-domain:hover,
+a.ai-domain:focus-visible {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--ai-accent) 50%, var(--ac-line));
+  box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.28);
+}
+
+.ai-domain__idx {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  padding: 0.26rem 0.52rem;
+  border: 1px solid color-mix(in srgb, var(--ai-accent) 42%, transparent);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ai-accent) 10%, transparent);
+  color: var(--ai-accent);
+  font-family: var(--ac-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.ai-domain__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.ai-domain__name {
+  color: var(--ac-ink);
+  font-family: var(--headerFont);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.ai-domain__q {
+  color: var(--ac-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.ai-domain__meta {
+  color: var(--ac-dim);
+  font-family: var(--ac-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.02em;
+}
+
+.ai-domain__arrow {
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--ai-accent);
+  font-family: var(--ac-mono);
+  font-size: 1rem;
+  transition: transform 0.3s var(--ac-ease);
+}
+
+a.ai-domain:hover .ai-domain__arrow {
+  transform: translateX(4px);
+}
+
+.ai-domain--seed {
+  border-style: dashed;
+  background: color-mix(in srgb, var(--ac-panel-solid) 68%, transparent);
+
+  .ai-domain__arrow {
+    opacity: 0.5;
+  }
+}
+
+.ai-learn__section {
+  margin: 2.2rem 0 0.4rem;
+}
+
+.ai-learn__h-sub {
+  margin: 0.4rem 0 0;
+  color: var(--ac-muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+/* ================================================================
+   总览页 · 星座图（v2 star atlas：星空 / 三重轨道 / 数据核 / 流光）
    ================================================================ */
 
 .ai-lm {
@@ -273,14 +430,27 @@
   margin: 0 0 2.4rem;
   padding: 1.2rem;
   border: 1px solid var(--ac-line);
-  border-radius: 10px;
+  border-radius: 14px;
   background:
+    radial-gradient(
+      circle at 50% 46%,
+      color-mix(in srgb, var(--ac-signal-2) 10%, transparent),
+      transparent 46%
+    ),
+    radial-gradient(
+      circle at 80% 14%,
+      color-mix(in srgb, var(--ai-violet) 10%, transparent),
+      transparent 50%
+    ),
     linear-gradient(rgba(150, 190, 205, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(150, 190, 205, 0.035) 1px, transparent 1px), var(--ac-panel);
   background-size:
+    auto,
+    auto,
     2.2rem 2.2rem,
     2.2rem 2.2rem,
     auto;
+  box-shadow: inset 0 0 4rem rgba(0, 0, 0, 0.22);
   overflow: hidden;
 }
 
@@ -294,6 +464,7 @@
 }
 
 .ai-lm__svg {
+  position: relative;
   display: block;
   width: 100%;
   height: auto;
@@ -308,16 +479,104 @@
   transition: transform 0.5s var(--ac-ease);
 }
 
+.ai-lm__star {
+  fill: var(--ac-ink);
+  opacity: 0.22;
+}
+.ai-learn--map.ai-anim .ai-lm__star {
+  animation: lm-twinkle 3.4s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes lm-twinkle {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 0.48;
+  }
+}
+
 .ai-lm__orbit {
   fill: none;
   stroke: var(--ac-line-2);
   stroke-width: 1;
-  stroke-dasharray: 3 7;
+  stroke-dasharray: 3 9;
+  opacity: 0.7;
+}
+.ai-lm__orbit--mid {
+  stroke-dasharray: 2 10;
+  opacity: 0.45;
+}
+.ai-lm__orbit--inner {
+  stroke-dasharray: 1 6;
+  opacity: 0.6;
+}
+.ai-learn--map.ai-anim .ai-lm__orbit--outer {
+  animation: lm-spin 70s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.ai-learn--map.ai-anim .ai-lm__orbit--mid {
+  animation: lm-spin 52s linear infinite reverse;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes lm-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.ai-lm__links line {
-  stroke: var(--ac-line-2);
+.ai-lm__core-halo {
+  fill: color-mix(in srgb, var(--ac-signal-2) 12%, transparent);
+  stroke: color-mix(in srgb, var(--ac-signal-2) 36%, transparent);
   stroke-width: 1;
+}
+.ai-lm__core-dot {
+  fill: color-mix(in srgb, var(--ac-signal-2) 16%, var(--ac-panel-solid));
+  stroke: var(--ac-signal-2);
+  stroke-width: 1.4;
+}
+.ai-lm__core-label {
+  fill: var(--ac-signal-2);
+  font-family: var(--ac-mono);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.ai-lm__core-sub {
+  fill: var(--ac-ink);
+  font-family: var(--headerFont);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.ai-learn--map.ai-anim .ai-lm__core-halo {
+  animation: lm-breathe 3.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes lm-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.16);
+    opacity: 1;
+  }
+}
+
+.ai-lm__link {
+  stroke: var(--ac-line-2);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 7;
+  opacity: 0.75;
+}
+.ai-lm__pulse {
+  fill: var(--ac-signal-2);
+  filter: drop-shadow(0 0 4px var(--ac-signal-2));
+  opacity: 0.9;
 }
 
 .ai-lm__node {
@@ -325,10 +584,19 @@
 
   .ai-lm__halo {
     fill: var(--accent);
-    opacity: 0.08;
+    opacity: 0.1;
     transition:
       opacity 0.3s var(--ac-ease),
       r 0.3s var(--ac-ease);
+  }
+
+  .ai-lm__ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+    opacity: 0.5;
+    transition: opacity 0.3s var(--ac-ease);
   }
 
   .ai-lm__dot {
@@ -355,17 +623,25 @@
     transition: fill 0.3s var(--ac-ease);
   }
 
-  &:hover .ai-lm__halo {
-    opacity: 0.22;
+  &:hover .ai-lm__halo,
+  &:focus-visible .ai-lm__halo {
+    opacity: 0.24;
     r: 36;
   }
 
-  &:hover .ai-lm__dot {
+  &:hover .ai-lm__ring,
+  &:focus-visible .ai-lm__ring {
+    opacity: 1;
+  }
+
+  &:hover .ai-lm__dot,
+  &:focus-visible .ai-lm__dot {
     fill: var(--accent);
     stroke-width: 2.5;
   }
 
-  &:hover .ai-lm__name {
+  &:hover .ai-lm__name,
+  &:focus-visible .ai-lm__name {
     fill: var(--ac-ink);
   }
 }
@@ -374,14 +650,18 @@
 .ai-learn--map.ai-anim .ai-lm__node {
   animation: lm-in 0.7s var(--ac-ease) both;
   animation-delay: var(--d, 0ms);
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 @keyframes lm-in {
   from {
     opacity: 0;
+    transform: scale(0.6);
   }
   to {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -872,6 +1152,30 @@
     }
   }
 
+  /* 四域：窄屏单列 */
+  .ai-domains {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .ai-domain {
+    min-height: 5.2rem;
+    padding: 0.85rem 0.85rem;
+
+    .ai-domain__name {
+      font-size: 0.98rem;
+    }
+  }
+
+  /* 窄屏星图：隐藏 S-0x 小标签、放大节点名（viewBox 单位） */
+  .ai-lm__code {
+    display: none;
+  }
+
+  .ai-lm__name {
+    font-size: 19px;
+  }
+
   .ai-learn__stage {
     padding: 1.05rem 1.1rem 1.1rem;
 
@@ -932,8 +1236,16 @@
     transition: none;
   }
 
-  .ai-learn--map.ai-anim .ai-lm__node {
+  .ai-learn--map.ai-anim .ai-lm__node,
+  .ai-learn--map.ai-anim .ai-lm__star,
+  .ai-learn--map.ai-anim .ai-lm__orbit--outer,
+  .ai-learn--map.ai-anim .ai-lm__orbit--mid,
+  .ai-learn--map.ai-anim .ai-lm__core-halo {
     animation: none;
+  }
+
+  .ai-lm__pulse {
+    display: none;
   }
 
   .ai-learn__stage.is-flash {
