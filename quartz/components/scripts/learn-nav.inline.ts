@@ -1,60 +1,113 @@
-/* Knowledge Atlas shell runtime — learning-directory pages only.
-   Rebuilds the explorer slot into a product-grade sidebar (brand / search /
-   four-domain accordion / stage tree / live footer) and injects a sticky
-   topbar above the article. Stage/topic/knowledge-point data is EXTRACTED from
-   Quartz's native explorer tree, so daily-grown knowledge points sync
-   automatically — no hardcoded content to drift out of date.
-   All DOM work is idempotent + signature-guarded to avoid observer feedback
-   loops, and re-applied on SPA navigation. */
+/* Knowledge Atlas shell runtime — v2 five-domain structure.
+   Loads the structured registry (static/atlas-registry.json) as the single
+   publishing view, and reconciles it with Quartz's explorer tree for the set
+   of actually-published domains/topics/cards. Rebuilds the explorer slot into
+   a product-grade sidebar (brand / search / five-domain accordion / topic +
+   card tree / live footer) and injects a sticky topbar. All DOM work is
+   idempotent + signature-guarded and re-applied on SPA navigation. */
 
-type ShellWindow = Window & { __kaShellRuntime?: boolean }
+type ShellWindow = Window & { __kaShellRuntime?: boolean; __kaRegistry?: Registry }
 
 const shellWindow = window as ShellWindow
 
-const MOBILE_QUERY = "(max-width: 800px)"
-
-const STAGE_CODE: Record<string, string> = {
-  s01: "S01",
-  s02: "S02",
-  s03: "S03",
-  s04: "S04",
-  s05: "S05",
-  s06: "S06",
+type Topic = {
+  id: string
+  name: string
+  outcome: string
+  core: boolean
+  pilot: boolean
+  enabled: boolean
+  slug: string
 }
-const STAGE_NAME: Record<string, string> = {
-  s01: "数学直觉与学习原理",
-  s02: "深度学习与神经网络",
-  s03: "Transformer 与注意力机制",
-  s04: "大模型训练与对齐",
-  s05: "推理、智能体与记忆",
-  s06: "边界、安全与前沿",
-}
-
-const DOMAINS: { key: string; code: string; name: string; note: string; live: boolean }[] = [
-  { key: "d1", code: "D1", name: "智能原理", note: "32", live: true },
-  { key: "d2", code: "D2", name: "知识工程", note: "生长中", live: false },
-  { key: "d3", code: "D3", name: "智能体工程", note: "生长中", live: false },
-  { key: "d4", code: "D4", name: "应用与治理", note: "生长中", live: false },
-]
-
-type KP = { title: string; href: string; current: boolean }
-type Topic = { key: string; title: string; href: string; kps: KP[]; current: boolean }
-type Stage = {
-  key: string
+type Domain = {
+  id: string
   code: string
-  title: string
-  href: string
+  name: string
+  question: string
+  decision: string
+  color: string
+  enabled: boolean
   topics: Topic[]
-  current: boolean
+}
+type RecentCard = { date: string; title: string; domain: string; topic: string; card: string }
+type Registry = {
+  version: number
+  lastUpdated: string
+  domains: Domain[]
+  launch: {
+    enabledDomains: number
+    publishedTopics: number
+    publishedCards: number
+    plannedTopics: number
+    pilotTopics: string[]
+    coursePath: string[]
+  }
+  recent: RecentCard[]
+}
+
+const DOMAIN_COLOR: Record<string, string> = {
+  d1: "cyan",
+  d2: "violet",
+  d3: "green",
+  d4: "amber",
+  d5: "rot",
+  cyan: "cyan",
+  violet: "violet",
+  green: "green",
+  amber: "amber",
+  rot: "rot",
+}
+
+function siteRoot(): string {
+  // Must return an ABSOLUTE URL usable as the base of `new URL(rel, base)`.
+  // Deriving it from the icon href keeps local preview (origin-only) and
+  // GitHub Pages subpath (/xiabao-km/) both correct without hardcoding.
+  const icon = document.querySelector<HTMLLinkElement>('link[rel="icon"]')
+  if (icon?.href) {
+    try {
+      const u = new URL(icon.href, window.location.href)
+      const marker = "/static/icon.png"
+      if (u.pathname.endsWith(marker)) return u.origin + u.pathname.slice(0, -marker.length) + "/"
+    } catch {
+      /* fall through */
+    }
+  }
+  return window.location.origin + (basePath() ? `${basePath()}/` : "/")
+}
+
+async function loadRegistry(): Promise<Registry | undefined> {
+  if (shellWindow.__kaRegistry) return shellWindow.__kaRegistry
+  try {
+    const res = await fetch(new URL("static/atlas-registry.json", siteRoot()), {
+      cache: "no-store",
+    })
+    if (!res.ok) return undefined
+    const data = (await res.json()) as Registry
+    if (!Array.isArray(data.domains) || !data.launch || !Array.isArray(data.recent))
+      return undefined
+    shellWindow.__kaRegistry = data
+    return data
+  } catch {
+    return undefined
+  }
 }
 
 function basePath(): string {
-  return (document.body.dataset.basepath || "").replace(/\/+$/, "")
+  const cfg = (document.body.dataset.basepath || "").replace(/\/+$/, "")
+  if (!cfg) return ""
+  // Local preview serves public/ at the origin with no subpath; the configured
+  // basepath (e.g. /xiabao-km) is then absent from the URL — don't prefix links.
+  const p = window.location.pathname
+  if (!p.startsWith(`${cfg}/`) && p !== cfg) return ""
+  return cfg
 }
 
 function normalize(pathname: string): string {
   let p = pathname.replace(/\/+$/, "")
   if (p.endsWith(".html")) p = p.slice(0, -5)
+  // Quartz directory-index pages are addressed by folder URL; local preview
+  // hits /learn/index.html, so strip the trailing /index to match both.
+  if (p.endsWith("/index")) p = p.slice(0, -6)
   const base = basePath()
   if (base && p.startsWith(`${base}/`)) p = p.slice(base.length)
   return p || "/"
@@ -71,11 +124,6 @@ function isLearnPage(): boolean {
 
 function pathHref(normalizedPath: string): string {
   return `${basePath()}${normalizedPath}`
-}
-
-function anchorHref(a: HTMLAnchorElement): string {
-  const u = new URL(a.href, window.location.href)
-  return u.pathname + u.search + u.hash
 }
 
 function esc(s: string): string {
@@ -95,245 +143,158 @@ function esc(s: string): string {
   })
 }
 
-/* ---- extract the tree from Quartz's native explorer -------------------- */
+/* ---- published tree from Quartz's explorer folders ------------------- */
 
-function extractStages(content: HTMLElement): Stage[] {
-  const cur = currentPath()
-  const stageMap = new Map<string, Stage>()
+type Tree = { domains: Set<string>; topics: Set<string>; cards: Set<string> }
 
+function readTree(content: HTMLElement): Tree {
+  const tree: Tree = { domains: new Set(), topics: new Set(), cards: new Set() }
   content.querySelectorAll<HTMLElement>(".folder-container[data-folderpath]").forEach((folder) => {
-    const fp = folder.dataset.folderpath || ""
-    const stageMatch = /^learn\/(s0\d)\/index$/.exec(fp)
-    if (stageMatch) {
-      const key = stageMatch[1]
-      const btn = folder.querySelector<HTMLElement>("a.folder-button")
-      const title = STAGE_NAME[key] || btn?.textContent?.trim() || key
-      const href = btn ? anchorHref(btn as HTMLAnchorElement) : pathHref(`/learn/${key}/`)
-      stageMap.set(key, {
-        key,
-        code: STAGE_CODE[key] || key.toUpperCase(),
-        title,
-        href,
-        topics: [],
-        current: cur === `/learn/${key}` || cur.startsWith(`/learn/${key}/`),
-      })
+    // Quartz folder-index pages carry a trailing "/index" in data-folderpath
+    // (e.g. learn/d2/retrieval/check-current-policy/index); strip it first.
+    let fp = (folder.dataset.folderpath || "").replace(/\/+$/, "")
+    if (fp.endsWith("/index")) fp = fp.slice(0, -6)
+    const c = /^learn\/(d[1-5])\/([^/]+)\/([^/]+)$/.exec(fp)
+    if (c) {
+      tree.domains.add(c[1])
+      tree.topics.add(`${c[1]}/${c[2]}`)
+      tree.cards.add(`${c[1]}/${c[2]}/${c[3]}`)
       return
     }
-    const topicMatch = /^learn\/(s0\d)\/([^/]+)\/index$/.exec(fp)
-    if (topicMatch) {
-      const key = topicMatch[1]
-      const tk = topicMatch[2]
-      const stage = stageMap.get(key)
-      if (!stage) return
-      const btn = folder.querySelector<HTMLElement>("a.folder-button")
-      const title = btn?.textContent?.trim() || tk
-      const href = btn ? anchorHref(btn as HTMLAnchorElement) : pathHref(`/learn/${key}/${tk}/`)
-      stage.topics.push({
-        key: tk,
-        title,
-        href,
-        kps: [],
-        current: cur === `/learn/${key}/${tk}` || cur.startsWith(`/learn/${key}/${tk}/`),
-      })
+    const t = /^learn\/(d[1-5])\/([^/]+)$/.exec(fp)
+    if (t) {
+      tree.domains.add(t[1])
+      tree.topics.add(`${t[1]}/${t[2]}`)
+      return
     }
+    const d = /^learn\/(d[1-5])$/.exec(fp)
+    if (d) tree.domains.add(d[1])
   })
-
-  content.querySelectorAll<HTMLAnchorElement>("a.nav-file-title").forEach((a) => {
-    const p = normalize(new URL(a.href, window.location.href).pathname)
-    const m = /^\/learn\/(s0\d)\/([^/]+)\/(\d{4}-\d{2}-\d{2}-.+)$/.exec(p)
-    if (!m) return
-    const key = m[1]
-    const tk = m[2]
-    const stage = stageMap.get(key)
-    if (!stage) return
-    let topic = stage.topics.find((t) => t.key === tk)
-    if (!topic) {
-      topic = {
-        key: tk,
-        title: tk,
-        href: pathHref(`/learn/${key}/${tk}/`),
-        kps: [],
-        current: cur.startsWith(`/learn/${key}/${tk}`),
-      }
-      stage.topics.push(topic)
-    }
-    topic.kps.push({
-      title: a.textContent?.trim() || m[3],
-      href: anchorHref(a),
-      current: cur === p,
-    })
-  })
-
-  return [...stageMap.values()]
+  return tree
 }
 
-/* ---- sidebar markup ---------------------------------------------------- */
+/* ---- sidebar markup -------------------------------------------------- */
 
-function renderDomains(stages: Stage[]): string {
-  const activeStage = stages.find((s) => s.current)?.key || "s01"
+function domainColor(d: Domain): string {
+  return DOMAIN_COLOR[d.color] || "cyan"
+}
+
+function renderDomains(reg: Registry, tree: Tree): string {
+  const cur = currentPath()
   let html = ""
-  for (const d of DOMAINS) {
-    const open = d.live
-    html += `<div class="ka-domain${open ? " open" : ""} ka-domain--${d.key}" data-dom="${d.key}" style="--ka-dc: var(--ka-${d.key === "d1" ? "cyan" : d.key === "d2" ? "violet" : d.key === "d3" ? "green" : "amber"})">`
-    html += `<div class="ka-dhead" role="button" tabindex="0"><i class="ka-dot"></i><span>${d.name}</span>`
-    if (d.live) html += `<span class="ka-code">${d.note}</span>`
-    else html += `<span class="ka-grow">${d.note}</span>`
+  for (const d of reg.domains) {
+    // enabled is the single source of truth. The explorer tree also contains
+    // planning-only folders (empty d1/d4/d5) which must not count as launched.
+    const live = d.enabled
+    const color = domainColor(d)
+    const cardCount = [...tree.cards].filter((c) => c.startsWith(`${d.id}/`)).length
+    const publishedTopics = d.topics.filter(
+      (t) => t.enabled || tree.topics.has(`${d.id}/${t.slug}`),
+    )
+    const note = live
+      ? `${publishedTopics.length}/${d.topics.length} 主题`
+      : `${d.topics.length} 主题 · 规划`
+    html += `<div class="ka-domain${live ? " open" : ""} ka-domain--${d.id}" data-dom="${d.id}" style="--ka-dc: var(--ka-${color})">`
+    html += `<div class="ka-dhead" role="button" tabindex="0"><i class="ka-dot"></i><span>${esc(d.name)}</span>`
+    if (live) html += `<span class="ka-code">${esc(note)}</span>`
+    else html += `<span class="ka-grow">${esc(note)}</span>`
     html += `<span class="ka-caret">▶</span></div>`
     html += `<div class="ka-dtree">`
-    if (d.live) {
-      for (const s of stages) {
-        const sActive = s.key === activeStage
-        html += `<div class="ka-stage">`
-        html += `<a class="ka-stage-btn${s.current ? " active" : ""}" href="${esc(s.href)}" data-no-popover="true"><span class="ka-badge">${s.code}</span>${esc(s.title)}</a>`
-        if (sActive && s.topics.length) {
-          for (const t of s.topics) {
-            const tActive = t.current || t.kps.some((k) => k.current)
-            html += `<a class="ka-leaf${t.current ? " cur" : ""}" href="${esc(t.href)}" data-no-popover="true">${esc(t.title)}</a>`
-            if (tActive) {
-              for (const k of t.kps) {
-                html += `<a class="ka-kp${k.current ? " cur" : ""}" href="${esc(k.href)}" data-no-popover="true">${esc(k.title)}</a>`
-              }
-            }
+    if (live) {
+      html += `<a class="ka-leaf${cur === `/learn/${d.id}` ? " cur" : ""}" href="${esc(pathHref(`/learn/${d.id}/`))}" data-no-popover="true">域总览 · ${esc(d.name)}</a>`
+      for (const t of d.topics) {
+        const topicLive = t.enabled || tree.topics.has(`${d.id}/${t.slug}`)
+        const topicKey = `${d.id}/${t.slug}`
+        const topicCur = cur === `/learn/${topicKey}` || cur.startsWith(`/learn/${topicKey}/`)
+        if (topicLive && t.slug) {
+          html += `<a class="ka-leaf${topicCur && !cur.startsWith(`/learn/${topicKey}/`) ? " cur" : ""}" href="${esc(pathHref(`/learn/${topicKey}/`))}" data-no-popover="true">${esc(t.name)}</a>`
+          for (const card of reg.recent) {
+            if (card.domain !== d.id || card.topic !== t.slug) continue
+            const cardKey = `${topicKey}/${card.card}`
+            if (!tree.cards.has(cardKey)) continue
+            const kpCur = cur === `/learn/${cardKey}`
+            html += `<a class="ka-kp${kpCur ? " cur" : ""}" href="${esc(pathHref(`/learn/${cardKey}/`))}" data-no-popover="true">${esc(card.title)}</a>`
           }
+        } else {
+          html += `<div class="ka-seed">${esc(t.id)} ${esc(t.name)}${t.core ? " · 核心" : ""}</div>`
         }
-        html += `</div>`
       }
+      if (cardCount === 0) html += `<div class="ka-seed">判断卡待生长</div>`
     } else {
-      const seeds: Record<string, string[]> = {
-        d2: ["知识本体 · 待生长", "知识加工与消费 · 待生长"],
-        d3: ["开发平台 · 待生长", "Skill 与能力封装 · 待生长"],
-        d4: ["新范式 · 待生长"],
+      for (const t of d.topics) {
+        html += `<div class="ka-seed">${esc(t.id)} ${esc(t.name)}${t.core ? " · 核心" : ""}</div>`
       }
-      html += `<div class="ka-stage">`
-      for (const seed of seeds[d.key] || []) html += `<div class="ka-seed">${esc(seed)}</div>`
-      html += `</div>`
     }
     html += `</div></div>`
   }
   return html
 }
 
-function renderSidebar(stages: Stage[]): string {
+function renderSidebar(reg: Registry, tree: Tree): string {
   return [
     `<div class="ka-brand">`,
     `<div class="ka-brand-mark"></div>`,
-    `<div class="ka-brand-txt"><b>知识星图</b><span>Knowledge Atlas</span></div>`,
+    `<div class="ka-brand-txt"><b>知识星图</b><span>Knowledge Atlas · v2</span></div>`,
     `</div>`,
     `<button class="ka-navsearch" type="button" data-ka-action="search">`,
     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>`,
     `<span>搜索知识点</span><kbd>⌘K</kbd>`,
     `</button>`,
     `<div class="ka-navcap">知识域 · Domains</div>`,
-    `<div class="ka-domains">${renderDomains(stages)}</div>`,
-    `<div class="ka-navfoot"><i class="ka-live-dot"></i>系统在线 · 每日 03:00 生长</div>`,
+    `<div class="ka-domains">${renderDomains(reg, tree)}</div>`,
+    `<div class="ka-navfoot"><i class="ka-live-dot"></i>系统在线 · 台账 v${reg.version} · ${esc(reg.lastUpdated)}</div>`,
   ].join("")
 }
 
-/* ---- overview feed + metrics (auto-grown from the tree) ---------------- */
+/* ---- overview feed + counts (from registry + published tree) ---------- */
 
-function renderFeed(content: HTMLElement): string {
-  const items: { date: string; title: string; href: string; stage: string; color: string }[] = []
-  const colorOf = (stage: string): string =>
-    ({ s01: "cyan", s02: "violet", s03: "rot", s04: "green", s05: "amber", s06: "blue" })[stage] ||
-    "cyan"
-  const shortStage = (stage: string): string =>
-    ({
-      s01: "S01 原理",
-      s02: "S02 深度",
-      s03: "S03 架构",
-      s04: "S04 训练",
-      s05: "S05 智能体",
-      s06: "S06 安全",
-    })[stage] || stage
-  content.querySelectorAll<HTMLAnchorElement>("a.nav-file-title").forEach((a) => {
-    const p = normalize(new URL(a.href, window.location.href).pathname)
-    const m = /^\/learn\/(s0\d)\/([^/]+)\/(\d{4}-\d{2}-\d{2}-.+)$/.exec(p)
-    if (!m) return
-    items.push({
-      date: m[3].slice(0, 10),
-      title: a.textContent?.trim() || m[3],
-      href: anchorHref(a),
-      stage: m[1],
-      color: colorOf(m[1]),
-    })
-  })
-  items.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-  const latest = items.slice(0, 5)
-  if (!latest.length) return ""
-  return latest
-    .map(
-      (it) =>
-        `<a class="ka-feed-row" href="${esc(it.href)}" data-no-popover="true">` +
-        `<span class="date">${it.date}</span>` +
-        `<span class="stag" style="--ka-dc: var(--ka-${it.color})">${shortStage(it.stage)}</span>` +
+function renderFeed(reg: Registry, tree: Tree): string {
+  const items = reg.recent
+    .filter((it) => tree.cards.has(`${it.domain}/${it.topic}/${it.card}`))
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+    .slice(0, 5)
+  if (!items.length) return ""
+  return items
+    .map((it) => {
+      const d = reg.domains.find((x) => x.id === it.domain)
+      const color = d ? domainColor(d) : "cyan"
+      const short = d ? `${d.code} ${d.name}` : it.domain.toUpperCase()
+      const href = pathHref(`/learn/${it.domain}/${it.topic}/${it.card}/`)
+      return (
+        `<a class="ka-feed-row" href="${esc(href)}" data-no-popover="true">` +
+        `<span class="date">${esc(it.date)}</span>` +
+        `<span class="stag" style="--ka-dc: var(--ka-${color})">${esc(short)}</span>` +
         `<span class="ttl">${esc(it.title)}</span>` +
-        `<span class="arw">→</span></a>`,
-    )
+        `<span class="arw">→</span></a>`
+      )
+    })
     .join("")
 }
 
-function syncOverview(content: HTMLElement): void {
+function syncOverview(reg: Registry, tree: Tree): void {
   const view = document.querySelector<HTMLElement>(".ka-view--overview")
   if (!view) return
-
-  // Count straight from the explorer DOM — this is robust even before the
-  // tree's anchor hrefs are normalized, unlike extractStages().
-  let stageCount = 0
-  let topicCount = 0
-  content.querySelectorAll<HTMLElement>(".folder-container[data-folderpath]").forEach((f) => {
-    const fp = f.dataset.folderpath || ""
-    if (/^learn\/s0\d\/index$/.test(fp)) stageCount++
-    else if (/^learn\/s0\d\/.+\/index$/.test(fp)) topicCount++
-  })
-  let kpCount = 0
-  content.querySelectorAll<HTMLAnchorElement>("a.nav-file-title").forEach((a) => {
-    if (/\d{4}-\d{2}-\d{2}-/.test(a.getAttribute("href") || "")) kpCount++
-  })
+  // v2 launch view counts come from the registry (single source of truth):
+  // enabled domains / published topics / published cards / planned topics.
+  // The explorer tree is used only for feed + current-page highlighting, since
+  // it contains planning-only folders that would inflate a naive count.
   const counts: Record<string, number> = {
-    domains: DOMAINS.length,
-    stages: stageCount,
-    topics: topicCount,
-    points: kpCount,
+    domains: reg.launch.enabledDomains,
+    topics: reg.launch.publishedTopics,
+    points: reg.launch.publishedCards,
+    planned: reg.launch.plannedTopics,
   }
-  const applyCounts = (c: Record<string, number>) => {
-    view.querySelectorAll<HTMLElement>("[data-ka-count]").forEach((el) => {
-      const key = el.dataset.kaCount || ""
-      const target = c[key] ?? Number(el.dataset.num || 0)
-      el.setAttribute("data-num", String(target))
-      // If the entrance animation already ran, just set the final value so a
-      // late-arriving explorer tree still produces correct counts.
-      if (view.dataset.kaCounted === "1") el.textContent = String(target)
-    })
-  }
-  applyCounts(counts)
-  // The explorer tree is Preact-rendered; an observer tick can land in a
-  // re-render gap where the tree is momentarily empty. Retry shortly after so
-  // counts always reflect the settled tree.
-  if (counts.stages === 0) {
-    window.setTimeout(() => {
-      const settled: Record<string, number> = {
-        domains: DOMAINS.length,
-        stages: 0,
-        topics: 0,
-        points: 0,
-      }
-      content.querySelectorAll<HTMLElement>(".folder-container[data-folderpath]").forEach((f) => {
-        const fp = f.dataset.folderpath || ""
-        if (/^learn\/s0\d\/index$/.test(fp)) settled.stages++
-        else if (/^learn\/s0\d\/.+\/index$/.test(fp)) settled.topics++
-      })
-      content.querySelectorAll<HTMLAnchorElement>("a.nav-file-title").forEach((a) => {
-        if (/\d{4}-\d{2}-\d{2}-/.test(a.getAttribute("href") || "")) settled.points++
-      })
-      if (settled.stages > 0) applyCounts(settled)
-    }, 500)
-  }
+  view.querySelectorAll<HTMLElement>("[data-ka-count]").forEach((el) => {
+    const key = el.dataset.kaCount || ""
+    const target = counts[key] ?? Number(el.dataset.num || 0)
+    el.setAttribute("data-num", String(target))
+    if (view.dataset.kaCounted === "1") el.textContent = String(target)
+  })
   runCounters(view)
 
-  // Auto-grown "latest" feed.
   const feed = view.querySelector<HTMLElement>(".ka-feed")
   if (feed) {
-    const html = renderFeed(content)
+    const html = renderFeed(reg, tree)
     if (html && feed.dataset.kaFeed !== html) {
       feed.dataset.kaFeed = html
       feed.innerHTML = html
@@ -350,8 +311,6 @@ function runCounters(root: HTMLElement): void {
     const step = (t: number) => {
       const k = Math.min(1, (t - t0) / dur)
       const e = 1 - Math.pow(1 - k, 3)
-      // Read the target every frame: the explorer tree can settle a few
-      // hundred ms after first paint, updating data-num mid-animation.
       const target = Number(el.dataset.num || "0")
       el.textContent = String(Math.round(target * e))
       if (k < 1) requestAnimationFrame(step)
@@ -360,9 +319,9 @@ function runCounters(root: HTMLElement): void {
   })
 }
 
-/* ---- topbar ------------------------------------------------------------ */
+/* ---- topbar ---------------------------------------------------------- */
 
-function renderCrumb(stages: Stage[]): string {
+function renderCrumb(reg: Registry): string {
   const cur = currentPath()
   const parts = ["<span>知识星图</span>"]
   if (cur === "/learn" || cur === "") {
@@ -370,27 +329,34 @@ function renderCrumb(stages: Stage[]): string {
     return parts.join('<span class="ka-sep"> / </span>')
   }
   parts.push('<a href="' + esc(pathHref("/learn/")) + '" data-no-popover="true">总览</a>')
-  for (const s of stages) {
-    if (!cur.startsWith(`/learn/${s.key}`)) continue
-    parts.push(`<a href="${esc(s.href)}" data-no-popover="true">D1 ${esc(s.title)}</a>`)
-    for (const t of s.topics) {
-      if (!cur.startsWith(`/learn/${s.key}/${t.key}`)) continue
-      parts.push(`<a href="${esc(t.href)}" data-no-popover="true">${esc(t.title)}</a>`)
-      const kp = t.kps.find((k) => k.current)
-      if (kp) parts.push(`<b>${esc(kp.title)}</b>`)
-      break
-    }
-    break
+  const m = /^\/learn\/(d[1-5])(?:\/([^/]+))?(?:\/([^/]+))?/.exec(cur)
+  if (!m) {
+    parts.push("<b>知识星图</b>")
+    return parts.join('<span class="ka-sep"> / </span>')
+  }
+  const d = reg.domains.find((x) => x.id === m[1])
+  parts.push(
+    `<a href="${esc(pathHref(`/learn/${m[1]}/`))}" data-no-popover="true">${esc(d ? `${d.code} ${d.name}` : m[1])}</a>`,
+  )
+  if (m[2]) {
+    const t = d?.topics.find((x) => x.slug === m[2] || x.id === m[2])
+    parts.push(
+      `<a href="${esc(pathHref(`/learn/${m[1]}/${m[2]}/`))}" data-no-popover="true">${esc(t?.name || m[2])}</a>`,
+    )
+  }
+  if (m[3]) {
+    const card = reg.recent.find((c) => c.card === m[3] && c.topic === m[2] && c.domain === m[1])
+    parts.push(`<b>${esc(card?.title || m[3])}</b>`)
   }
   return parts.join('<span class="ka-sep"> / </span>')
 }
 
-function topbarMarkup(stages: Stage[]): string {
+function topbarMarkup(reg: Registry): string {
   return [
     `<button class="ka-menu-btn" type="button" data-ka-action="menu" aria-label="打开目录">`,
     `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>`,
     `</button>`,
-    `<div class="ka-crumb">${renderCrumb(stages)}</div>`,
+    `<div class="ka-crumb">${renderCrumb(reg)}</div>`,
     `<div class="ka-spacer"></div>`,
     `<button class="ka-icon-btn" type="button" data-ka-action="search" title="搜索" aria-label="搜索">`,
     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>`,
@@ -401,7 +367,7 @@ function topbarMarkup(stages: Stage[]): string {
   ].join("")
 }
 
-/* ---- bind interactions (event delegation, bound once) ------------------ */
+/* ---- bind interactions (event delegation, bound once) ---------------- */
 
 function bindActions(root: HTMLElement): void {
   root.addEventListener("click", (ev) => {
@@ -426,9 +392,7 @@ function bindActions(root: HTMLElement): void {
       return
     }
     const head = target.closest<HTMLElement>(".ka-dhead")
-    if (head) {
-      head.parentElement?.classList.toggle("open")
-    }
+    if (head) head.parentElement?.classList.toggle("open")
   })
   root.addEventListener("keydown", (ev) => {
     if (ev.key !== "Enter" && ev.key !== " ") return
@@ -440,75 +404,71 @@ function bindActions(root: HTMLElement): void {
   })
 }
 
-/* ---- orchestration ----------------------------------------------------- */
+/* ---- orchestration --------------------------------------------------- */
 
-function sync(): void {
-  const learn = isLearnPage()
-  const center = document.querySelector<HTMLElement>(".center")
-  const contents = document.querySelectorAll<HTMLElement>(".explorer-content")
+let syncing = false
 
-  // Clean up injected shell when leaving learn pages.
-  if (!learn) {
+async function sync(): Promise<void> {
+  if (!isLearnPage()) {
     document
       .querySelectorAll<HTMLElement>(".ka-shell-sidebar, .ka-topbar, .ka-scrim")
       .forEach((el) => el.remove())
     document.body.classList.remove("ka-active")
     return
   }
+  if (syncing) return
+  const reg = await loadRegistry()
+  if (!reg) return
+  syncing = true
+  try {
+    document.body.classList.add("ka-active")
 
-  document.body.classList.add("ka-active")
-
-  // Scrim for the mobile drawer (outside explorer so CSS can overlay fully).
-  if (!document.querySelector(".ka-scrim")) {
-    const scrim = document.createElement("div")
-    scrim.className = "ka-scrim"
-    scrim.addEventListener("click", () => document.body.classList.remove("ka-drawer"))
-    document.body.appendChild(scrim)
-  }
-
-  contents.forEach((content) => {
-    const stages = extractStages(content)
-    const sig = stages
-      .map(
-        (s) =>
-          `${s.key}|${s.current}|${s.topics
-            .map(
-              (t) =>
-                `${t.key}|${t.current}|${t.kps.map((k) => `${k.href}|${k.current}`).join(",")}`,
-            )
-            .join(";")}`,
-      )
-      .join("||")
-
-    let shell = content.querySelector<HTMLElement>(".ka-shell-sidebar")
-    if (!shell) {
-      shell = document.createElement("div")
-      shell.className = "ka-shell-sidebar"
-      content.prepend(shell)
-      bindActions(shell)
+    if (!document.querySelector(".ka-scrim")) {
+      const scrim = document.createElement("div")
+      scrim.className = "ka-scrim"
+      scrim.addEventListener("click", () => document.body.classList.remove("ka-drawer"))
+      document.body.appendChild(scrim)
     }
 
-    // Rebuild only when the underlying tree/current page actually changed.
-    if (content.dataset.kaSig !== sig) {
-      content.dataset.kaSig = sig
-      shell.innerHTML = renderSidebar(stages)
-    }
-  })
+    const center = document.querySelector<HTMLElement>(".center")
+    const contents = document.querySelectorAll<HTMLElement>(".explorer-content")
 
-  // Overview metrics + auto-grown feed.
-  contents.forEach((content) => syncOverview(content))
+    contents.forEach((content) => {
+      const tree = readTree(content)
+      const sig = [
+        [...tree.domains].sort().join(","),
+        [...tree.topics].sort().join(","),
+        [...tree.cards].sort().join(","),
+        currentPath(),
+        reg.version,
+      ].join("||")
 
-  // Topbar (once), refreshed on navigation.
-  if (center) {
-    let topbar = center.querySelector<HTMLElement>(":scope > .ka-topbar")
-    if (!topbar) {
-      topbar = document.createElement("div")
-      topbar.className = "ka-topbar"
-      center.prepend(topbar)
-      bindActions(topbar)
+      let shell = content.querySelector<HTMLElement>(".ka-shell-sidebar")
+      if (!shell) {
+        shell = document.createElement("div")
+        shell.className = "ka-shell-sidebar"
+        content.prepend(shell)
+        bindActions(shell)
+      }
+      if (content.dataset.kaSig !== sig) {
+        content.dataset.kaSig = sig
+        shell.innerHTML = renderSidebar(reg, tree)
+      }
+      syncOverview(reg, tree)
+    })
+
+    if (center) {
+      let topbar = center.querySelector<HTMLElement>(":scope > .ka-topbar")
+      if (!topbar) {
+        topbar = document.createElement("div")
+        topbar.className = "ka-topbar"
+        center.prepend(topbar)
+        bindActions(topbar)
+      }
+      topbar.innerHTML = topbarMarkup(reg)
     }
-    const stages = contents.length ? extractStages(contents[0]) : []
-    topbar.innerHTML = topbarMarkup(stages)
+  } finally {
+    syncing = false
   }
 }
 
@@ -517,12 +477,11 @@ if (!shellWindow.__kaShellRuntime) {
 
   let observer: MutationObserver | undefined
   const start = () => {
-    sync()
+    void sync()
     observer?.disconnect()
     const target = document.querySelector<HTMLElement>(".explorer-content")
     if (target) {
-      observer = new MutationObserver(() => sync())
-      // childList only: attribute/class updates must not feed the loop.
+      observer = new MutationObserver(() => void sync())
       observer.observe(target, { childList: true, subtree: true })
     }
   }

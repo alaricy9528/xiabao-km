@@ -1,10 +1,10 @@
 /* Knowledge Atlas star-chart runtime (content/learn/index.md, .ai-learn--map).
-   Prototype-faithful interactive SVG:
+   Interactive SVG:
    - three orbit rings (two counter-rotating) + two flowing light dots
-   - D1 data core at center
-   - six stage nodes on the outer orbit with breathing halos
+   - AI atlas core at center
+   - five domain nodes (D1-D5) on the outer orbit with breathing halos
    - hover blooms a node; click highlights it and updates the topbar crumb
-   Stage data comes from the hidden .ai-learn__stage skeleton in the DOM, so
+   Domain data comes from the hidden .ai-learn__stage skeleton in the DOM, so
    the chart can never drift from page content. All colors are --ka-* tokens
    so the chart flips correctly in both themes. Idempotent across SPA nav. */
 
@@ -25,20 +25,18 @@ type StageDatum = {
 const STAGE_COLORS = [
   "var(--ka-cyan)",
   "var(--ka-violet)",
-  "var(--ka-rot)",
   "var(--ka-green)",
   "var(--ka-amber)",
-  "#6fa8ff",
+  "var(--ka-rot)",
 ]
 const SHORT_NAME: Record<string, string> = {
-  "S-01": "数学直觉",
-  "S-02": "深度网络",
-  "S-03": "稀疏与MoE",
-  "S-04": "推理效率",
-  "S-05": "记忆与智能体",
-  "S-06": "安全与治理",
+  D1: "认知基础",
+  D2: "知识工程",
+  D3: "智能体工程",
+  D4: "工程与平台",
+  D5: "治理与安全",
 }
-const ANGLES = [-150, -90, -30, 30, 90, 150]
+const ANGLES = [-162, -90, -18, 54, 126]
 const CX = 400
 const CY = 210
 const NS = "http://www.w3.org/2000/svg"
@@ -57,7 +55,7 @@ function readStages(root: HTMLElement): StageDatum[] {
   const nodes = Array.from(root.querySelectorAll<HTMLElement>(".ai-learn__stage"))
   return nodes.map((stage, i) => {
     const code =
-      stage.querySelector<HTMLElement>(".ai-learn__code")?.textContent?.trim() || `S-0${i + 1}`
+      stage.querySelector<HTMLElement>(".ai-learn__code")?.textContent?.trim() || `D${i + 1}`
     const link = stage.querySelector<HTMLAnchorElement>("a.ai-learn__link")
     return {
       code,
@@ -75,7 +73,7 @@ function buildChart(stages: StageDatum[], reduced: boolean): SVGSVGElement {
   svg.setAttribute("viewBox", "0 0 800 420")
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet")
   svg.setAttribute("role", "img")
-  svg.setAttribute("aria-label", "智能原理六阶段认知星图：沿轨道分布的六个阶段节点，点击进入")
+  svg.setAttribute("aria-label", "AI 知识五域认知星图：沿轨道分布的五个域节点，点击进入")
 
   // Two counter-rotating orbit groups + one static outer ring.
   const rot1 = el("g", "ka-orbit-rot")
@@ -151,12 +149,12 @@ function buildChart(stages: StageDatum[], reduced: boolean): SVGSVGElement {
   big.setAttribute("x", String(CX))
   big.setAttribute("y", "208")
   big.setAttribute("text-anchor", "middle")
-  big.textContent = "D1"
+  big.textContent = "AI"
   const sub = el("text", "sub") as SVGTextElement
   sub.setAttribute("x", String(CX))
   sub.setAttribute("y", "224")
   sub.setAttribute("text-anchor", "middle")
-  sub.textContent = "CORE"
+  sub.textContent = "ATLAS"
   core.append(glow, disc, big, sub)
   svg.append(core)
 
@@ -235,9 +233,7 @@ function mountLearnMap(): void {
     const crumb = document.querySelector<HTMLElement>(".ka-crumb")
     if (crumb) {
       crumb.innerHTML =
-        `<span>知识星图</span><span class="ka-sep"> / </span>` +
-        `<span>D1 智能原理</span><span class="ka-sep"> / </span>` +
-        `<b>${s.code} ${s.name}</b>`
+        `<span>知识星图</span><span class="ka-sep"> / </span>` + `<b>${s.code} ${s.name}</b>`
     }
   }
   const onActivateEvent = (event: Event) => {

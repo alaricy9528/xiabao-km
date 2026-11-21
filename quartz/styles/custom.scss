@@ -1907,6 +1907,17 @@ body.ka-active .center article > .ka-view {
   border-color: color-mix(in srgb, var(--ka-dc) 60%, transparent);
   box-shadow: 0 16px 40px -16px color-mix(in srgb, var(--ka-dc) 40%, transparent);
 }
+/* 已开通域卡用 div + 覆盖式链接热区：避免 markdown 解析 <a> 内块级元素时被拆散 */
+a.ka-dcard-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+}
 .ka-dcard.grow {
   border-style: dashed;
 }
@@ -2682,4 +2693,317 @@ body.ka-active .ka-grow {
 }
 body.ka-active .ka-code {
   flex: none;
+}
+
+/* ==================================================================
+   KNOWLEDGE ATLAS v2 · 判断卡 / 主题页 / 域页（body.ka-active 作用域）
+   ================================================================== */
+
+/* 第五张域卡单独一行，不挤进四列网格 */
+body.ka-active .ka-dcards-extra {
+  margin-top: 14px;
+}
+body.ka-active .ka-dcards-extra .ka-dcard {
+  max-width: calc((100% - 42px) / 4);
+}
+
+/* ---- 判断卡 / 主题页 / 域页共用头部 ---- */
+body.ka-active .ka-card-head {
+  position: relative;
+  padding: 8px 0 22px;
+}
+body.ka-active .ka-card-head .tagrow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 14px;
+}
+body.ka-active .ka-card-head h1 {
+  color: var(--ka-text);
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+body.ka-active .ka-card-question {
+  margin-top: 14px;
+  max-width: 760px;
+  color: var(--ka-muted);
+  font-size: clamp(1rem, 1.6vw, 1.16rem);
+  line-height: 1.6;
+}
+body.ka-active .ka-card-question::before {
+  content: "Q";
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 6px;
+  font-family: var(--ka-mono);
+  font-size: 12px;
+  color: var(--ka-cyan);
+  border: 1px solid color-mix(in srgb, var(--ka-cyan) 45%, transparent);
+  vertical-align: middle;
+}
+
+/* ---- 判断卡结论条 ---- */
+body.ka-active .ka-card-conclusion {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  max-width: 900px;
+  margin: 4px 0 26px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--ka-violet) 35%, var(--ka-line));
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--ka-violet) 9%, var(--ka-panel)),
+    var(--ka-panel)
+  );
+}
+body.ka-active .ka-card-conclusion .clabel {
+  flex: none;
+  color: var(--ka-violet);
+  font-family: var(--ka-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--ka-violet) 45%, transparent);
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+body.ka-active .ka-card-conclusion p {
+  color: var(--ka-text);
+  font-size: 15px;
+  line-height: 1.7;
+}
+body.ka-active .ka-card-conclusion em {
+  color: var(--ka-cyan);
+  font-style: normal;
+  border-bottom: 1px dashed color-mix(in srgb, var(--ka-cyan) 50%, transparent);
+}
+
+/* ---- 判断卡两栏 ---- */
+body.ka-active .ka-card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 22px;
+  align-items: start;
+  max-width: 980px;
+}
+body.ka-active .ka-card-sec {
+  margin-bottom: 18px;
+  padding: 20px 22px;
+  border: 1px solid var(--ka-line);
+  border-radius: 14px;
+  background: var(--ka-panel);
+}
+body.ka-active .ka-card-sec h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: var(--ka-text);
+  font-size: 17px;
+}
+body.ka-active .ka-card-sec h2 span {
+  color: var(--ka-cyan);
+  font-family: var(--ka-mono);
+  font-size: 12px;
+}
+body.ka-active .ka-card-sec p {
+  color: var(--ka-muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+body.ka-active .ka-evidence {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 14px;
+  list-style: none;
+}
+body.ka-active .ka-evidence li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--ka-text);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+body.ka-active .ka-evidence li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--ka-cyan);
+  box-shadow: 0 0 7px var(--ka-cyan);
+}
+body.ka-active .ka-evidence b {
+  color: var(--ka-cyan);
+  font-weight: 500;
+}
+body.ka-active .ka-card-note {
+  padding: 10px 14px;
+  border-left: 2px solid var(--ka-line-strong);
+  color: var(--ka-faint);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* ---- 判断卡侧栏 ---- */
+body.ka-active .ka-card-aside .ka-aside-card h5 {
+  margin-bottom: 12px;
+}
+body.ka-active .ka-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--ka-line);
+  font-size: 12px;
+}
+body.ka-active .ka-meta-row:last-child {
+  border-bottom: 0;
+}
+body.ka-active .ka-meta-row span {
+  color: var(--ka-faint);
+  white-space: nowrap;
+}
+body.ka-active .ka-meta-row b {
+  color: var(--ka-text);
+  font-weight: 500;
+  text-align: right;
+}
+body.ka-active .ka-meta-row b.st-pass {
+  color: var(--ka-amber);
+}
+body.ka-active .ka-implication {
+  color: var(--ka-muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* ---- 主题页 / 域页 ---- */
+body.ka-active .ka-topic-block {
+  max-width: 900px;
+  margin-bottom: 26px;
+}
+body.ka-active .ka-topic-block h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+  color: var(--ka-text);
+  font-size: 17px;
+}
+body.ka-active .ka-topic-block h2 span {
+  color: var(--ka-cyan);
+  font-family: var(--ka-mono);
+  font-size: 13px;
+}
+body.ka-active .ka-topic-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 18px;
+  margin-bottom: 9px;
+  border: 1px solid var(--ka-line);
+  border-radius: 12px;
+  background: var(--ka-panel);
+  text-decoration: none;
+  transition: all 0.25s var(--ka-ease);
+}
+body.ka-active .ka-topic-row:hover {
+  transform: translateX(5px);
+  border-color: color-mix(in srgb, var(--ka-cyan) 50%, transparent);
+  background: color-mix(in srgb, var(--ka-panel-solid) 90%, transparent);
+}
+body.ka-active .ka-topic-row .kn {
+  flex: none;
+  color: var(--ka-cyan);
+  font-family: var(--ka-mono);
+  font-size: 12px;
+  border: 1px solid color-mix(in srgb, var(--ka-cyan) 40%, transparent);
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+body.ka-active .ka-topic-row .kt {
+  flex: 1;
+  min-width: 0;
+  color: var(--ka-text);
+  font-size: 14.5px;
+}
+body.ka-active .ka-topic-row .kt small {
+  display: block;
+  margin-top: 5px;
+  color: var(--ka-muted);
+  font-size: 12px;
+}
+body.ka-active .ka-topic-row .ko {
+  color: var(--ka-faint);
+}
+body.ka-active .ka-topic-note {
+  color: var(--ka-muted);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+body.ka-active .ka-topic-note b {
+  color: var(--ka-cyan);
+  font-weight: 500;
+}
+body.ka-active .ka-topic-note a {
+  color: var(--ka-text);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--ka-line-strong);
+}
+body.ka-active .ka-topic-note a:hover {
+  color: var(--ka-cyan);
+}
+body.ka-active .ka-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+body.ka-active .ka-plan {
+  padding: 11px 14px;
+  border: 1px dashed var(--ka-line-strong);
+  border-radius: 9px;
+  color: var(--ka-faint);
+  font-size: 12.5px;
+}
+body.ka-active .ka-plan.core {
+  color: var(--ka-muted);
+  border-style: solid;
+  border-color: var(--ka-line);
+}
+
+@media (max-width: 900px) {
+  body.ka-active .ka-card-grid {
+    grid-template-columns: 1fr;
+  }
+  body.ka-active .ka-dcards-extra .ka-dcard {
+    max-width: calc((100% - 14px) / 2);
+  }
+}
+@media (max-width: 800px) {
+  body.ka-active .ka-plan-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  body.ka-active .ka-dcards-extra .ka-dcard {
+    max-width: none;
+  }
+  body.ka-active .ka-card-conclusion {
+    flex-direction: column;
+    gap: 10px;
+  }
+  body.ka-active .ka-topic-row {
+    gap: 10px;
+    padding: 12px;
+  }
 }

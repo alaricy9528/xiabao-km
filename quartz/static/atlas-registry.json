@@ -1,0 +1,443 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-11-21",
+  "schema": "knowledge-atlas/v1",
+  "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
+  "domains": [
+    {
+      "id": "d1",
+      "code": "D1",
+      "name": "AI 认知基础",
+      "question": "模型能力从哪来，应用有哪些约束？",
+      "decision": "理解生成、训练、推理和模型选型",
+      "color": "cyan",
+      "enabled": false,
+      "topics": [
+        {
+          "id": "D1-01",
+          "name": "大模型全景",
+          "outcome": "画出从模型、工具到应用的关系图，说明各层承担的责任。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D1-02",
+          "name": "Transformer 与注意力",
+          "outcome": "用一个架构例子解释上下文长度、延迟与资源占用的关系。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D1-03",
+          "name": "预训练与后训练",
+          "outcome": "说明预训练、监督微调与强化学习等方法针对的问题，判断某项能力或行为需用什么证据检验。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D1-04",
+          "name": "上下文、推理成本与延迟",
+          "outcome": "设计短、中、长输入对照，评估质量、响应速度和调用成本。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D1-05",
+          "name": "模型选型与能力边界",
+          "outcome": "为一个任务列出评测用例，给出可复验的选型理由。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        }
+      ]
+    },
+    {
+      "id": "d2",
+      "code": "D2",
+      "name": "知识工程",
+      "question": "怎样把资料加工成可检索、可维护、能追溯的知识？",
+      "decision": "组织知识、控制质量、定义检索验收",
+      "color": "violet",
+      "enabled": true,
+      "topics": [
+        {
+          "id": "D2-01",
+          "name": "知识资产运营",
+          "outcome": "给一类知识指定维护职责、更新条件和使用反馈入口。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-02",
+          "name": "知识本体与类型化关系",
+          "outcome": "为制度、流程、角色建立实体和关系，并用三个查询校验结构。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-03",
+          "name": "知识表示与索引设计",
+          "outcome": "根据任务选择结构化记录、文档或图谱，并为它们选用关键词或向量等索引方式。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-04",
+          "name": "知识加工与消费链路",
+          "outcome": "把一份资料转为有出处的概念说明和判断卡，记录抽取、复核与更新节点。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-05",
+          "name": "知识召回与 RAG",
+          "outcome": "建立小型检索样本，区分召回遗漏、排序靠后和生成引用问题。",
+          "core": true,
+          "pilot": true,
+          "enabled": true,
+          "slug": "retrieval"
+        },
+        {
+          "id": "D2-06",
+          "name": "元数据、标签与主题索引",
+          "outcome": "设计一套支持归类、检索与内容关联的最小字段。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-07",
+          "name": "个人知识库",
+          "outcome": "把一次学习转成可重用的来源、概念笔记和工作判断。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-08",
+          "name": "企业级知识库",
+          "outcome": "定义知识源、责任人、版本优先级和权限继承，画出知识中心结构。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D2-09",
+          "name": "知识质量与冲突处理",
+          "outcome": "对冲突资料标出适用范围、有效期和处置人，追踪判断需要复核的条件。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        }
+      ]
+    },
+    {
+      "id": "d3",
+      "code": "D3",
+      "name": "智能体工程",
+      "question": "怎样让智能体完成可验收的任务？",
+      "decision": "组织任务状态、上下文、能力与工具调用",
+      "color": "green",
+      "enabled": true,
+      "topics": [
+        {
+          "id": "D3-01",
+          "name": "智能体架构与执行循环",
+          "outcome": "画出任务输入、工具调用、状态更新和停止条件。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-02",
+          "name": "智能体运行时",
+          "outcome": "为同一任务设计中断恢复、降级和运行轨迹记录。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-03",
+          "name": "桌面智能体",
+          "outcome": "在模拟环境设计 GUI 任务，定义观察、动作和完成证据。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-04",
+          "name": "数字员工",
+          "outcome": "为一个角色限定职责、交接规则，并定义衡量任务表现的方法。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-05",
+          "name": "MCP",
+          "outcome": "画出宿主、客户端与服务端的能力发现和调用关系。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-06",
+          "name": "Skills 与能力封装",
+          "outcome": "为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界。",
+          "core": true,
+          "pilot": true,
+          "enabled": true,
+          "slug": "skills"
+        },
+        {
+          "id": "D3-07",
+          "name": "连接器",
+          "outcome": "给外部服务接入定义身份、授权范围、数据读写契约和断连处理。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-08",
+          "name": "上下文工程与智能体记忆",
+          "outcome": "区分会话状态、检索内容和持久记忆，定义写入及失效条件。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-09",
+          "name": "多智能体协作",
+          "outcome": "在同一任务上比较单智能体与分工方案，记录交接失败与成本。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D3-10",
+          "name": "智能体评测与可靠性",
+          "outcome": "用可复跑任务验证成功率、停止条件和失败后的恢复表现。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        }
+      ]
+    },
+    {
+      "id": "d4",
+      "code": "D4",
+      "name": "AI 工程与平台",
+      "question": "怎样把能力接入业务、上线与持续运行？",
+      "decision": "选择集成与编排方式，管理发布和运行",
+      "color": "amber",
+      "enabled": false,
+      "topics": [
+        {
+          "id": "D4-01",
+          "name": "智能体开发平台",
+          "outcome": "用同一个案例比较平台的开发、运行、集成和管控能力。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-02",
+          "name": "工作流与智能流程自动化",
+          "outcome": "标出 BPM 流程中固定规则、模型判断、人工审批和接管点。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-03",
+          "name": "RPA 与智能体协作",
+          "outcome": "给只提供界面的系统设计自动化路径，并定义失败回退。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-04",
+          "name": "RAG 应用交付",
+          "outcome": "把资料入库、检索、生成与反馈接成可回归、可恢复的链路。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-05",
+          "name": "提示词配置与版本实验",
+          "outcome": "给提示词版本建立离线回归、对比记录和回退方案。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-06",
+          "name": "LLMOps 与上线运维",
+          "outcome": "设定质量、成本、延迟和错误告警，设计发布与回滚。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-07",
+          "name": "企业 IT 架构中的 AI",
+          "outcome": "定义模型、知识、流程和业务系统的服务边界及责任团队。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D4-08",
+          "name": "企业集成与数据交换",
+          "outcome": "用 API、事件或数据管道连接现有系统，定义去重、幂等和故障恢复。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        }
+      ]
+    },
+    {
+      "id": "d5",
+      "code": "D5",
+      "name": "AI 治理与安全",
+      "question": "哪些风险需要约束，谁负责，怎样留证？",
+      "decision": "定义权限、数据边界、上线和审计要求",
+      "color": "rot",
+      "enabled": false,
+      "topics": [
+        {
+          "id": "D5-01",
+          "name": "AI 治理框架落地",
+          "outcome": "按用途与影响分级，写明负责人、审批、上线和定期复核责任。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D5-02",
+          "name": "数据隐私、版权与公开范围",
+          "outcome": "建立来源、处理权限、公开范围与留存期限的核验记录。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D5-03",
+          "name": "权限、人工审批与动作审计",
+          "outcome": "区分只读、草稿和产生外部影响的操作，定义授权、确认和留痕要求。",
+          "core": true,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D5-04",
+          "name": "不可信输入与提示注入防护",
+          "outcome": "标出外部内容进入模型的边界，验证权限限制与人工复核是否生效。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D5-05",
+          "name": "事实可信、引文与解释",
+          "outcome": "核对主要结论与证据的对应关系，标出证据缺口和可复核路径。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        },
+        {
+          "id": "D5-06",
+          "name": "运行风险、事件响应与复盘",
+          "outcome": "定义异常上报、停止、恢复及事后验证的触发条件和责任。",
+          "core": false,
+          "pilot": false,
+          "enabled": false,
+          "slug": ""
+        }
+      ]
+    }
+  ],
+  "launch": {
+    "enabledDomains": 2,
+    "publishedTopics": 2,
+    "publishedCards": 4,
+    "plannedTopics": 38,
+    "pilotTopics": ["D2-05", "D3-06"],
+    "coursePath": ["D1-05", "D2-04", "D2-05", "D5-03", "D3-06", "D4-02", "D4-06"]
+  },
+  "recent": [
+    {
+      "date": "2026-11-21",
+      "title": "前三条命中了哪一版？",
+      "domain": "d2",
+      "topic": "retrieval",
+      "card": "check-current-policy"
+    },
+    {
+      "date": "2026-11-21",
+      "title": "版本条件不清，先别调模型",
+      "domain": "d2",
+      "topic": "retrieval",
+      "card": "when-version-ambiguous"
+    },
+    {
+      "date": "2026-11-21",
+      "title": "做 Skill，还是做连接器？",
+      "domain": "d3",
+      "topic": "skills",
+      "card": "skill-or-connector"
+    },
+    {
+      "date": "2026-11-21",
+      "title": "能力可加，权限不可逆",
+      "domain": "d3",
+      "topic": "skills",
+      "card": "read-only-first"
+    }
+  ]
+}
