@@ -9,7 +9,7 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
   <div class="ka-card-head">
     <div class="tagrow">
       <span class="ka-tag" style="--ka-dc: var(--ka-green)">D3-06 · 试点主题</span>
-      <span class="ka-tag plain">判断卡 01 / 02</span>
+      <span class="ka-tag plain">判断卡 01 / 03</span>
       <span class="ka-tag plain">更新 2026-11-21</span>
     </div>
     <h1>做 Skill，还是做连接器？</h1>

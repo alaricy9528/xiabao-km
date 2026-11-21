@@ -9,7 +9,7 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
   <div class="ka-card-head">
     <div class="tagrow">
       <span class="ka-tag" style="--ka-dc: var(--ka-green)">D3-06 · 试点主题</span>
-      <span class="ka-tag plain">判断卡 02 / 02</span>
+      <span class="ka-tag plain">判断卡 02 / 03</span>
       <span class="ka-tag plain">更新 2026-11-21</span>
     </div>
     <h1>能力可加，权限不可逆</h1>
@@ -52,6 +52,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
   </div>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
-    <a class="next" href="learn/d2/" data-no-popover="true"><div class="kn">回到知识域 →</div><div class="kt">D2 知识工程</div></a>
+    <a class="next" href="learn/d3/skills/os-contract-check/" data-no-popover="true"><div class="kn">下一张 →</div><div class="kt">换台机器就跑不通</div></a>
   </nav>
 </div>

@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "lastUpdated": "2026-11-21",
+  "version": 2,
+  "lastUpdated": "2026-11-22",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
   "domains": [
@@ -405,12 +405,19 @@
   "launch": {
     "enabledDomains": 2,
     "publishedTopics": 3,
-    "publishedCards": 4,
+    "publishedCards": 5,
     "plannedTopics": 38,
     "pilotTopics": ["D2-05", "D3-06"],
     "coursePath": ["D1-05", "D2-04", "D2-05", "D5-03", "D3-06", "D4-02", "D4-06"]
   },
   "recent": [
+    {
+      "date": "2026-11-22",
+      "title": "换台机器就跑不通",
+      "domain": "d3",
+      "topic": "skills",
+      "card": "os-contract-check"
+    },
     {
       "date": "2026-11-21",
       "title": "前三条命中了哪一版？",
