@@ -16,6 +16,10 @@ description: D3 智能体工程 · 域页：怎样让智能体完成可验收的
     <a class="ka-topic-row" href="learn/d3/skills/" data-no-popover="true"><span class="kn">D3-06</span><span class="kt">Skills 与能力封装<small>触发条件、步骤、验收与复用边界 · 2 张判断卡</small></span><span class="ko">→</span></a>
   </div>
   <div class="ka-topic-block">
+    <h2><span>+</span> 图文详解</h2>
+    <a class="ka-topic-row" href="posts/agentic-loop/" data-no-popover="true"><span class="kn">D3-01</span><span class="kt">一张动图看懂 Agent 的真实运行机制<small>执行循环、LLM 与运行时分工、回灌与停止条件 · 图文长读</small></span><span class="ko">→</span></a>
+  </div>
+  <div class="ka-topic-block">
     <h2><span>·</span> 规划主题</h2>
     <div class="ka-plan-grid">
       <span class="ka-plan core">D3-01 智能体架构与执行循环</span>

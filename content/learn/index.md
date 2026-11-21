@@ -7,8 +7,8 @@ description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规
 <div class="ai-learn ai-learn--map ka-view ka-view--overview">
   <div class="ka-hero ka-reveal">
     <span class="ka-eyebrow">Knowledge Atlas · v2 · 2026-11-21</span>
-    <h1>把散落的知识点<br>连成一张<span class="acc">知识星图</span></h1>
-    <p>围绕 AI 及其上下游的应用与架构，按认知对象切成五个稳定域。每域下是能教会一项可检验能力的主题，主题里是一张张留下判断的卡片——同一套结构，支撑每日学习、公众号与体系视频。</p>
+    <h1>知识星图</h1>
+    <p>把 AI 知识按认知对象分成五个域，每个域下有若干主题，主题里是一张张解决具体问题、留下明确结论的判断卡。从右侧任一入口进入即可开始。</p>
     <div class="ka-metrics">
       <div class="ka-metric" style="--ka-mc: var(--ka-cyan)"><div class="num" data-ka-count="domains">0</div><div class="cap">已开通域</div></div>
       <div class="ka-metric" style="--ka-mc: var(--ka-violet)"><div class="num" data-ka-count="topics">0</div><div class="cap">已发布主题</div></div>

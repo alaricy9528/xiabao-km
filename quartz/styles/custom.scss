@@ -3185,3 +3185,304 @@ body.ka-active .ka-plan.core {
     font-size: 9.5px;
   }
 }
+
+/* ==================================================================
+   KNOWLEDGE ATLAS · 清爽重构（层外，最终覆盖；追加于文件末尾）
+   设计原则：内容优先，去仪表盘装饰。每张判断卡只有「结论」一个焦点，
+   其余信息按 问题 → 结论 → 证据 → 边界 → 参考 的阅读主线朴素排列。
+   作用域全部限定 body.ka-active，不影响首页与非学习页。
+   ================================================================== */
+
+/* ---- 1. 去掉全站背景网格与发光底纹（网格在 body 与 .ka-view 的 background-image 上） ---- */
+body.ka-active,
+body.ka-active::after,
+body.ka-active::before {
+  background-image: none !important;
+}
+body.ka-active .ka-view {
+  background-image: none !important;
+}
+
+/* ---- 2. 面包屑去重：只保留页面内自绘的 .ka-kp-crumb，隐藏 Quartz 原生条
+       与脚本注入的顶栏 crumb（两者都会各显示一整行，叠加成两三行） ---- */
+body.ka-active .breadcrumb-container,
+body.ka-active .ka-crumb {
+  display: none !important;
+}
+
+/* ---- 3. 批量隐藏装饰元素：英文小字、徽章、编号、图标、进度条、发光点 ---- */
+body.ka-active .ka-eyebrow,
+body.ka-active .ka-sec-head h2 small,
+body.ka-active .ka-sec-head .line,
+body.ka-active .ka-card-head .tagrow,
+body.ka-active .ka-card-question::before,
+body.ka-active .ka-card-conclusion .clabel,
+body.ka-active .ka-card-sec h2 span,
+body.ka-active .ka-topic-block h2 span,
+body.ka-active .ka-dcard .grow-tag,
+body.ka-active .ka-dcard .dico,
+body.ka-active .ka-dcard .ka-bar,
+body.ka-active .ka-atlas-top,
+body.ka-active .ka-atlas-hint,
+body.ka-active .ka-atlas-legend,
+body.ka-active .ka-guide .ka-step .sn,
+body.ka-active .ka-evidence li::before,
+body.ka-active .ka-feed-row .arw {
+  display: none !important;
+}
+
+/* ---- 4. 通用排版：朴素、可读、克制 ---- */
+body.ka-active .ka-kp-crumb {
+  font-family: var(--ka-sans);
+  font-size: 12px;
+  color: var(--ka-faint);
+}
+body.ka-active .ka-kp-crumb span {
+  color: var(--ka-muted);
+}
+body.ka-active .ka-sec-head {
+  margin: 34px 0 16px;
+}
+body.ka-active .ka-sec-head h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ---- 5. 总览页 Hero：去营销腔与渐变，收敛为标题 + 一句话 ---- */
+body.ka-active .ka-hero h1 {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--ka-text);
+}
+body.ka-active .ka-hero h1 .acc {
+  background: none;
+  -webkit-text-fill-color: var(--ka-text);
+  color: var(--ka-text);
+}
+body.ka-active .ka-hero p {
+  max-width: 640px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ka-muted);
+}
+
+/* ---- 6. 指标：从四张大卡收成一行轻量统计 ---- */
+body.ka-active .ka-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ka-line);
+}
+body.ka-active .ka-metric {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+body.ka-active .ka-metric::after {
+  display: none !important;
+}
+body.ka-active .ka-metric .num {
+  display: inline;
+  font-family: var(--ka-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ka-text);
+}
+body.ka-active .ka-metric .cap {
+  display: inline;
+  margin: 0 0 0 6px;
+  font-size: 13px;
+  color: var(--ka-muted);
+}
+
+/* ---- 7. 域卡：去渐变/图标/进度条，保留编号·名称·说明·状态 ---- */
+body.ka-active .ka-dcard {
+  padding: 18px;
+  border: 1px solid var(--ka-line);
+  border-radius: 10px;
+  background: var(--ka-panel);
+}
+body.ka-active .ka-dcard::before,
+body.ka-active .ka-dcard::after {
+  display: none !important;
+}
+body.ka-active .ka-dcard:hover {
+  border-color: var(--ka-line-strong);
+  box-shadow: none;
+  transform: none;
+}
+body.ka-active .ka-dcard .dnum {
+  font-size: 11px;
+  color: var(--ka-faint);
+}
+body.ka-active .ka-dcard h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ka-text);
+}
+body.ka-active .ka-dcard p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ka-muted);
+}
+body.ka-active .ka-dcard .dfoot {
+  color: var(--ka-faint);
+  font-size: 12px;
+}
+
+/* ---- 8. 判断卡头部：问题朴素化 ---- */
+body.ka-active .ka-card-head h1 {
+  font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+body.ka-active .ka-card-question {
+  margin-top: 10px;
+  max-width: 760px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ka-muted);
+}
+
+/* ---- 9. 结论 = 全页唯一焦点 ---- */
+body.ka-active .ka-card-conclusion {
+  display: block;
+  max-width: 820px;
+  margin: 8px 0 30px;
+  padding: 20px 24px 20px 26px;
+  border: 0;
+  border-left: 4px solid var(--ka-cyan);
+  border-radius: 0 10px 10px 0;
+  background: color-mix(in srgb, var(--ka-cyan) 7%, var(--ka-panel));
+}
+body.ka-active .ka-card-conclusion::before {
+  content: "结论";
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ka-cyan);
+}
+body.ka-active .ka-card-conclusion p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--ka-text);
+}
+body.ka-active .ka-card-conclusion em {
+  color: var(--ka-cyan);
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+/* ---- 10. 证据与边界：去卡片框，改朴素分节 ---- */
+body.ka-active .ka-card-grid {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 820px;
+  gap: 26px;
+}
+body.ka-active .ka-card-sec {
+  margin-bottom: 0;
+  padding: 0 0 20px;
+  border: 0;
+  border-bottom: 1px solid var(--ka-line);
+  border-radius: 0;
+  background: transparent;
+}
+body.ka-active .ka-card-sec h2 {
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ka-text);
+}
+body.ka-active .ka-card-sec p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ka-text);
+}
+body.ka-active .ka-evidence li {
+  padding-left: 0;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ka-text);
+}
+body.ka-active .ka-evidence b {
+  color: var(--ka-cyan);
+  font-weight: 600;
+}
+body.ka-active .ka-card-note {
+  padding: 0;
+  border-left: 0;
+  color: var(--ka-faint);
+  font-size: 13px;
+}
+
+/* ---- 11. 参考信息：三块小卡改轻量三列，弱化但不丢信息 ---- */
+body.ka-active .ka-card-aside {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px 24px;
+}
+body.ka-active .ka-aside-card {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+body.ka-active .ka-aside-card h5 {
+  margin-bottom: 8px;
+  font-family: var(--ka-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ka-text);
+  letter-spacing: 0;
+  text-transform: none;
+}
+body.ka-active .ka-aside-card a {
+  font-size: 13px;
+}
+
+/* ---- 12. 主题/域页：行与标签去徽章化 ---- */
+body.ka-active .ka-topic-row .kn {
+  padding: 0;
+  border: 0;
+  font-size: 12px;
+  color: var(--ka-faint);
+}
+body.ka-active .ka-topic-block h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ---- 13. 星图区：只留图，去状态条/图例噪音 ---- */
+body.ka-active .ka-atlas {
+  border-color: var(--ka-line);
+  background: var(--ka-panel);
+}
+body.ka-active .ka-atlas-stage {
+  min-height: 240px;
+}
+
+/* ---- 14. 窄屏：分区保持单列，结论字号略收 ---- */
+@media (max-width: 560px) {
+  body.ka-active .ka-card-conclusion {
+    padding: 16px 18px 16px 20px;
+  }
+  body.ka-active .ka-card-conclusion p {
+    font-size: 16px;
+  }
+  body.ka-active .ka-card-aside {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  body.ka-active .ka-metrics {
+    gap: 6px 18px;
+  }
+}
