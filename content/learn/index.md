@@ -44,8 +44,13 @@ description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规
       <h3>AI 工程与平台</h3><p>把能力接入业务、上线与持续运行：集成、编排、发布与运维。</p>
       <div class="dfoot"><span>8 主题 · 规划中</span><div class="ka-bar"><i style="width:8%"></i></div></div>
     </div>
+    <div class="ka-dcard grow" style="--ka-dc: var(--ka-rot)">
+      <span class="grow-tag">PLANNED</span><div class="dnum">D5 / 05</div>
+      <div class="dico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 5-3.5 7-8 8-4.5-1-8-3-8-8V7z"></path></svg></div>
+      <h3>AI 治理与安全</h3><p>哪些风险需要约束、谁负责、怎样留证。横切前四域。</p>
+      <div class="dfoot"><span>6 主题 · 规划中</span><div class="ka-bar"><i style="width:6%"></i></div></div>
+    </div>
   </div>
-  <div class="ka-dcards-extra ka-reveal"><div class="ka-dcard grow" style="--ka-dc: var(--ka-rot)"><span class="grow-tag">PLANNED</span><div class="dnum">D5 / 05</div><div class="dico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 5-3.5 7-8 8-4.5-1-8-3-8-8V7z"></path></svg></div><h3>AI 治理与安全</h3><p>哪些风险需要约束、谁负责、怎样留证。横切前四域。</p><div class="dfoot"><span>6 主题 · 规划中</span><div class="ka-bar"><i style="width:6%"></i></div></div></div></div>
   <div class="ka-sec-head"><h2>认知星图<small>Interactive Atlas · 五域节点</small></h2><div class="line"></div></div>
   <div class="ka-atlas ka-reveal">
     <div class="ka-atlas-top"><span class="live"><i class="ka-live-dot"></i>LIVE</span><span>/ 五域认知星图 · 点击节点进入</span><span class="spacer"></span><span>悬停探索</span></div>
