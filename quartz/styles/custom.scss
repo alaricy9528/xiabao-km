@@ -206,61 +206,57 @@ body {
   line-height: 1.5;
 }
 
-/* learn 目录下的阶段条目：前置一枚阶段色点，与星座图/时间线同色系。
-   用 href 子串匹配（纯 CSS，SPA 切换后 explorer 重渲染依然生效）。 */
-.explorer a.tree-item-self[href*="s01-"]::before,
-.explorer a.tree-item-self[href*="s02-"]::before,
-.explorer a.tree-item-self[href*="s03-"]::before,
-.explorer a.tree-item-self[href*="s04-"]::before,
-.explorer a.tree-item-self[href*="s05-"]::before,
-.explorer a.tree-item-self[href*="s06-"]::before {
+/* 知识点条目：前置一枚阶段色点，与星座图/时间线同色系。
+   由脚本按真实 URL（/learn/s0X/）打 data-stage —— 旧版用 [href*="s0X-"]
+   子串匹配，但真实 slug 是 s0X/ 斜杠，色点从未生效，已修正。 */
+.explorer a.tree-item-self.ai-enav__kp::before {
   content: "";
   display: inline-block;
   vertical-align: middle;
   flex: none;
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.42rem;
+  height: 0.42rem;
   margin-right: 0.5rem;
   border-radius: 50%;
   background: var(--stage-dot, var(--garden-cyan));
-  box-shadow: 0 0 0.45rem color-mix(in srgb, var(--stage-dot, var(--garden-cyan)) 60%, transparent);
+  box-shadow: 0 0 0.4rem color-mix(in srgb, var(--stage-dot, var(--garden-cyan)) 55%, transparent);
 }
 
-.explorer a.tree-item-self[href*="s01-"] {
+.explorer a.tree-item-self[data-stage="s01"] {
   --stage-dot: #087c89;
 }
-.explorer a.tree-item-self[href*="s02-"] {
+.explorer a.tree-item-self[data-stage="s02"] {
   --stage-dot: #6246c7;
 }
-.explorer a.tree-item-self[href*="s03-"] {
+.explorer a.tree-item-self[data-stage="s03"] {
   --stage-dot: #bb337f;
 }
-.explorer a.tree-item-self[href*="s04-"] {
+.explorer a.tree-item-self[data-stage="s04"] {
   --stage-dot: #0d7a52;
 }
-.explorer a.tree-item-self[href*="s05-"] {
+.explorer a.tree-item-self[data-stage="s05"] {
   --stage-dot: #9a5b00;
 }
-.explorer a.tree-item-self[href*="s06-"] {
+.explorer a.tree-item-self[data-stage="s06"] {
   --stage-dot: #1e5bc9;
 }
 
-:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s01-"] {
+:root[saved-theme="dark"] .explorer a.tree-item-self[data-stage="s01"] {
   --stage-dot: #5df7ff;
 }
-:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s02-"] {
+:root[saved-theme="dark"] .explorer a.tree-item-self[data-stage="s02"] {
   --stage-dot: #9c82ff;
 }
-:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s03-"] {
+:root[saved-theme="dark"] .explorer a.tree-item-self[data-stage="s03"] {
   --stage-dot: #ff79df;
 }
-:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s04-"] {
+:root[saved-theme="dark"] .explorer a.tree-item-self[data-stage="s04"] {
   --stage-dot: #67f6bd;
 }
-:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s05-"] {
+:root[saved-theme="dark"] .explorer a.tree-item-self[data-stage="s05"] {
   --stage-dot: #ffb454;
 }
-:root[saved-theme="dark"] .explorer a.tree-item-self[href*="s06-"] {
+:root[saved-theme="dark"] .explorer a.tree-item-self[data-stage="s06"] {
   --stage-dot: #74a7ff;
 }
 
@@ -726,6 +722,261 @@ body[data-slug="index"] #quartz-body > footer {
   display: block;
   margin: 0;
   font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   学习目录 · 左侧导航框架（脚本 learn-nav.inline.ts 注入 .ai-enav）
+   作用域：explorer-content 内含 .ai-enav 时才生效，其它页面裸树不受影响。
+   目标：原生 Quartz 树太素——加四域入口面板 + 阶段徽章 + 层级语义 + 分支高亮。
+   ========================================================================== */
+
+/* 脚本全站注册，但四域面板只在 learn 页呈现；其它页保持原生树。 */
+body:not([data-slug^="learn"]) .ai-enav {
+  display: none;
+}
+
+/* ---- 四域导航面板 ---- */
+.explorer-content:has(> .ai-enav) {
+  padding-top: 0;
+}
+
+.ai-enav {
+  margin: 0 0 0.85rem;
+  padding: 0.85rem 0.7rem 0.75rem;
+  border: 1px solid var(--garden-line);
+  border-radius: 0.8rem;
+  background:
+    radial-gradient(
+      circle at 90% -10%,
+      color-mix(in srgb, var(--garden-cyan) 12%, transparent),
+      transparent 60%
+    ),
+    var(--garden-surface);
+}
+
+.ai-enav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.ai-enav__mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid color-mix(in srgb, var(--garden-cyan) 45%, transparent);
+  border-radius: 0.55rem;
+  background: color-mix(in srgb, var(--garden-cyan) 12%, transparent);
+  color: var(--garden-cyan);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.ai-enav__brandtext {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.ai-enav__brandtext b {
+  color: var(--garden-ice);
+  font-family: var(--headerFont);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.ai-enav__brandtext small {
+  color: var(--garden-muted);
+  font-family: var(--codeFont);
+  font-size: 0.58rem;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+}
+
+.ai-enav__domains {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ai-enav__dom {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.9rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  color: var(--garden-muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+a.ai-enav__dom:hover {
+  border-color: var(--garden-line);
+  background: color-mix(in srgb, var(--garden-cyan) 8%, transparent);
+}
+
+.ai-enav__dom[aria-disabled="true"] {
+  opacity: 0.62;
+  cursor: default;
+}
+
+.ai-enav__dcode {
+  flex: none;
+  min-width: 1.5rem;
+  color: var(--dom-color, var(--garden-cyan));
+  font-family: var(--codeFont);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ai-enav__dname {
+  flex: 1;
+  color: var(--garden-text);
+  font-weight: 600;
+}
+
+.ai-enav__dom:not(a) .ai-enav__dname {
+  color: var(--garden-muted);
+}
+
+.ai-enav__dnote {
+  flex: none;
+  color: var(--garden-muted);
+  font-family: var(--codeFont);
+  font-size: 0.58rem;
+}
+
+.ai-enav__dom--d1 {
+  --dom-color: var(--garden-cyan);
+}
+.ai-enav__dom--d2 {
+  --dom-color: var(--garden-violet);
+}
+.ai-enav__dom--d3 {
+  --dom-color: var(--garden-magenta);
+}
+.ai-enav__dom--d4 {
+  --dom-color: #0d7a52;
+}
+:root[saved-theme="dark"] .ai-enav__dom--d4 {
+  --dom-color: #67f6bd;
+}
+
+.ai-enav__dom[aria-current="page"] {
+  border-color: color-mix(in srgb, var(--garden-cyan) 55%, transparent);
+  background: color-mix(in srgb, var(--garden-cyan) 13%, transparent);
+}
+.ai-enav__dom[aria-current="page"] .ai-enav__dname {
+  color: var(--garden-ice);
+}
+
+.ai-enav__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.7rem 0 0.15rem;
+  color: var(--garden-muted);
+  font-family: var(--codeFont);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.ai-enav__divider::before,
+.ai-enav__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--garden-line);
+}
+
+/* ---- 树语义化：阶段徽章 / 当前分支高亮 ---- */
+.explorer-content .ai-enav__stage > div > a.folder-button {
+  font-weight: 600;
+}
+
+/* 阶段徽章：S-0X 等宽小方块，颜色由 data-stage 决定 */
+.explorer-content .ai-enav__stage > div > a.folder-button::before {
+  content: attr(data-stage-label);
+  display: inline-block;
+  margin-right: 0.45rem;
+  padding: 0.08rem 0.32rem;
+  border: 1px solid color-mix(in srgb, var(--stage-c, var(--garden-cyan)) 50%, transparent);
+  border-radius: 0.28rem;
+  background: color-mix(in srgb, var(--stage-c, var(--garden-cyan)) 14%, transparent);
+  color: var(--stage-c, var(--garden-cyan));
+  font-family: var(--codeFont);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  vertical-align: middle;
+}
+
+.explorer-content .ai-enav__stage[data-stage="s01"] {
+  --stage-c: #087c89;
+}
+.explorer-content .ai-enav__stage[data-stage="s02"] {
+  --stage-c: #6246c7;
+}
+.explorer-content .ai-enav__stage[data-stage="s03"] {
+  --stage-c: #bb337f;
+}
+.explorer-content .ai-enav__stage[data-stage="s04"] {
+  --stage-c: #0d7a52;
+}
+.explorer-content .ai-enav__stage[data-stage="s05"] {
+  --stage-c: #9a5b00;
+}
+.explorer-content .ai-enav__stage[data-stage="s06"] {
+  --stage-c: #1e5bc9;
+}
+:root[saved-theme="dark"] .explorer-content .ai-enav__stage[data-stage="s01"] {
+  --stage-c: #5df7ff;
+}
+:root[saved-theme="dark"] .explorer-content .ai-enav__stage[data-stage="s02"] {
+  --stage-c: #9c82ff;
+}
+:root[saved-theme="dark"] .explorer-content .ai-enav__stage[data-stage="s03"] {
+  --stage-c: #ff79df;
+}
+:root[saved-theme="dark"] .explorer-content .ai-enav__stage[data-stage="s04"] {
+  --stage-c: #67f6bd;
+}
+:root[saved-theme="dark"] .explorer-content .ai-enav__stage[data-stage="s05"] {
+  --stage-c: #ffb454;
+}
+:root[saved-theme="dark"] .explorer-content .ai-enav__stage[data-stage="s06"] {
+  --stage-c: #74a7ff;
+}
+
+/* 主题文件夹：前置一枚空心方点，弱化于阶段 */
+.explorer-content .ai-enav__topic > div > a.folder-button::before {
+  content: "";
+  display: inline-block;
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-right: 0.5rem;
+  border: 1px solid var(--garden-muted);
+  border-radius: 0.1rem;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+
+/* 当前分支：阶段/主题行加左侧强调条，字色提亮 */
+.explorer-content .folder-container.is-branch > div > a.folder-button {
+  color: var(--garden-ice);
+  box-shadow: inset 2px 0 var(--stage-c, var(--garden-cyan));
 }
 
 /* 移动端目录抽屉顶部的阶段快捷条（脚本注入 .ai-lnav）：
