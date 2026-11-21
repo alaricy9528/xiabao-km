@@ -3603,22 +3603,43 @@ body[data-slug^="posts"] .center article {
   line-height: 1.6;
   color: var(--garden-muted);
 }
-/* 分节：朴素标题 + 分隔线，无卡片框 */
+/* 分节：三级节奏 —— 小标签(h2) / 抓手句(大字) / 解释(小淡) */
 .post-view .post-section {
-  padding: 0 0 20px;
-  margin-bottom: 20px;
+  padding: 0 0 22px;
+  margin-bottom: 22px;
   border-bottom: 1px solid var(--garden-line);
 }
 .post-view .post-section h2 {
-  margin: 0 0 12px;
-  font-size: 17px;
+  margin: 0 0 7px;
+  font-size: 11.5px;
   font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--garden-muted);
+  opacity: 0.9;
+}
+.post-view .post-section h2::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  margin-left: 9px;
+  background: var(--garden-line);
+  vertical-align: 4px;
+}
+/* 抓手句：全页扫读的唯一落点，字号明显压过解释 */
+.post-view .post-key {
+  margin: 0 0 9px;
+  font-size: 17.5px;
+  font-weight: 700;
+  line-height: 1.55;
   color: var(--garden-text);
+  letter-spacing: -0.005em;
 }
 .post-view .post-section p {
-  margin: 0 0 12px;
-  line-height: 1.85;
-  color: var(--garden-text);
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: color-mix(in srgb, var(--garden-text) 76%, var(--garden-muted));
 }
 .post-view .post-section p:last-child {
   margin-bottom: 0;
@@ -3632,11 +3653,102 @@ body[data-slug^="posts"] .center article {
   color: var(--garden-cyan);
   font-weight: 600;
 }
+/* 三行对照表：标签 + 一句话 */
+.post-view .post-list {
+  margin: 2px 0 10px;
+  border-top: 1px solid var(--garden-line);
+}
+.post-view .post-li {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--garden-line);
+}
+.post-view .post-li b {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.65;
+  color: var(--garden-text);
+}
+.post-view .post-li span {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--garden-muted);
+}
+/* 并列条件：一行 chips，替代"目标达成、步数到顶、……"的罗列长句 */
+.post-view .post-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 2px 0 11px;
+}
+.post-view .post-chips span {
+  padding: 4px 11px;
+  border: 1px solid var(--garden-line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--garden-surface) 60%, transparent);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--garden-text);
+}
+/* 收尾判断题：两格对照，全页第二个视觉重点 */
+.post-view .post-verdict {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 26px 0 14px;
+  border: 1px solid var(--garden-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--garden-line);
+}
+.post-view .post-verdict > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 16px;
+  background: var(--garden-surface);
+}
+.post-view .post-verdict b {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--garden-cyan);
+}
+.post-view .post-verdict span {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--garden-muted);
+}
+.post-view .post-tail {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--garden-text);
+}
 @media (max-width: 560px) {
   .post-view .post-conclusion {
     padding: 16px 18px 16px 20px;
   }
   .post-view .post-conclusion p {
     font-size: 15px;
+  }
+  .post-view .post-key {
+    font-size: 16px;
+  }
+  .post-view .post-li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 10px 0;
+  }
+  .post-view .post-li b {
+    font-size: 13px;
+  }
+  .post-view .post-li span {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .post-view .post-verdict {
+    grid-template-columns: 1fr;
   }
 }
