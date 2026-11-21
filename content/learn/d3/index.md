@@ -1,29 +1,24 @@
 ---
 title: D3 智能体工程
 publish: true
-description: D3 智能体工程 · 域页：怎样让智能体完成可验收的任务？10 个主题，首批开通 D3-06 Skills 与能力封装。
+description: D3 智能体工程 · 域页：怎样让智能体完成可验收的任务？10 个主题，已开通 D3-01 智能体架构与执行循环、D3-06 Skills 与能力封装。
 ---
 
 <div class="ai-learn ka-view ka-view--domain">
   <div class="ka-kp-crumb"><span>知识星图</span> / <span>D3 智能体工程</span></div>
   <div class="ka-card-head">
-    <div class="tagrow"><span class="ka-tag" style="--ka-dc: var(--ka-green)">D3 · 已开通</span><span class="ka-tag plain">1 / 10 主题已发布</span></div>
+    <div class="tagrow"><span class="ka-tag" style="--ka-dc: var(--ka-green)">D3 · 已开通</span><span class="ka-tag plain">2 / 10 主题已发布</span></div>
     <h1>智能体工程</h1>
     <p class="lede">核心问题：<em>怎样让智能体完成可验收的任务？</em>本域负责组织任务状态、上下文、能力与工具调用。</p>
   </div>
   <div class="ka-topic-block">
     <h2><span>◆</span> 已发布主题</h2>
+    <a class="ka-topic-row" href="learn/d3/agent-loop/" data-no-popover="true"><span class="kn">D3-01</span><span class="kt">智能体架构与执行循环<small>一圈三步一判定、LLM 与运行时分工、回灌与停止条件 · 2 篇图文详解</small></span><span class="ko">→</span></a>
     <a class="ka-topic-row" href="learn/d3/skills/" data-no-popover="true"><span class="kn">D3-06</span><span class="kt">Skills 与能力封装<small>触发条件、步骤、验收与复用边界 · 2 张判断卡</small></span><span class="ko">→</span></a>
-  </div>
-  <div class="ka-topic-block">
-    <h2><span>+</span> 图文详解</h2>
-    <a class="ka-topic-row" href="posts/agentic-loop" data-no-popover="true"><span class="kn">D3-01</span><span class="kt">一张动图看懂 Agent 的真实运行机制<small>执行循环、LLM 与运行时分工、回灌与停止条件 · 图文长读</small></span><span class="ko">→</span></a>
-    <a class="ka-topic-row" href="posts/agent-architecture" data-no-popover="true"><span class="kn">D3-01</span><span class="kt">Agent 架构：模块再多，圈只有一个<small>六步图错在哪、观察为什么是轴、记忆与工具权限怎么分层 · 图文纠错</small></span><span class="ko">→</span></a>
   </div>
   <div class="ka-topic-block">
     <h2><span>·</span> 规划主题</h2>
     <div class="ka-plan-grid">
-      <span class="ka-plan core">D3-01 智能体架构与执行循环</span>
       <span class="ka-plan">D3-02 智能体运行时</span>
       <span class="ka-plan">D3-03 桌面智能体</span>
       <span class="ka-plan">D3-04 数字员工</span>

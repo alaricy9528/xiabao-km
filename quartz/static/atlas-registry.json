@@ -167,8 +167,8 @@
           "outcome": "画出任务输入、工具调用、状态更新和停止条件。",
           "core": true,
           "pilot": false,
-          "enabled": false,
-          "slug": ""
+          "enabled": true,
+          "slug": "agent-loop"
         },
         {
           "id": "D3-02",
@@ -404,7 +404,7 @@
   ],
   "launch": {
     "enabledDomains": 2,
-    "publishedTopics": 2,
+    "publishedTopics": 3,
     "publishedCards": 4,
     "plannedTopics": 38,
     "pilotTopics": ["D2-05", "D3-06"],

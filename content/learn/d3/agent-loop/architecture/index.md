@@ -7,11 +7,13 @@ tags:
   - Agent
   - 智能体
   - 图解
+aliases:
+  - /posts/agent-architecture
 ---
 
 <div class="post-view">
 <h1>Agent 架构：模块再多，圈只有一个</h1>
-<div class="post-meta"><a href="../learn/d3/" data-no-popover="true">D3-01 智能体架构与执行循环</a><span>图文判断卡</span></div>
+<div class="post-meta"><a href="learn/d3/agent-loop/" data-no-popover="true">D3-01 智能体架构与执行循环</a><span>图文详解</span></div>
 <div class="post-question"><span class="plabel">问题</span><p>一张被转发很多的「AI Agent 完整架构」图，六个模块、方向都对，为什么照着搭还是跑不起来？</p></div>
 <div class="post-conclusion"><span class="plabel">结论</span><p>因为它把环和旁路压成了流水线。<em>Agent 只有一个圈：想清楚、动手、把结果读回来、判断成没成</em>；记忆、工具、协议挂在圈外，刹车独立兜底。</p></div>
 <figure class="post-figure"><img src="agent-architecture.jpg" alt="AI Agent 架构：目标、规划、核心循环、记忆、工具、刹车"><figcaption>一圈三步加一个判定：思考 → 行动 → 观察 → 反思。记忆是旁路，工具是手脚，刹车在圈外兜底</figcaption></figure>

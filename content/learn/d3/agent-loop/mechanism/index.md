@@ -7,11 +7,13 @@ tags:
   - Agent
   - 智能体
   - 图解
+aliases:
+  - /posts/agentic-loop
 ---
 
 <div class="post-view">
 <h1>一张动图看懂 Agent 的真实运行机制</h1>
-<div class="post-meta"><a href="../learn/d3/" data-no-popover="true">D3-01 智能体架构与执行循环</a><span>图文判断卡</span></div>
+<div class="post-meta"><a href="learn/d3/agent-loop/" data-no-popover="true">D3-01 智能体架构与执行循环</a><span>图文详解</span></div>
 <div class="post-question"><span class="plabel">问题</span><p>Agent 到底怎么跑起来的？LLM 和运行时各管哪一段，为什么说「回灌」才是它能自我纠错的关键？</p></div>
 <div class="post-conclusion"><span class="plabel">结论</span><p>它不是一条走完就结束的流水线，而是一个能转很多圈的 <strong>Agentic Loop</strong>：<em>LLM 每轮读上下文做决策，运行时按决策调工具，工具结果连报错一起回灌成下一轮输入</em>。转几圈不写死；所谓「自我纠错」，本质就是这条回灌通道。</p></div>
 <figure class="post-figure"><img src="agentic-loop.gif" alt="Agentic Loop 运行机制动图"><figcaption>一圈四个动作：LLM 决策 → 运行时执行 → 结果回灌 → 回到起点，直到 LLM 判断可以作答</figcaption></figure>

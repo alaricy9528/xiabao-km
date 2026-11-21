@@ -3488,20 +3488,10 @@ body.ka-active .ka-atlas-stage {
 }
 
 /* ==================================================================
-   图文判断卡（posts/*）· 与知识判断卡同一套清爽语言
+   图文详解（learn/dX/<topic>/<article>/）· 与知识判断卡同一套清爽语言
    问题 → 结论(唯一焦点) → 动图证据 → 机制/边界/停止 朴素分节。
-   隐藏 Properties 大面板与 Quartz 原生面包屑，去掉首发元信息。
+   Properties / 面包屑 / 原生标题由 body[data-slug^="learn"] 全局规则隐藏。
    ================================================================== */
-body[data-slug^="posts"] .note-properties,
-body[data-slug^="posts"] .breadcrumb-container,
-body[data-slug^="posts"] .content-meta,
-body[data-slug^="posts"] .article-title {
-  display: none !important;
-}
-/* 图文卡覆盖默认正文背景网格，回到干净面板 */
-body[data-slug^="posts"] .center article {
-  background-image: none !important;
-}
 .post-view {
   max-width: 820px;
   font-size: 15px;

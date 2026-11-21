@@ -21,7 +21,7 @@ description: D3 智能体工程 · 主题 D3-06：为可重复任务写一份 Sk
   </div>
   <div class="ka-topic-block">
     <h2><span>↗</span> 跨域依赖</h2>
-    <p class="ka-topic-note"><b>先学</b> · <a href="learn/d3/" data-no-popover="true">D3-01 智能体架构与执行循环</a>——先懂工具调用与停止条件，再谈能力封装。<br><b>延伸</b> · <a href="learn/d4/" data-no-popover="true">D4-01 智能体开发平台</a>——平台如何注册、发现与管控 Skill。<br><b>风险</b> · <a href="learn/d5/" data-no-popover="true">D5-03 权限、人工审批与动作审计</a>——写入动作如何授权与留痕。</p>
+    <p class="ka-topic-note"><b>先学</b> · <a href="learn/d3/agent-loop/" data-no-popover="true">D3-01 智能体架构与执行循环</a>——先懂工具调用与停止条件，再谈能力封装。<br><b>延伸</b> · <a href="learn/d4/" data-no-popover="true">D4-01 智能体开发平台</a>——平台如何注册、发现与管控 Skill。<br><b>风险</b> · <a href="learn/d5/" data-no-popover="true">D5-03 权限、人工审批与动作审计</a>——写入动作如何授权与留痕。</p>
   </div>
   <nav class="ka-kp-nav"><a class="prev" href="learn/d3/" data-no-popover="true"><div class="kn">← 返回知识域</div><div class="kt">D3 智能体工程</div></a><a class="next" href="learn/" data-no-popover="true"><div class="kn">回到总览 →</div><div class="kt">知识星图</div></a></nav>
 </div>
