@@ -4,107 +4,81 @@ publish: true
 description: 每日知识点（S-01 数学直觉 / 优化与梯度）：一张图看懂梯度下降——梯度指向上坡，参数反着走，步长决定旅程。
 ---
 
-<div class="ai-learn ai-kp">
-  <a class="ai-learn__back" href="learn/s01/optimization/" data-no-popover="true">← 返回主题 · 优化与梯度</a>
-  <p class="ai-eyebrow"><span>DAILY · 2026-10-14</span><span>S-01 / 优化与梯度</span></p>
-  <figure class="ai-kp__fig">
-    <svg viewBox="0 0 560 830" role="img" aria-label="梯度下降信息图：损失面上的下山路径、三步循环与学习率对比" xmlns="http://www.w3.org/2000/svg">
-      <title>梯度下降 · Gradient Descent</title>
-      <defs>
-        <marker id="gd-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="var(--ai-cyan)"></path></marker>
-        <marker id="gd-arrow-up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="var(--ai-amber)"></path></marker>
-      </defs>
-      <text x="24" y="28" fill="var(--ai-muted)" font-size="10.5" letter-spacing="2.2" font-family="monospace">DAILY KNOWLEDGE · S-01 数学直觉 / 优化与梯度</text>
-      <text x="24" y="58" fill="var(--ai-ice)" font-size="25" font-weight="700">梯度下降 <tspan fill="var(--ai-cyan)" font-size="12.5" letter-spacing="1.5">GRADIENT DESCENT</tspan></text>
-      <text x="24" y="80" fill="var(--ai-muted)" font-size="12">模型如何「从错误里学习」？——朝着误差最小的地方，一步一步走下去。</text>
-      <g transform="rotate(-10 210 240)">
-        <ellipse cx="210" cy="240" rx="160" ry="108" fill="none" stroke="var(--ai-line-strong)" stroke-width="1" stroke-dasharray="4 5"></ellipse>
-        <ellipse cx="210" cy="240" rx="124" ry="84" fill="none" stroke="var(--ai-line-strong)" stroke-width="1" stroke-dasharray="4 5"></ellipse>
-        <ellipse cx="210" cy="240" rx="90" ry="60" fill="none" stroke="var(--ai-line-strong)" stroke-width="1.1" stroke-dasharray="4 5" opacity="0.9"></ellipse>
-        <ellipse cx="210" cy="240" rx="56" ry="37" fill="none" stroke="var(--ai-cyan)" stroke-width="1.1" opacity="0.45"></ellipse>
-        <ellipse cx="210" cy="240" rx="25" ry="16" fill="none" stroke="var(--ai-cyan)" stroke-width="1.3" opacity="0.75"></ellipse>
-      </g>
-      <polyline points="345,152 300,184 259,212 232,231" fill="none" stroke="var(--ai-cyan)" stroke-width="2" marker-end="url(#gd-arrow)"></polyline>
-      <circle cx="345" cy="152" r="4.5" fill="var(--ai-amber)"></circle>
-      <circle cx="300" cy="184" r="3.5" fill="var(--ai-cyan)"></circle>
-      <circle cx="259" cy="212" r="3.5" fill="var(--ai-cyan)"></circle>
-      <circle cx="210" cy="240" r="6" fill="var(--ai-green)"></circle>
-      <circle cx="210" cy="240" r="10.5" fill="none" stroke="var(--ai-green)" stroke-width="1" opacity="0.5"></circle>
-      <text x="390" y="132" text-anchor="end" fill="var(--ai-amber)" font-size="10.5">起点 · 随机初始化</text>
-      <line x1="259" y1="212" x2="294" y2="188" stroke="var(--ai-amber)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#gd-arrow-up)"></line>
-      <text x="304" y="205" fill="var(--ai-amber)" font-size="10.5">∇L 上坡</text>
-      <text x="304" y="219" fill="var(--ai-muted)" font-size="9.5">误差上升最快的方向</text>
-      <text x="225" y="174" fill="var(--ai-cyan)" font-size="10.5">走一步：θ ← θ − η·∇L</text>
-      <text x="210" y="282" text-anchor="middle" fill="var(--ai-green)" font-size="11">谷底 · 损失 L 最小</text>
-      <text x="210" y="297" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">梯度 ≈ 0，参数不再移动</text>
-      <text x="46" y="372" fill="var(--ai-muted)" font-size="10" letter-spacing="1">LOSS SURFACE · 损失面等高线</text>
-      <rect x="398" y="104" width="146" height="84" rx="12" fill="var(--ai-panel)" stroke="var(--ai-line-strong)"></rect>
-      <circle cx="420" cy="128" r="11" fill="none" stroke="var(--ai-cyan)" stroke-width="1.4"></circle>
-      <text x="420" y="132" text-anchor="middle" fill="var(--ai-cyan)" font-size="11" font-weight="700">1</text>
-      <text x="438" y="126" fill="var(--ai-ice)" font-size="12.5" font-weight="600">看方向 <tspan fill="var(--ai-muted)" font-size="8.5" letter-spacing="1">GRADIENT</tspan></text>
-      <text x="438" y="147" fill="var(--ai-text)" font-size="10">计算梯度 ∇L(θ)：指向</text>
-      <text x="438" y="163" fill="var(--ai-text)" font-size="10">当前误差上升最快方向</text>
-      <rect x="398" y="198" width="146" height="84" rx="12" fill="var(--ai-panel)" stroke="var(--ai-line-strong)"></rect>
-      <circle cx="420" cy="222" r="11" fill="none" stroke="var(--ai-cyan)" stroke-width="1.4"></circle>
-      <text x="420" y="226" text-anchor="middle" fill="var(--ai-cyan)" font-size="11" font-weight="700">2</text>
-      <text x="438" y="220" fill="var(--ai-ice)" font-size="12.5" font-weight="600">走一步 <tspan fill="var(--ai-muted)" font-size="8.5" letter-spacing="1">UPDATE</tspan></text>
-      <text x="438" y="242" fill="var(--ai-cyan)" font-size="11" font-family="monospace">θ ← θ − η·∇L(θ)</text>
-      <text x="438" y="263" fill="var(--ai-text)" font-size="10">逆梯度走，η 定步幅</text>
-      <rect x="398" y="292" width="146" height="84" rx="12" fill="var(--ai-panel)" stroke="var(--ai-line-strong)"></rect>
-      <circle cx="420" cy="316" r="11" fill="none" stroke="var(--ai-green)" stroke-width="1.4"></circle>
-      <text x="420" y="320" text-anchor="middle" fill="var(--ai-green)" font-size="11" font-weight="700">3</text>
-      <text x="438" y="314" fill="var(--ai-ice)" font-size="12.5" font-weight="600">到谷底 <tspan fill="var(--ai-muted)" font-size="8.5" letter-spacing="1">CONVERGE</tspan></text>
-      <text x="438" y="335" fill="var(--ai-text)" font-size="10">重复 1→2 直到梯度 ≈ 0：</text>
-      <text x="438" y="351" fill="var(--ai-text)" font-size="10">误差最低，学习完成</text>
-      <line x1="24" y1="412" x2="536" y2="412" stroke="var(--ai-line)" stroke-width="1" stroke-dasharray="4 5"></line>
-      <text x="24" y="438" fill="var(--ai-ice)" font-size="13" font-weight="600">学习率 η：步幅决定旅程</text>
-      <path d="M30,462 Q110,526 190,462" fill="none" stroke="var(--ai-line-strong)" stroke-width="1" stroke-dasharray="3 4"></path>
-      <polyline points="42,468 162,472 74,488 134,490 106,494" fill="none" stroke="var(--ai-amber)" stroke-width="1.8"></polyline>
-      <circle cx="42" cy="468" r="3" fill="var(--ai-amber)"></circle>
-      <circle cx="162" cy="472" r="3" fill="var(--ai-amber)"></circle>
-      <circle cx="74" cy="488" r="3" fill="var(--ai-amber)"></circle>
-      <circle cx="134" cy="490" r="3" fill="var(--ai-amber)"></circle>
-      <text x="110" y="524" text-anchor="middle" fill="var(--ai-amber)" font-size="11" font-weight="600">η 太大</text>
-      <text x="110" y="541" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">越过谷底来回震荡，甚至发散</text>
-      <path d="M200,462 Q280,526 360,462" fill="none" stroke="var(--ai-line-strong)" stroke-width="1" stroke-dasharray="3 4"></path>
-      <polyline points="218,466 252,480 269,489 278,494" fill="none" stroke="var(--ai-cyan)" stroke-width="1.8"></polyline>
-      <circle cx="218" cy="466" r="3" fill="var(--ai-cyan)"></circle>
-      <circle cx="252" cy="480" r="3" fill="var(--ai-cyan)"></circle>
-      <circle cx="269" cy="489" r="3" fill="var(--ai-cyan)"></circle>
-      <circle cx="278" cy="494" r="4" fill="var(--ai-green)"></circle>
-      <text x="280" y="524" text-anchor="middle" fill="var(--ai-green)" font-size="11" font-weight="600">η 合适</text>
-      <text x="280" y="541" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">几步就平稳落到谷底</text>
-      <path d="M370,462 Q450,526 530,462" fill="none" stroke="var(--ai-line-strong)" stroke-width="1" stroke-dasharray="3 4"></path>
-      <polyline points="383,467 390,469.5 397,472 404,474.5 411,477 418,479.5 425,482" fill="none" stroke="var(--ai-muted)" stroke-width="1.8"></polyline>
-      <circle cx="383" cy="467" r="2.6" fill="var(--ai-muted)"></circle>
-      <circle cx="397" cy="472" r="2.6" fill="var(--ai-muted)"></circle>
-      <circle cx="411" cy="477" r="2.6" fill="var(--ai-muted)"></circle>
-      <circle cx="425" cy="482" r="2.6" fill="var(--ai-muted)"></circle>
-      <text x="450" y="524" text-anchor="middle" fill="var(--ai-muted)" font-size="11" font-weight="600">η 太小</text>
-      <text x="450" y="541" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">小步蠕动，学得太慢</text>
-      <line x1="24" y1="568" x2="536" y2="568" stroke="var(--ai-line)" stroke-width="1" stroke-dasharray="4 5"></line>
-      <text x="24" y="594" fill="var(--ai-ice)" font-size="13" font-weight="600">把一次「学习」拆开看</text>
-      <rect x="24" y="608" width="150" height="64" rx="12" fill="var(--ai-panel)" stroke="var(--ai-line-strong)"></rect>
-      <text x="99" y="634" text-anchor="middle" fill="var(--ai-ice)" font-size="12" font-weight="600">前向：算误差</text>
-      <text x="99" y="653" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">数据进模型，得损失 L</text>
-      <line x1="174" y1="640" x2="198" y2="640" stroke="var(--ai-cyan)" stroke-width="1.6" marker-end="url(#gd-arrow)"></line>
-      <rect x="205" y="608" width="150" height="64" rx="12" fill="var(--ai-panel)" stroke="var(--ai-line-strong)"></rect>
-      <text x="280" y="634" text-anchor="middle" fill="var(--ai-ice)" font-size="12" font-weight="600">反向：找方向</text>
-      <text x="280" y="653" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">链式法则求出 ∇L(θ)</text>
-      <line x1="355" y1="640" x2="379" y2="640" stroke="var(--ai-cyan)" stroke-width="1.6" marker-end="url(#gd-arrow)"></line>
-      <rect x="386" y="608" width="150" height="64" rx="12" fill="var(--ai-panel)" stroke="var(--ai-line-strong)"></rect>
-      <text x="461" y="634" text-anchor="middle" fill="var(--ai-ice)" font-size="12" font-weight="600">更新：挪参数</text>
-      <text x="461" y="653" text-anchor="middle" fill="var(--ai-muted)" font-size="9.5">θ ← θ − η·∇L(θ)</text>
-      <path d="M461,672 L461,690 L99,690 L99,676" fill="none" stroke="var(--ai-violet)" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#gd-arrow)"></path>
-      <text x="280" y="706" text-anchor="middle" fill="var(--ai-violet)" font-size="9.5">循环亿万次，直到收敛</text>
-      <text x="280" y="790" text-anchor="middle" fill="var(--ai-muted)" font-size="11.5">一句话：<tspan fill="var(--ai-cyan)">梯度是指南针，步长是步伐——「学习」就是无数次下山。</tspan></text>
-    </svg>
-    <figcaption class="ai-kp__cap">上：损失面上的下山路径与三步循环 · 中：步长 η 的三种结局 · 下：一次学习的三个动作。</figcaption>
-  </figure>
-  <div class="ai-kp__text">
-    <p><strong>损失函数 L</strong> 给「模型错得有多离谱」打分，<strong>参数 θ</strong> 决定「模型怎么想」。梯度 ∇L 指向误差上升最快的方向，反过来就是下坡；每一步把参数沿反方向挪一小段（步幅由学习率 η 控制），亿万次重复后，参数滑进谷底、误差最低。深度学习的训练，本质上就是这一个动作的无数次循环。</p>
+<div class="ai-learn ai-kp ka-view ka-view--kp">
+  <div class="ka-kp-crumb"><span>知识星图</span> / <span>D1 智能原理</span> / <span>S01 数学直觉</span> / <span>优化与梯度</span> / 梯度下降</div>
+  <div class="ka-kp-head">
+    <div class="tagrow">
+      <span class="ka-tag" style="--ka-dc: var(--ka-cyan)">DAILY · 2026-10-14</span>
+      <span class="ka-tag plain">S01 / 优化与梯度</span>
+      <span class="ka-tag plain">系列 · 优化入门 1/4</span>
+    </div>
+    <h1>梯度下降 · 一步步走下山</h1>
+    <p class="lede">当参数多到没法一步算最优解时，<b>沿着坡度最陡的方向小步走，重复几千次</b>，就能走到山谷的最低处——这就是几乎所有模型训练的底层动作。</p>
   </div>
-  <nav class="ai-learn__pager" aria-label="知识点导航">
-    <a class="ai-learn__back" href="learn/s01/optimization/" data-no-popover="true">返回主题 · 优化与梯度 →</a>
-  </nav>
+  <div class="ka-kp-grid">
+    <div>
+      <div class="ka-figcard">
+        <div class="fhead"><i class="sig"></i>核心图解 · 一张图看懂机制</div>
+        <svg viewBox="0 0 720 400" role="img" aria-label="梯度下降三段式图解：问题、机制、关键坑，以及学习率步幅对比">
+          <defs><marker id="ka-ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-line-strong)"></path></marker></defs>
+          <rect class="ka-fblock" x="30" y="30" width="200" height="150" rx="12"></rect>
+          <rect class="ka-fblock" x="260" y="30" width="200" height="150" rx="12"></rect>
+          <rect class="ka-fblock" x="490" y="30" width="200" height="150" rx="12"></rect>
+          <text class="ka-fnum" x="52" y="62" style="fill:var(--ka-cyan)">01</text>
+          <text class="ka-fnum" x="282" y="62" style="fill:var(--ka-violet)">02</text>
+          <text class="ka-fnum" x="512" y="62" style="fill:var(--ka-green)">03</text>
+          <text class="ka-ftitle" x="52" y="96">问题</text>
+          <text class="ka-ftext" x="52" y="124">参数上亿，没有公式</text>
+          <text class="ka-ftext" x="52" y="146">能一步算出最优值</text>
+          <text class="ka-ftitle" x="282" y="96">机制</text>
+          <text class="ka-ftext" x="282" y="124">算梯度 → 反方向</text>
+          <text class="ka-ftext" x="282" y="146">小步更新 → 重复</text>
+          <text class="ka-ftitle" x="512" y="96">关键</text>
+          <text class="ka-ftext" x="512" y="124">步子太大跳过谷底</text>
+          <text class="ka-ftext" x="512" y="146">太小又走得过慢</text>
+          <path d="M232 105h24M462 105h24" stroke="var(--ka-line-strong)" stroke-width="2" fill="none" marker-end="url(#ka-ar)"></path>
+          <rect x="30" y="210" width="660" height="160" rx="12" style="fill:color-mix(in srgb, var(--ka-cyan) 6%, var(--ka-panel-solid));stroke:var(--ka-line-strong)"></rect>
+          <text x="60" y="250" style="fill:var(--ka-muted);font-family:var(--ka-mono);font-size:11px;letter-spacing:.1em">学习率 · 决定每一步走多远</text>
+          <text class="ka-fbig" x="60" y="305">0.001</text>
+          <text x="150" y="305" style="fill:var(--ka-muted);font-family:var(--ka-sans);font-size:13px">太小：收敛慢，可能卡在半路</text>
+          <text class="ka-fbig" x="420" y="305" style="fill:var(--ka-amber)">0.1</text>
+          <text x="478" y="305" style="fill:var(--ka-muted);font-family:var(--ka-sans);font-size:13px">太大：来回震荡，越过最优点</text>
+          <text x="60" y="345" style="fill:var(--ka-text);font-family:var(--ka-sans);font-size:14px">一句话：方向由梯度给，节奏由学习率定。</text>
+        </svg>
+        <div class="fcap">图解遵循「问题 → 机制 → 关键坑」三段式，一屏只讲一个问题。</div>
+      </div>
+      <div class="ka-prose">
+        <p>训练模型，本质是给上亿个参数找一组「最合适」的值。参数一多，就不可能像解方程那样一步算出答案。梯度下降给了一个笨但有效的办法：<em>先随便猜一组值，看看往哪个方向调整能让误差变小，就朝那个方向挪一小步</em>，然后重复几万次。</p>
+        <p>这里的「方向」由梯度给出——它大致指向误差上升最快的方向，所以往它的反方向走。「一小步」迈多大，则由<em>学习率</em>控制。这两个量，一个定方向、一个定节奏，是理解几乎所有优化器的钥匙。</p>
+      </div>
+      <div class="ka-kbox">
+        <div class="kt">反直觉的关键点</div>
+        <p>直觉上觉得「步子越大越快到谷底」，其实步子太大会直接越过谷底、在两侧来回弹跳，永远落不下去。所以慢，有时反而更快收敛。</p>
+      </div>
+      <div class="ka-kp-nav">
+        <a class="prev" href="learn/s01/optimization/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">优化与梯度 · 更多知识点</div></a>
+        <a class="next" href="learn/s01/" data-no-popover="true"><div class="kn">下一阶段 →</div><div class="kt">S02 深度学习与神经网络</div></a>
+      </div>
+    </div>
+    <aside>
+      <div class="ka-aside-card">
+        <h5>系列进度 · 优化入门</h5>
+        <div class="ka-ser-row done"><i class="si">✓</i><span>反向传播</span></div>
+        <div class="ka-ser-row cur"><i class="si">2</i><span>梯度下降</span></div>
+        <div class="ka-ser-row"><i class="si">3</i><span>动量与自适应</span></div>
+        <div class="ka-ser-row"><i class="si">4</i><span>实战中的坑</span></div>
+      </div>
+      <div class="ka-aside-card">
+        <h5>相关知识点</h5>
+        <div class="ka-rel-link">学习率调度策略</div>
+        <div class="ka-rel-link">局部最优与鞍点</div>
+        <div class="ka-rel-link">批量与随机梯度</div>
+        <div class="ka-rel-link">梯度消失与爆炸</div>
+      </div>
+      <div class="ka-aside-card">
+        <h5>来源</h5>
+        <div style="font-size:12px;color:var(--ka-muted);line-height:1.7">Goodfellow《Deep Learning》第 4 章；教学共识，多处教材交叉验证。</div>
+      </div>
+    </aside>
+  </div>
 </div>

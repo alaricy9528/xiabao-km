@@ -1,117 +1,70 @@
 ---
-title: AI 技术原理 · 学习目录
+title: 知识星图 · 学习目录
 publish: true
-description: 一张按认知对象铺开的学习地图：四大知识域从智能原理到应用治理，只问为什么与如何运作；每日知识点按主题挂载在域下的阶段里。
+description: 一张按认知对象铺开的知识星图：四大知识域从智能原理到应用治理，只问为什么与如何运作；每日知识点按主题挂载在域下的阶段里，每天 03:00 自动生长。
 ---
 
-<div class="ai-learn ai-learn--map">
-  <a class="ai-learn__back" href="../" data-no-popover="true">← 返回首页</a>
-  <p class="ai-eyebrow"><span>KNOWLEDGE ATLAS</span><span>4 个知识域 · 33 个知识点</span></p>
-  <p class="ai-learn__lede">这张地图写给想搞懂并掌握智能技术的人：只问为什么、如何运作。它按「认知对象」分成四域——先看清智能从哪来，再看知识怎么表示与流动，然后是怎么把智能体搭成系统，最后是怎么落地与治理。工程实践不在这条原理线上——不部署、不服务化、不自己造系统；工程出现的地方，止步于看懂原理。各域的学习单元按日整理挂载到主题之下。</p>
-  <p class="ai-lstats">
-    <span class="ai-lstat"><b>4</b> 知识域</span>
-    <span class="ai-lstat"><b>6</b> 阶段</span>
-    <span class="ai-lstat"><b>24</b> 主题</span>
-    <span class="ai-lstat"><b>33</b> 知识点</span>
-  </p>
-  <section class="ai-domains" aria-label="四大知识域">
-    <a class="ai-domain ai-domain--d1" href="learn/s01/" data-no-popover="true">
-      <span class="ai-domain__idx">D1</span>
-      <span class="ai-domain__body"><span class="ai-domain__name">智能原理</span><span class="ai-domain__q">智能为什么这样运作</span><span class="ai-domain__meta">6 阶段 · 18 系列 · 32 篇 · 已开放</span></span>
-      <span class="ai-domain__arrow" aria-hidden="true">→</span>
-    </a>
-    <div class="ai-domain ai-domain--d2 ai-domain--seed">
-      <span class="ai-domain__idx">D2</span>
-      <span class="ai-domain__body"><span class="ai-domain__name">知识工程</span><span class="ai-domain__q">知识如何被表示与加工</span><span class="ai-domain__meta">本体 · 加工消费 · 生长中</span></span>
-      <span class="ai-domain__arrow" aria-hidden="true">◌</span>
+<div class="ai-learn ai-learn--map ka-view ka-view--overview">
+  <div class="ka-hero ka-reveal">
+    <span class="ka-eyebrow">Knowledge Atlas · v2</span>
+    <h1>把散落的知识点<br>连成一张<span class="acc">知识星图</span></h1>
+    <p>一个每天自我生长的知识宇宙。从原理到工程，从概念到实战——沿着清晰的路径，逐层构建你的认知地图。</p>
+    <div class="ka-metrics">
+      <div class="ka-metric" style="--ka-mc: var(--ka-cyan)"><div class="num" data-ka-count="domains">0</div><div class="cap">知识域</div></div>
+      <div class="ka-metric" style="--ka-mc: var(--ka-violet)"><div class="num" data-ka-count="stages">0</div><div class="cap">认知阶段</div></div>
+      <div class="ka-metric" style="--ka-mc: var(--ka-green)"><div class="num" data-ka-count="topics">0</div><div class="cap">主题</div></div>
+      <div class="ka-metric" style="--ka-mc: var(--ka-amber)"><div class="num" data-ka-count="points">0</div><div class="cap">知识点</div></div>
     </div>
-    <div class="ai-domain ai-domain--d3 ai-domain--seed">
-      <span class="ai-domain__idx">D3</span>
-      <span class="ai-domain__body"><span class="ai-domain__name">智能体工程</span><span class="ai-domain__q">智能体系统如何被搭建</span><span class="ai-domain__meta">开发平台 · Skill · 生长中</span></span>
-      <span class="ai-domain__arrow" aria-hidden="true">◌</span>
-    </div>
-    <div class="ai-domain ai-domain--d4 ai-domain--seed">
-      <span class="ai-domain__idx">D4</span>
-      <span class="ai-domain__body"><span class="ai-domain__name">应用与治理</span><span class="ai-domain__q">智能如何落地、如何被约束</span><span class="ai-domain__meta">落地 · 评测 · 治理 · 生长中</span></span>
-      <span class="ai-domain__arrow" aria-hidden="true">◌</span>
-    </div>
-  </section>
-  <section class="ai-learn__section" aria-label="原理线星座图">
-    <h2 class="ai-learn__h">D1 智能原理 · 六阶段星图</h2>
-    <p class="ai-learn__h-sub">这是一条从数学直觉到前沿边界的认知链。轻移光标星图随之漂移，悬停节点点亮对应阶段，点击直达。</p>
-  </section>
-  <div class="ai-lm" data-ai-lm-chart>
-    <noscript>
-      <p class="ai-lm__fallback">星图需要 JavaScript；下方阶段卡片不受影响。</p>
-    </noscript>
   </div>
-  <ol class="ai-learn__path">
-    <li class="ai-learn__stage">
-      <header><span class="ai-learn__code">S-01</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s01/" data-no-popover="true">数学直觉与学习原理</a></h2></header>
-      <p class="ai-learn__aim">线性代数、概率、优化，与损失、梯度、泛化：一次看懂「模型如何从数据中学会规律」的数学语言。</p>
-      <ul class="ai-ltopics">
-        <li><a class="ai-ltopic" href="learn/s01/optimization/" data-no-popover="true"><span class="ai-ltopic__name">优化与梯度</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s01/compression-prediction/" data-no-popover="true"><span class="ai-ltopic__name">压缩与预测</span><span class="ai-ltopic__n">1 篇</span></a></li>
-      </ul>
-      <a class="ai-lgo" href="learn/s01/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
-    </li>
-    <li class="ai-learn__stage">
-      <header><span class="ai-learn__code">S-02</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s02/" data-no-popover="true">深度学习与神经网络</a></h2></header>
-      <p class="ai-learn__aim">分层表示与反向传播：为什么网络堆得越深，越能长出抽象的智能。</p>
-      <ul class="ai-ltopics">
-        <li><a class="ai-ltopic" href="learn/s02/world-model/" data-no-popover="true"><span class="ai-ltopic__name">世界模型</span><span class="ai-ltopic__n">1 篇</span></a></li>
-      </ul>
-      <a class="ai-lgo" href="learn/s02/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
-    </li>
-    <li class="ai-learn__stage">
-      <header><span class="ai-learn__code">S-03</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s03/" data-no-popover="true">Transformer 与注意力机制</a></h2></header>
-      <p class="ai-learn__aim">注意力、位置编码与 KV 缓存：大模型的核心架构，如何读进并记住上下文。</p>
-      <ul class="ai-ltopics">
-        <li><a class="ai-ltopic" href="learn/s03/moe/" data-no-popover="true"><span class="ai-ltopic__name">稀疏架构与 MoE</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s03/kv-cache/" data-no-popover="true"><span class="ai-ltopic__name">KV 缓存与上下文</span><span class="ai-ltopic__n">2 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s03/sparse-attention/" data-no-popover="true"><span class="ai-ltopic__name">高效注意力与稀疏化</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s03/diffusion-lm/" data-no-popover="true"><span class="ai-ltopic__name">扩散语言模型与并行解码</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s03/linear-attention/" data-no-popover="true"><span class="ai-ltopic__name">线性注意力与状态空间模型</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s03/looped-transformer/" data-no-popover="true"><span class="ai-ltopic__name">循环计算与有效深度</span><span class="ai-ltopic__n">1 篇</span></a></li>
-      </ul>
-      <a class="ai-lgo" href="learn/s03/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
-    </li>
-    <li class="ai-learn__stage">
-      <header><span class="ai-learn__code">S-04</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s04/" data-no-popover="true">大模型训练与对齐</a></h2></header>
-      <p class="ai-learn__aim">预训练、微调、强化学习与对齐：能力如何被炼出来，又被塑造成可用、可信的样子。</p>
-      <ul class="ai-ltopics">
-        <li><a class="ai-ltopic" href="learn/s04/rlvr/" data-no-popover="true"><span class="ai-ltopic__name">可验证奖励与策略优化</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s04/formal-verification/" data-no-popover="true"><span class="ai-ltopic__name">形式化验证与机器可检查证明</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s04/distillation/" data-no-popover="true"><span class="ai-ltopic__name">蒸馏与能力迁移</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s04/reward-hacking/" data-no-popover="true"><span class="ai-ltopic__name">奖励作弊与对齐失效</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s04/pretraining-data/" data-no-popover="true"><span class="ai-ltopic__name">预训练数据与合成数据</span><span class="ai-ltopic__n">1 篇</span></a></li>
-      </ul>
-      <a class="ai-lgo" href="learn/s04/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
-    </li>
-    <li class="ai-learn__stage">
-      <header><span class="ai-learn__code">S-05</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s05/" data-no-popover="true">推理、智能体与记忆</a></h2></header>
-      <p class="ai-learn__aim">推理、工具调用、检索增强、记忆与运行原理：智能在运行时如何被一步步组合出来——看懂原理，不动手造。</p>
-      <ul class="ai-ltopics">
-        <li><a class="ai-ltopic" href="learn/s05/agent-loop/" data-no-popover="true"><span class="ai-ltopic__name">智能体循环</span><span class="ai-ltopic__n">2 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s05/context-engineering/" data-no-popover="true"><span class="ai-ltopic__name">上下文工程</span><span class="ai-ltopic__n">3 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s05/test-time-compute/" data-no-popover="true"><span class="ai-ltopic__name">测试时计算与推理算力</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s05/quantization/" data-no-popover="true"><span class="ai-ltopic__name">数值精度与量化</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s05/agent-memory/" data-no-popover="true"><span class="ai-ltopic__name">智能体记忆</span><span class="ai-ltopic__n">4 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s05/rag/" data-no-popover="true"><span class="ai-ltopic__name">检索增强生成</span><span class="ai-ltopic__n">3 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s05/multi-agent/" data-no-popover="true"><span class="ai-ltopic__name">多智能体协作</span><span class="ai-ltopic__n">1 篇</span></a></li>
-      </ul>
-      <a class="ai-lgo" href="learn/s05/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
-    </li>
-    <li class="ai-learn__stage">
-      <header><span class="ai-learn__code">S-06</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s06/" data-no-popover="true">边界、安全与前沿</a></h2></header>
-      <p class="ai-learn__aim">幻觉、对齐失败、攻防现实与治理：知道 AI 的能力边界在哪里，以及它正在往哪里去。</p>
-      <ul class="ai-ltopics">
-        <li><a class="ai-ltopic" href="learn/s06/isolation/" data-no-popover="true"><span class="ai-ltopic__name">隔离与沙箱</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s06/prompt-injection/" data-no-popover="true"><span class="ai-ltopic__name">提示注入</span><span class="ai-ltopic__n">1 篇</span></a></li>
-        <li><a class="ai-ltopic" href="learn/s06/memory-poisoning/" data-no-popover="true"><span class="ai-ltopic__name">记忆投毒</span><span class="ai-ltopic__n">1 篇</span></a></li>
-      </ul>
-      <a class="ai-lgo" href="learn/s06/" data-no-popover="true">进入阶段<span aria-hidden="true">→</span></a>
-    </li>
+  <div class="ka-sec-head"><h2>四大知识域<small>Domains · 按认知对象切分</small></h2><div class="line"></div><a class="link" href="learn/s01/" data-no-popover="true">查看全景</a></div>
+  <div class="ka-domains ka-reveal">
+    <a class="ka-dcard" href="learn/s01/" style="--ka-dc: var(--ka-cyan)" data-no-popover="true">
+      <div class="dnum">D1 / 01</div>
+      <div class="dico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><ellipse cx="12" cy="12" rx="10" ry="5"></ellipse><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(60 12 12)"></ellipse></svg></div>
+      <h3>智能原理</h3><p>智能为什么这样运作，从数学直觉到大模型架构的底层逻辑。</p>
+      <div class="dfoot"><span>32 篇</span><div class="ka-bar"><i style="width:100%"></i></div></div>
+    </a>
+    <div class="ka-dcard grow" style="--ka-dc: var(--ka-violet)">
+      <span class="grow-tag">GROWING</span><div class="dnum">D2 / 02</div>
+      <div class="dico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="8" cy="7" r="1.5" fill="currentColor"></circle><circle cx="16" cy="12" r="1.5" fill="currentColor"></circle></svg></div>
+      <h3>知识工程</h3><p>知识如何被表示与加工，从本体建模到加工与消费的全流程。</p>
+      <div class="dfoot"><span>筹备中</span><div class="ka-bar"><i style="width:12%"></i></div></div>
+    </div>
+    <div class="ka-dcard grow" style="--ka-dc: var(--ka-green)">
+      <span class="grow-tag">GROWING</span><div class="dnum">D3 / 03</div>
+      <div class="dico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect><path d="M10 7h4v10"></path></svg></div>
+      <h3>智能体工程</h3><p>智能体系统如何被搭建，从运行环境到 Skill 能力单元。</p>
+      <div class="dfoot"><span>筹备中</span><div class="ka-bar"><i style="width:8%"></i></div></div>
+    </div>
+    <div class="ka-dcard grow" style="--ka-dc: var(--ka-amber)">
+      <span class="grow-tag">GROWING</span><div class="dnum">D4 / 04</div>
+      <div class="dico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 5-3.5 7-8 8-4.5-1-8-3-8-8V7z"></path></svg></div>
+      <h3>应用与治理</h3><p>智能如何落地与被约束，安全、对齐与真实场景的治理实践。</p>
+      <div class="dfoot"><span>生长位</span><div class="ka-bar"><i style="width:4%"></i></div></div>
+    </div>
+  </div>
+  <div class="ka-sec-head"><h2>认知星图<small>Interactive Atlas · 点击节点进入</small></h2><div class="line"></div><span class="link">全屏查看</span></div>
+  <div class="ka-atlas ka-reveal">
+    <div class="ka-atlas-top"><span class="live"><i class="ka-live-dot"></i>LIVE</span><span>/ 智能原理 D1 · 六阶段认知链</span><span class="spacer"></span><span>拖拽 · 悬停探索</span></div>
+    <div class="ka-atlas-stage" data-ai-lm-chart><noscript><p>星图需要 JavaScript；下方阶段结构不受影响。</p></noscript></div>
+    <div class="ka-atlas-hint">◈ 沿轨道分布的六个阶段，按认知顺序生长</div>
+    <div class="ka-atlas-legend"><span style="--ka-dc:var(--ka-cyan)"><i></i>原理</span><span style="--ka-dc:var(--ka-violet)"><i></i>架构</span><span style="--ka-dc:var(--ka-green)"><i></i>系统</span><span style="--ka-dc:var(--ka-amber)"><i></i>智能体</span></div>
+  </div>
+  <div class="ka-sec-head"><h2>从这里开始<small>Getting started · 一条清晰的学习路径</small></h2><div class="line"></div></div>
+  <div class="ka-guide ka-reveal">
+    <div class="ka-step"><div class="sn">STEP 01</div><h4>先看全景</h4><p>花 3 分钟扫一眼星图，知道知识版图长什么样。</p></div>
+    <div class="ka-step"><div class="sn">STEP 02</div><h4>选一个域</h4><p>从最关心的知识域切入，不必按顺序，挑感兴趣的。</p></div>
+    <div class="ka-step"><div class="sn">STEP 03</div><h4>读一张卡</h4><p>每个知识点只回答一个问题，5 分钟读懂一个概念。</p></div>
+    <div class="ka-step"><div class="sn">STEP 04</div><h4>跟着系列走</h4><p>知识点按「是什么→怎么运作→何时失效」串成系列。</p></div>
+  </div>
+  <div class="ka-sec-head"><h2>最近生长<small>Latest · 每天 03:00 自动更新</small></h2><div class="line"></div><a class="link" href="learn/s05/rag/" data-no-popover="true">全部知识点</a></div>
+  <div class="ka-feed ka-reveal"></div>
+  <ol class="ai-learn__path" hidden>
+    <li class="ai-learn__stage"><header><span class="ai-learn__code">S-01</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s01/" data-no-popover="true">数学直觉与学习原理</a></h2></header></li>
+    <li class="ai-learn__stage"><header><span class="ai-learn__code">S-02</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s02/" data-no-popover="true">深度学习与神经网络</a></h2></header></li>
+    <li class="ai-learn__stage"><header><span class="ai-learn__code">S-03</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s03/" data-no-popover="true">Transformer 与注意力机制</a></h2></header></li>
+    <li class="ai-learn__stage"><header><span class="ai-learn__code">S-04</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s04/" data-no-popover="true">大模型训练与对齐</a></h2></header></li>
+    <li class="ai-learn__stage"><header><span class="ai-learn__code">S-05</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s05/" data-no-popover="true">推理、智能体与记忆</a></h2></header></li>
+    <li class="ai-learn__stage"><header><span class="ai-learn__code">S-06</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/s06/" data-no-popover="true">边界、安全与前沿</a></h2></header></li>
   </ol>
-  <p class="ai-learn__note">这张地图与首页的六大知识模块互为经纬：模块记录「AI 正在变成什么」的前沿认知，地图规划「AI 如何运作」的学习顺序。四域是认知对象的分类：D1 已开放，D2–D4 随每日知识点整理逐步生长。星图展示 D1 六阶段的关系：阶段骨架保持稳定，知识点按日在各自主题下生长。</p>
 </div>

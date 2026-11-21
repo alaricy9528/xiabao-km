@@ -1,227 +1,216 @@
-/* Learning-map constellation runtime (content/learn/index.md, .ai-learn--map).
-   Renders an interactive SVG star chart of the D1 principle stages:
-   - triple orbit rings + drifting starfield for depth
-   - pointer parallax: the whole constellation drifts with the cursor
-   - hover: node blooms, orbiting pulse rides the link, its stage card lifts
-   - click: smooth-scrolls to the stage card and flashes it
-   Stage data is read from the static DOM (the no-JS skeleton) so the chart
-   can never drift from the page content. All colors use --ai-* tokens so the
-   chart flips correctly in both themes. */
+/* Knowledge Atlas star-chart runtime (content/learn/index.md, .ai-learn--map).
+   Prototype-faithful interactive SVG:
+   - three orbit rings (two counter-rotating) + two flowing light dots
+   - D1 data core at center
+   - six stage nodes on the outer orbit with breathing halos
+   - hover blooms a node; click highlights it and updates the topbar crumb
+   Stage data comes from the hidden .ai-learn__stage skeleton in the DOM, so
+   the chart can never drift from page content. All colors are --ka-* tokens
+   so the chart flips correctly in both themes. Idempotent across SPA nav. */
 
 type LearnWindow = Window & { __aiLearnMapRuntime?: boolean }
 
 const learnWindow = window as LearnWindow
 let learnCleanup: (() => void) | undefined
-let learnGeneration = 0
 
 type StageDatum = {
   code: string
   name: string
-  accent: string
+  count: string
+  color: string
   href: string
+  angle: number
 }
 
-/* Cool single-family ramp built from the .ai-learn token set (NOT --ac-signal,
-   which only exists inside .ai-atlas). color-mix keeps it theme-aware: both
-   the base token and the ice token flip in light mode. */
-const STAGE_ACCENTS = [
-  "var(--ai-cyan)",
-  "var(--ai-violet)",
-  "var(--ai-magenta)",
-  "var(--ai-green)",
-  "var(--ai-amber)",
-  "var(--ai-blue)",
+const STAGE_COLORS = [
+  "var(--ka-cyan)",
+  "var(--ka-violet)",
+  "var(--ka-rot)",
+  "var(--ka-green)",
+  "var(--ka-amber)",
+  "#6fa8ff",
 ]
-
-/* Elliptical orbit for six nodes, sitting on the outer ring
-   (center 520,245 / rx 200 / ry 138), starting top-right, clockwise. */
-const NODE_POSITIONS: Array<{ x: number; y: number }> = [
-  { x: 620, y: 128 },
-  { x: 720, y: 245 },
-  { x: 620, y: 362 },
-  { x: 420, y: 362 },
-  { x: 320, y: 245 },
-  { x: 420, y: 128 },
-]
-
-const CX = 520
-const CY = 245
-
-function readStages(root: HTMLElement): StageDatum[] {
-  const stages = Array.from(root.querySelectorAll<HTMLElement>(".ai-learn__stage"))
-  return stages.map((stage, index) => {
-    const code = stage.querySelector<HTMLElement>(".ai-learn__code")?.textContent?.trim() ?? ""
-    const link = stage.querySelector<HTMLAnchorElement>("a.ai-learn__link")
-    return {
-      code,
-      name: link?.textContent?.trim() ?? "",
-      accent: STAGE_ACCENTS[index % STAGE_ACCENTS.length],
-      href: link?.getAttribute("href") ?? "",
-    }
-  })
+const SHORT_NAME: Record<string, string> = {
+  "S-01": "数学直觉",
+  "S-02": "深度网络",
+  "S-03": "稀疏与MoE",
+  "S-04": "推理效率",
+  "S-05": "记忆与智能体",
+  "S-06": "安全与治理",
 }
+const ANGLES = [-150, -90, -30, 30, 90, 150]
+const CX = 400
+const CY = 210
+const NS = "http://www.w3.org/2000/svg"
 
-function el(NS: string, tag: string, cls?: string): SVGElement {
+function el(tag: string, cls?: string): SVGElement {
   const node = document.createElementNS(NS, tag) as SVGElement
-  if (cls) node.classList.add(cls)
+  if (cls)
+    cls
+      .split(/\s+/)
+      .filter(Boolean)
+      .forEach((c) => node.classList.add(c))
   return node
 }
 
-function buildChart(stages: StageDatum[], reduced: boolean): SVGSVGElement {
-  const NS = "http://www.w3.org/2000/svg"
-  const svg = document.createElementNS(NS, "svg")
-  svg.setAttribute("viewBox", "230 40 580 410")
-  svg.setAttribute("role", "img")
-  svg.setAttribute("aria-label", "智能原理六阶段星图：六个节点沿轨道排布，点击节点跳转到对应阶段")
-  svg.classList.add("ai-lm__svg")
-
-  const drift = el(NS, "g", "ai-lm__drift") as SVGGElement
-  svg.append(drift)
-
-  // Starfield: deterministic pseudo-random dots for depth, no per-frame cost.
-  const stars = el(NS, "g", "ai-lm__stars") as SVGGElement
-  for (let i = 0; i < 46; i++) {
-    const sx = 250 + ((i * 97) % 540)
-    const sy = 60 + ((i * 61) % 370)
-    const star = el(NS, "circle", "ai-lm__star")
-    star.setAttribute("cx", String(sx))
-    star.setAttribute("cy", String(sy))
-    star.setAttribute("r", i % 7 === 0 ? "1.8" : "1.1")
-    if (!reduced) (star as SVGElement).style.setProperty("--d", `${(i % 9) * 380}ms`)
-    stars.append(star)
-  }
-  drift.append(stars)
-
-  // Three concentric orbit rings: the visual "gravity" of the atlas.
-  const orbits = el(NS, "g", "ai-lm__orbits") as SVGGElement
-  ;[
-    { rx: 200, ry: 138, cls: "ai-lm__orbit ai-lm__orbit--outer" },
-    { rx: 128, ry: 88, cls: "ai-lm__orbit ai-lm__orbit--mid" },
-    { rx: 58, ry: 40, cls: "ai-lm__orbit ai-lm__orbit--inner" },
-  ].forEach((o) => {
-    const ellipse = el(NS, "ellipse", "ai-lm__orbit") as SVGEllipseElement
-    ellipse.classList.add(o.cls.split(" ")[1])
-    ellipse.setAttribute("cx", String(CX))
-    ellipse.setAttribute("cy", String(CY))
-    ellipse.setAttribute("rx", String(o.rx))
-    ellipse.setAttribute("ry", String(o.ry))
-    orbits.append(ellipse)
-  })
-  drift.append(orbits)
-
-  // Center data-core: a hub showing the domain count.
-  const core = el(NS, "g", "ai-lm__core") as SVGGElement
-  const coreHalo = el(NS, "circle", "ai-lm__core-halo") as SVGCircleElement
-  coreHalo.setAttribute("cx", String(CX))
-  coreHalo.setAttribute("cy", String(CY))
-  coreHalo.setAttribute("r", "34")
-  const coreDot = el(NS, "circle", "ai-lm__core-dot") as SVGCircleElement
-  coreDot.setAttribute("cx", String(CX))
-  coreDot.setAttribute("cy", String(CY))
-  coreDot.setAttribute("r", "20")
-  const coreLabel = el(NS, "text", "ai-lm__core-label") as SVGTextElement
-  coreLabel.setAttribute("x", String(CX))
-  coreLabel.setAttribute("y", String(CY - 3))
-  coreLabel.setAttribute("text-anchor", "middle")
-  coreLabel.textContent = "D1"
-  const coreSub = el(NS, "text", "ai-lm__core-sub") as SVGTextElement
-  coreSub.setAttribute("x", String(CX))
-  coreSub.setAttribute("y", String(CY + 12))
-  coreSub.setAttribute("text-anchor", "middle")
-  coreSub.textContent = "原理"
-  core.append(coreHalo, coreDot, coreLabel, coreSub)
-  drift.append(core)
-
-  // Links between consecutive stages (closed loop) + a travelling pulse.
-  const links = el(NS, "g", "ai-lm__links") as SVGGElement
-  for (let i = 0; i < stages.length; i++) {
-    const a = NODE_POSITIONS[i]
-    const b = NODE_POSITIONS[(i + 1) % stages.length]
-    if (!a || !b) continue
-    const line = el(NS, "line", "ai-lm__link") as SVGLineElement
-    line.setAttribute("x1", String(a.x))
-    line.setAttribute("y1", String(a.y))
-    line.setAttribute("x2", String(b.x))
-    line.setAttribute("y2", String(b.y))
-    line.style.setProperty("--d", `${i * 260}ms`)
-    links.append(line)
-    if (!reduced) {
-      const pulse = el(NS, "circle", "ai-lm__pulse") as SVGCircleElement
-      pulse.setAttribute("r", "3")
-      pulse.style.setProperty("--d", `${i * 260}ms`)
-      const motion = document.createElementNS(NS, "animateMotion")
-      motion.setAttribute("dur", "4.5s")
-      motion.setAttribute("begin", `${i * 260}ms`)
-      motion.setAttribute("repeatCount", "indefinite")
-      motion.setAttribute("path", `M${a.x},${a.y} L${b.x},${b.y}`)
-      pulse.append(motion)
-      links.append(pulse)
+function readStages(root: HTMLElement): StageDatum[] {
+  const nodes = Array.from(root.querySelectorAll<HTMLElement>(".ai-learn__stage"))
+  return nodes.map((stage, i) => {
+    const code =
+      stage.querySelector<HTMLElement>(".ai-learn__code")?.textContent?.trim() || `S-0${i + 1}`
+    const link = stage.querySelector<HTMLAnchorElement>("a.ai-learn__link")
+    return {
+      code,
+      name: SHORT_NAME[code] || (link?.textContent?.trim() || "").slice(0, 8),
+      count: "",
+      color: STAGE_COLORS[i % STAGE_COLORS.length],
+      href: link?.getAttribute("href") || "",
+      angle: ANGLES[i % ANGLES.length],
     }
+  })
+}
+
+function buildChart(stages: StageDatum[], reduced: boolean): SVGSVGElement {
+  const svg = el("svg", "ka-starmap") as SVGSVGElement
+  svg.setAttribute("viewBox", "0 0 800 420")
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet")
+  svg.setAttribute("role", "img")
+  svg.setAttribute("aria-label", "智能原理六阶段认知星图：沿轨道分布的六个阶段节点，点击进入")
+
+  // Two counter-rotating orbit groups + one static outer ring.
+  const rot1 = el("g", "ka-orbit-rot")
+  const o1 = el("ellipse", "ka-orbit") as SVGEllipseElement
+  o1.setAttribute("cx", String(CX))
+  o1.setAttribute("cy", String(CY))
+  o1.setAttribute("rx", "120")
+  o1.setAttribute("ry", "52")
+  rot1.append(o1)
+  const rot2 = el("g", "ka-orbit-rot rev")
+  const o2 = el("ellipse", "ka-orbit") as SVGEllipseElement
+  o2.setAttribute("cx", String(CX))
+  o2.setAttribute("cy", String(CY))
+  o2.setAttribute("rx", "210")
+  o2.setAttribute("ry", "92")
+  rot2.append(o2)
+  const o3 = el("ellipse", "ka-orbit") as SVGEllipseElement
+  o3.setAttribute("cx", String(CX))
+  o3.setAttribute("cy", String(CY))
+  o3.setAttribute("rx", "300")
+  o3.setAttribute("ry", "140")
+  o3.style.opacity = "0.5"
+  svg.append(rot1, rot2, o3)
+
+  // Link lines from the core to each node.
+  const links = el("g")
+  const positions = stages.map((s) => {
+    const rad = (s.angle * Math.PI) / 180
+    return { x: CX + 285 * Math.cos(rad), y: CY + 128 * Math.sin(rad) }
+  })
+  stages.forEach((_, i) => {
+    const p = positions[i]
+    const line = el("line", "ka-linkline") as SVGLineElement
+    line.setAttribute("x1", String(CX))
+    line.setAttribute("y1", String(CY))
+    line.setAttribute("x2", String(p.x))
+    line.setAttribute("y2", String(p.y))
+    links.append(line)
+  })
+  svg.append(links)
+
+  // Flowing light dots riding the orbits (SVG-native, no JS frames).
+  if (!reduced) {
+    const f1 = el("circle", "ka-flowdot") as SVGCircleElement
+    f1.setAttribute("r", "3")
+    const m1 = document.createElementNS(NS, "animateMotion")
+    m1.setAttribute("dur", "9s")
+    m1.setAttribute("repeatCount", "indefinite")
+    m1.setAttribute("path", "M400,210 m-210,0 a210,92 0 1,1 420,0 a210,92 0 1,1 -420,0")
+    f1.append(m1)
+    const f2 = el("circle", "ka-flowdot") as SVGCircleElement
+    f2.setAttribute("r", "2.5")
+    f2.style.setProperty("fill", "var(--ka-violet)")
+    const m2 = document.createElementNS(NS, "animateMotion")
+    m2.setAttribute("dur", "13s")
+    m2.setAttribute("repeatCount", "indefinite")
+    m2.setAttribute("path", "M400,210 m-300,0 a300,140 0 1,0 600,0 a300,140 0 1,0 -600,0")
+    f2.append(m2)
+    svg.append(f1, f2)
   }
-  drift.append(links)
 
-  // Stage nodes: halo + breathing ring + dot + code + name.
-  stages.forEach((stage, index) => {
-    const pos = NODE_POSITIONS[index]
-    if (!pos) return
-    const anchor = el(NS, "a", "ai-lm__node") as SVGAElement
-    anchor.setAttribute("href", stage.href)
-    anchor.setAttribute("data-stage-index", String(index))
-    anchor.setAttribute("data-router-ignore", "")
-    anchor.style.setProperty("--accent", stage.accent)
-    anchor.style.setProperty("--d", `${index * 90}ms`)
+  // D1 data core.
+  const core = el("g", "ka-core")
+  const glow = el("circle", "glow") as SVGCircleElement
+  glow.setAttribute("cx", String(CX))
+  glow.setAttribute("cy", String(CY))
+  glow.setAttribute("r", "44")
+  const disc = el("circle", "disc") as SVGCircleElement
+  disc.setAttribute("cx", String(CX))
+  disc.setAttribute("cy", String(CY))
+  disc.setAttribute("r", "34")
+  const big = el("text", "big") as SVGTextElement
+  big.setAttribute("x", String(CX))
+  big.setAttribute("y", "208")
+  big.setAttribute("text-anchor", "middle")
+  big.textContent = "D1"
+  const sub = el("text", "sub") as SVGTextElement
+  sub.setAttribute("x", String(CX))
+  sub.setAttribute("y", "224")
+  sub.setAttribute("text-anchor", "middle")
+  sub.textContent = "CORE"
+  core.append(glow, disc, big, sub)
+  svg.append(core)
 
-    const halo = el(NS, "circle", "ai-lm__halo") as SVGCircleElement
-    halo.setAttribute("cx", String(pos.x))
-    halo.setAttribute("cy", String(pos.y))
+  // Six stage nodes.
+  stages.forEach((s, i) => {
+    const p = positions[i]
+    const node = el("g", "ka-node") as SVGGElement
+    node.setAttribute("style", `--ka-nc: ${s.color}`)
+    node.dataset.stageIndex = String(i)
+    node.setAttribute("role", "link")
+    node.setAttribute("tabindex", "0")
+    node.setAttribute("aria-label", `${s.code} ${s.name}`)
+    const halo = el("circle", "halo") as SVGCircleElement
+    halo.setAttribute("cx", String(p.x))
+    halo.setAttribute("cy", String(p.y))
     halo.setAttribute("r", "30")
-
-    const ring = el(NS, "circle", "ai-lm__ring") as SVGCircleElement
-    ring.setAttribute("cx", String(pos.x))
-    ring.setAttribute("cy", String(pos.y))
+    const ring = el("circle", "ring") as SVGCircleElement
+    ring.setAttribute("cx", String(p.x))
+    ring.setAttribute("cy", String(p.y))
     ring.setAttribute("r", "19")
-
-    const dot = el(NS, "circle", "ai-lm__dot") as SVGCircleElement
-    dot.setAttribute("cx", String(pos.x))
-    dot.setAttribute("cy", String(pos.y))
-    dot.setAttribute("r", "10")
-
-    const code = el(NS, "text", "ai-lm__code") as SVGTextElement
-    code.setAttribute("x", String(pos.x))
-    code.setAttribute("y", String(pos.y - 42))
+    const dot = el("circle", "core") as SVGCircleElement
+    dot.setAttribute("cx", String(p.x))
+    dot.setAttribute("cy", String(p.y))
+    dot.setAttribute("r", "6")
+    const code = el("text", "code") as SVGTextElement
+    code.setAttribute("x", String(p.x))
+    code.setAttribute("y", String(p.y - 26))
     code.setAttribute("text-anchor", "middle")
-    code.textContent = stage.code
-
-    const name = el(NS, "text", "ai-lm__name") as SVGTextElement
-    name.setAttribute("x", String(pos.x))
-    name.setAttribute("y", String(pos.y + 54))
+    code.textContent = s.code
+    const name = el("text", "name") as SVGTextElement
+    name.setAttribute("x", String(p.x))
+    name.setAttribute("y", String(p.y + 34))
     name.setAttribute("text-anchor", "middle")
-    name.textContent = stage.name
-
-    anchor.append(halo, ring, dot, code, name)
-    drift.append(anchor)
+    name.textContent = s.name
+    node.append(halo, ring, dot, code, name)
+    svg.append(node)
   })
 
   return svg
 }
 
 function mountLearnMap(): void {
-  const generation = ++learnGeneration
   learnCleanup?.()
   learnCleanup = undefined
   const root = document.querySelector<HTMLElement>(".ai-learn--map")
   if (!root) return
-
-  const stages = readStages(root)
-  if (stages.length === 0) return
-
   const slot = root.querySelector<HTMLElement>("[data-ai-lm-chart]")
   if (!slot) return
+  const stages = readStages(root)
+  if (!stages.length) return
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   const chart = buildChart(stages, reduced)
   slot.replaceChildren(chart)
-  root.classList.add("ai-anim")
 
   const cleanups: Array<() => void> = []
   const cleanup = () => {
@@ -236,79 +225,41 @@ function mountLearnMap(): void {
   learnCleanup = cleanup
   window.addCleanup(cleanup)
 
-  const stageCards = Array.from(root.querySelectorAll<HTMLElement>(".ai-learn__stage"))
-
-  // Hover: brighten the matching stage card while a node is hovered.
-  const onOver = (event: Event) => {
-    const node = (event.target as Element | null)?.closest?.(".ai-lm__node") as
-      SVGAElement | undefined
-    const index = node?.dataset.stageIndex
+  const activate = (node: SVGGElement) => {
+    const index = node.dataset.stageIndex
     if (index === undefined) return
-    stageCards[Number(index)]?.classList.add("is-lit")
-  }
-  const onOut = (event: Event) => {
-    const node = (event.target as Element | null)?.closest?.(".ai-lm__node") as
-      SVGAElement | undefined
-    const index = node?.dataset.stageIndex
-    if (index === undefined) return
-    stageCards[Number(index)]?.classList.remove("is-lit")
-  }
-  chart.addEventListener("pointerover", onOver)
-  chart.addEventListener("pointerout", onOut)
-  cleanups.push(() => {
-    chart.removeEventListener("pointerover", onOver)
-    chart.removeEventListener("pointerout", onOut)
-  })
-
-  // Click: smooth-scroll to the stage card and flash it. Anchors carry
-  // data-router-ignore so the SPA router leaves them alone.
-  const onClick = (event: MouseEvent) => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0)
-      return
-    const node = (event.target as Element | null)?.closest?.(".ai-lm__node") as
-      SVGAElement | undefined
-    if (!node) return
-    const index = Number(node.dataset.stageIndex)
-    const card = stageCards[index]
-    if (!card) return
-    event.preventDefault()
-    event.stopPropagation()
-    card.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" })
-    card.classList.remove("is-flash")
-    void card.offsetWidth
-    card.classList.add("is-flash")
-    const stop = () => card.classList.remove("is-flash")
-    card.addEventListener("animationend", stop, { once: true })
-    cleanups.push(() => card.removeEventListener("animationend", stop))
-  }
-  chart.addEventListener("click", onClick, true)
-  cleanups.push(() => chart.removeEventListener("click", onClick, true))
-
-  // Pointer parallax: constellation drifts against the cursor.
-  if (!reduced) {
-    let pendingFrame = 0
-    let lastEvent: PointerEvent | undefined
-    const onPointerMove = (event: PointerEvent) => {
-      lastEvent = event
-      if (pendingFrame) return
-      pendingFrame = requestAnimationFrame(() => {
-        pendingFrame = 0
-        const e = lastEvent
-        if (!e || generation !== learnGeneration) return
-        const rect = chart.getBoundingClientRect()
-        if (rect.width === 0 || rect.height === 0) return
-        const nx = (e.clientX - rect.left) / rect.width - 0.5
-        const ny = (e.clientY - rect.top) / rect.height - 0.5
-        chart.style.setProperty("--lm-px", `${(nx * -24).toFixed(2)}px`)
-        chart.style.setProperty("--lm-py", `${(ny * -18).toFixed(2)}px`)
-      })
+    chart.querySelectorAll<SVGGElement>(".ka-node").forEach((n) => n.classList.remove("hot"))
+    node.classList.add("hot")
+    const s = stages[Number(index)]
+    if (!s) return
+    const crumb = document.querySelector<HTMLElement>(".ka-crumb")
+    if (crumb) {
+      crumb.innerHTML =
+        `<span>知识星图</span><span class="ka-sep"> / </span>` +
+        `<span>D1 智能原理</span><span class="ka-sep"> / </span>` +
+        `<b>${s.code} ${s.name}</b>`
     }
-    root.addEventListener("pointermove", onPointerMove, { passive: true })
-    cleanups.push(() => {
-      root.removeEventListener("pointermove", onPointerMove)
-      if (pendingFrame) cancelAnimationFrame(pendingFrame)
-    })
   }
+  const onActivateEvent = (event: Event) => {
+    const node = (event.target as Element | null)?.closest?.(".ka-node") as SVGGElement | undefined
+    if (node) activate(node)
+  }
+  const onKey = (event: KeyboardEvent) => {
+    if (event.key !== "Enter" && event.key !== " ") return
+    const node = (event.target as Element | null)?.closest?.(".ka-node") as SVGGElement | undefined
+    if (!node) return
+    event.preventDefault()
+    const s = stages[Number(node.dataset.stageIndex)]
+    if (s?.href) window.location.assign(s.href)
+  }
+  chart.addEventListener("pointerover", onActivateEvent)
+  chart.addEventListener("click", onActivateEvent)
+  chart.addEventListener("keydown", onKey)
+  cleanups.push(() => {
+    chart.removeEventListener("pointerover", onActivateEvent)
+    chart.removeEventListener("click", onActivateEvent)
+    chart.removeEventListener("keydown", onKey)
+  })
 }
 
 if (!learnWindow.__aiLearnMapRuntime) {
