@@ -19,8 +19,8 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 先问数据进不进得来<span class="fhint">左右滑动看图</span></div>
-        <svg viewBox="0 0 640 380" role="img" aria-label="决策流程：现有接口能用就直接写 Skill，读不到数据就先做连接器">
+        <div class="fhead"><i class="sig"></i>核心图解 · 先问数据进不进得来</div>
+        <svg class="fig-w" viewBox="0 0 640 380" role="img" aria-label="决策流程：现有接口能用就直接写 Skill，读不到数据就先做连接器">
           <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
@@ -53,6 +53,35 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
           <text class="ka-ftext" x="400" y="294" style="font-size: 13px">接完再在外面包 Skill</text>
           <text class="ka-fsay" x="320" y="352" text-anchor="middle">先解决数据进不进得来，再谈按什么规则加工</text>
           <defs><marker id="sc-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
+        </svg>
+        <svg class="fig-n" viewBox="0 0 360 496" role="img" aria-label="决策流程：现有接口能用就直接写 Skill，读不到数据就先做连接器">
+          <rect class="ka-fblock" x="14" y="14" width="332" height="118" rx="11"/>
+          <text class="ka-fnum" x="32" y="42" style="fill: var(--ka-cyan)">01 分清</text>
+          <text class="ka-ftitle" x="32" y="78">两层不同事</text>
+          <text class="ka-ftext" x="32" y="104">连接器管数据进来，Skill 管怎么加工</text>
+          <text class="ka-fnum" x="32" y="168" style="fill: var(--ka-amber)">02 判断</text>
+          <rect class="ka-fblock" x="32" y="182" width="296" height="58" rx="10"/>
+          <text class="ka-ftitle" x="48" y="206" style="font-size: 16px">一件重复任务</text>
+          <text class="ka-ftext" x="48" y="228" style="font-size: 13.5px">归类、生成、交付</text>
+          <path d="M180 240v11" stroke="var(--ka-cyan)" stroke-width="2.4" fill="none" opacity="0.6"/>
+          <path d="M175 251l5 8 5-8z" fill="var(--ka-cyan)" opacity="0.6"/>
+          <rect class="ka-fblock" x="32" y="259" width="296" height="58" rx="10" style="stroke: color-mix(in srgb, var(--ka-amber) 45%, transparent)"/>
+          <text class="ka-ftitle" x="48" y="283" style="font-size: 16px">接口够用吗</text>
+          <text class="ka-ftext" x="48" y="305" style="font-size: 13.5px">现有接口能直接读到数据吗</text>
+          <path d="M180 317v9M103 326h154" stroke="var(--ka-cyan)" stroke-width="2.4" fill="none" opacity="0.6"/>
+          <path d="M103 326v6M257 326v6" stroke="var(--ka-cyan)" stroke-width="2.4" fill="none" opacity="0.6"/>
+          <path d="M98 332l5 8 5-8z" fill="var(--ka-cyan)" opacity="0.6"/>
+          <path d="M252 332l5 8 5-8z" fill="var(--ka-cyan)" opacity="0.6"/>
+          <rect class="ka-fblock" x="32" y="340" width="142" height="86" rx="10" style="stroke: color-mix(in srgb, var(--ka-green) 45%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="362" style="fill: var(--ka-green)">够</text>
+          <text class="ka-ftitle" x="48" y="388" style="fill: var(--ka-green); font-size: 16px">写 Skill</text>
+          <text class="ka-ftext" x="48" y="410" style="font-size: 13px">规则、例外、格式</text>
+          <rect class="ka-fblock" x="186" y="340" width="142" height="86" rx="10" style="stroke: color-mix(in srgb, var(--ka-amber) 45%, transparent)"/>
+          <text class="ka-fsmall" x="202" y="362" style="fill: var(--ka-amber)">不够</text>
+          <text class="ka-ftitle" x="202" y="388" style="fill: var(--ka-amber); font-size: 16px">做连接器</text>
+          <text class="ka-ftext" x="202" y="410" style="font-size: 13px">接完再包一层</text>
+          <text class="ka-fsay" x="180" y="456" text-anchor="middle">先解决数据进不进得来</text>
+          <text class="ka-fsay" x="180" y="478" text-anchor="middle">再谈按什么规则加工</text>
         </svg>
         <div class="ka-fcap">读法：这两层不是二选一，是有先后。数据进不来，Skill 写得再漂亮也跑不动；数据能进来，Skill 立刻就能见效。</div>
       </div>

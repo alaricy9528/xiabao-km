@@ -19,8 +19,8 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 假设藏在这五处<span class="fhint">左右滑动看图</span></div>
-        <svg viewBox="0 0 640 400" role="img" aria-label="Skill 的环境假设分散在五处，先静态筛再动态跑，通过率从三成升到三成八">
+        <div class="fhead"><i class="sig"></i>核心图解 · 假设藏在这五处</div>
+        <svg class="fig-w" viewBox="0 0 640 400" role="img" aria-label="Skill 的环境假设分散在五处，先静态筛再动态跑，通过率从三成升到三成八">
           <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
@@ -58,6 +58,43 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
           <text class="ka-fbig" x="490" y="334" text-anchor="middle" style="fill: var(--ka-green)">38.4%</text>
           <text class="ka-fsay" x="320" y="378" text-anchor="middle">1090 个公开 Skill 在三个平台上，能全跑通的只有三成</text>
           <defs><marker id="oc-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
+        </svg>
+        <svg class="fig-n" viewBox="0 0 360 732" role="img" aria-label="Skill 的环境假设分散在五处，先静态筛再动态跑，通过率从三成升到三成八">
+          <rect class="ka-fblock" x="14" y="14" width="332" height="112" rx="11"/>
+          <text class="ka-fnum" x="32" y="42" style="fill: var(--ka-rose)">01 现象</text>
+          <text class="ka-ftitle" x="32" y="78">我这跑得通，换台就报错</text>
+          <text class="ka-ftext" x="32" y="104">第一反应常被记成「模型不行」</text>
+          <rect class="ka-fblock" x="14" y="138" width="332" height="310" rx="11"/>
+          <text class="ka-fnum" x="32" y="166" style="fill: var(--ka-amber)">02 藏身处</text>
+          <text class="ka-ftitle" x="32" y="202">五处写死</text>
+          <text class="ka-ftext" x="32" y="228">环境假设分散在这五个地方</text>
+          <rect class="ka-fblock" x="32" y="244" width="142" height="56" rx="9"/>
+          <text class="ka-fsmall" x="103" y="268" text-anchor="middle">01</text>
+          <text class="ka-ftext" x="103" y="290" text-anchor="middle">命令写法</text>
+          <rect class="ka-fblock" x="186" y="244" width="142" height="56" rx="9"/>
+          <text class="ka-fsmall" x="257" y="268" text-anchor="middle">02</text>
+          <text class="ka-ftext" x="257" y="290" text-anchor="middle">脚本依赖</text>
+          <rect class="ka-fblock" x="32" y="310" width="142" height="56" rx="9"/>
+          <text class="ka-fsmall" x="103" y="334" text-anchor="middle">03</text>
+          <text class="ka-ftext" x="103" y="356" text-anchor="middle">平台声明</text>
+          <rect class="ka-fblock" x="186" y="310" width="142" height="56" rx="9"/>
+          <text class="ka-fsmall" x="257" y="334" text-anchor="middle">04</text>
+          <text class="ka-ftext" x="257" y="356" text-anchor="middle">安装契约</text>
+          <rect class="ka-fblock" x="32" y="376" width="296" height="56" rx="9"/>
+          <text class="ka-fsmall" x="180" y="400" text-anchor="middle">05</text>
+          <text class="ka-ftext" x="180" y="422" text-anchor="middle">入口点</text>
+          <rect class="ka-fblock" x="14" y="460" width="332" height="118" rx="11"/>
+          <text class="ka-fnum" x="32" y="488" style="fill: var(--ka-green)">03 顺序</text>
+          <text class="ka-ftitle" x="32" y="524">先筛再跑</text>
+          <text class="ka-ftext" x="32" y="550">静态对一遍清单，可疑的才真跑</text>
+          <text class="ka-fsmall" x="100" y="612" text-anchor="middle">修之前</text>
+          <text class="ka-fbig" x="100" y="650" text-anchor="middle" style="fill: var(--ka-rose)">30.6%</text>
+          <path d="M158 638h44" stroke="var(--ka-cyan)" stroke-width="2.4" fill="none" opacity="0.6"/>
+          <path d="M202 633l9 5-9 5z" fill="var(--ka-cyan)" opacity="0.6"/>
+          <text class="ka-fsmall" x="262" y="612" text-anchor="middle">修之后</text>
+          <text class="ka-fbig" x="262" y="650" text-anchor="middle" style="fill: var(--ka-green)">38.4%</text>
+          <text class="ka-fsay" x="180" y="690" text-anchor="middle">1090 个公开 Skill 在三个平台上</text>
+          <text class="ka-fsay" x="180" y="712" text-anchor="middle">能全跑通的只有三成</text>
         </svg>
         <div class="ka-fcap">读法：上面五格是「假设藏在哪里」，下面两个数字是「按这个顺序修完，通过率抬了多少」。抬到三成八还是不高——说明它只治环境这一层。</div>
       </div>

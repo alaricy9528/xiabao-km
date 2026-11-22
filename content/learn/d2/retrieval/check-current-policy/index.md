@@ -19,8 +19,8 @@ description: D2-05 知识召回与 RAG · 判断卡：知识中心同时收录�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 顺着管道分三步查<span class="fhint">左右滑动看图</span></div>
-        <svg viewBox="0 0 640 400" role="img" aria-label="检索验收分三步：来源是否进前三、答案对不对、引文指向哪一版">
+        <div class="fhead"><i class="sig"></i>核心图解 · 顺着管道分三步查</div>
+        <svg class="fig-w" viewBox="0 0 640 400" role="img" aria-label="检索验收分三步：来源是否进前三、答案对不对、引文指向哪一版">
           <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
@@ -55,6 +55,28 @@ description: D2-05 知识召回与 RAG · 判断卡：知识中心同时收录�
           <text class="ka-ftext" x="456" y="294">指向作废版就是错</text>
           <text class="ka-fsay" x="320" y="372" text-anchor="middle">三步都过才算合格，哪步挂了就在哪步修</text>
           <defs><marker id="cp-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
+        </svg>
+        <svg class="fig-n" viewBox="0 0 360 574" role="img" aria-label="检索验收分三步：来源是否进前三、答案对不对、引文指向哪一版">
+          <rect class="ka-fblock" x="14" y="14" width="332" height="118" rx="11"/>
+          <text class="ka-fnum" x="32" y="42" style="fill: var(--ka-rose)">01 问题</text>
+          <text class="ka-ftitle" x="32" y="78">两版都像对的</text>
+          <text class="ka-ftext" x="32" y="104">库里同时有现行版和作废版</text>
+          <text class="ka-fnum" x="32" y="172" style="fill: var(--ka-amber)">02 分三步查</text>
+          <text class="ka-ftext" x="32" y="198">来源、答案、引文，不合成一个总分</text>
+          <rect class="ka-fblock" x="32" y="212" width="296" height="92" rx="10" style="stroke: color-mix(in srgb, var(--ka-cyan) 40%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="236" style="fill: var(--ka-cyan)">步 01</text>
+          <text class="ka-ftitle" x="48" y="270">找来源</text>
+          <text class="ka-ftext" x="48" y="292" style="font-size: 13.5px">正确那份进前三？进不去，模型看不到</text>
+          <rect class="ka-fblock" x="32" y="312" width="296" height="92" rx="10" style="stroke: color-mix(in srgb, var(--ka-cyan) 40%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="336" style="fill: var(--ka-cyan)">步 02</text>
+          <text class="ka-ftitle" x="48" y="370">看答案</text>
+          <text class="ka-ftext" x="48" y="392" style="font-size: 13.5px">数字对不对？10 日还是 15 日</text>
+          <rect class="ka-fblock" x="32" y="412" width="296" height="92" rx="10" style="stroke: color-mix(in srgb, var(--ka-cyan) 40%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="436" style="fill: var(--ka-cyan)">步 03</text>
+          <text class="ka-ftitle" x="48" y="470">验引文</text>
+          <text class="ka-ftext" x="48" y="492" style="font-size: 13.5px">引的是哪一版？指向作废版就是错</text>
+          <text class="ka-fsay" x="180" y="534" text-anchor="middle">三步都过才算合格</text>
+          <text class="ka-fsay" x="180" y="556" text-anchor="middle">哪步挂了就在哪步修</text>
         </svg>
         <div class="ka-fcap">读法：检索是一条管道，验收就得顺着管道一段一段看。合成一个「准确率」分数，只会知道坏了，不知道坏在哪。</div>
       </div>

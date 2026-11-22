@@ -19,8 +19,8 @@ description: D2-05 知识召回与 RAG · 判断卡：当题目没有生效时�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 顺序换一下，结论完全不同<span class="fhint">左右滑动看图</span></div>
-        <svg viewBox="0 0 640 400" role="img" aria-label="回归失败时先调模型无效，先补生效时间与适用角色才有判据">
+        <div class="fhead"><i class="sig"></i>核心图解 · 顺序换一下，结论完全不同</div>
+        <svg class="fig-w" viewBox="0 0 640 400" role="img" aria-label="回归失败时先调模型无效，先补生效时间与适用角色才有判据">
           <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
@@ -48,7 +48,32 @@ description: D2-05 知识召回与 RAG · 判断卡：当题目没有生效时�
           <text class="ka-ftext" x="346" y="300">判据有了，才有得比</text>
           <text class="ka-fsay" x="320" y="372" text-anchor="middle">没有唯一正确答案时，任何排序都判不出对错</text>
         </svg>
-        <div class="ka-fcap">读法：左边那条路走到底，你会得到「好像还是不太准」；右边那条走到底，你才知道检索到底行不行。</div>
+        <svg class="fig-n" viewBox="0 0 360 630" role="img" aria-label="回归失败时先调模型无效，先补生效时间与适用角色才有判据">
+          <rect class="ka-fblock" x="14" y="14" width="332" height="118" rx="11"/>
+          <text class="ka-fnum" x="32" y="42" style="fill: var(--ka-rose)">01 现象</text>
+          <text class="ka-ftitle" x="32" y="78">先怀疑模型</text>
+          <text class="ka-ftext" x="32" y="104">回归挂了，第一反应是换模型调参数</text>
+          <rect class="ka-fblock" x="14" y="144" width="332" height="118" rx="11"/>
+          <text class="ka-fnum" x="32" y="172" style="fill: var(--ka-amber)">02 真相</text>
+          <text class="ka-ftitle" x="32" y="208">题目没有标准</text>
+          <text class="ka-ftext" x="32" y="234">没写时点、没写角色，哪个答案都不算错</text>
+          <text class="ka-fnum" x="32" y="302" style="fill: var(--ka-green)">03 两条路</text>
+          <rect class="ka-fblock" x="32" y="316" width="296" height="112" rx="10" style="stroke: color-mix(in srgb, var(--ka-rose) 45%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="340" style="fill: var(--ka-rose)">✗ 现在的顺序</text>
+          <text class="ka-ftitle" x="48" y="372" style="fill: var(--ka-rose)">先调模型</text>
+          <text class="ka-ftext" x="48" y="396" style="font-size: 13.5px">换更大模型、改排序</text>
+          <text class="ka-ftext" x="48" y="416" style="font-size: 13.5px">判据还是缺，错法换个样子</text>
+          <path d="M180 430v12" stroke="var(--ka-cyan)" stroke-width="2.4" fill="none" opacity="0.6"/>
+          <path d="M175 442l5 8 5-8z" fill="var(--ka-cyan)" opacity="0.6"/>
+          <rect class="ka-fblock" x="32" y="452" width="296" height="112" rx="10" style="stroke: color-mix(in srgb, var(--ka-green) 45%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="476" style="fill: var(--ka-green)">✓ 该有的顺序</text>
+          <text class="ka-ftitle" x="48" y="508" style="fill: var(--ka-green)">先补元数据</text>
+          <text class="ka-ftext" x="48" y="532" style="font-size: 13.5px">资料补齐、题目写清条件</text>
+          <text class="ka-ftext" x="48" y="552" style="font-size: 13.5px">判据有了，才有得比</text>
+          <text class="ka-fsay" x="180" y="590" text-anchor="middle">没有唯一正确答案时</text>
+          <text class="ka-fsay" x="180" y="612" text-anchor="middle">任何排序都判不出对错</text>
+        </svg>
+        <div class="ka-fcap">读法：先调模型那条走到底，你会得到「好像还是不太准」；先补元数据那条走到底，你才知道检索到底行不行。</div>
       </div>
       <div class="ka-prose">
         <p>检索答错了，人的第一反应通常是去调参数、换个更大的模型。但如果题目本身没说清「时间是哪个时点、读者是哪个岗位」，那就不存在唯一正确答案——一份资料说 10 天、另一份说 15 天，两份都没标生效时间，模型返回哪个你都判不了对错。这时候调模型，只是把同一个不确定性换个地方发生。</p>

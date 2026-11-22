@@ -4019,15 +4019,39 @@ body.ka-active .ka-view--card .ka-takeaway b {
   color: var(--ka-cyan);
   font-weight: 600;
 }
+/* 窄屏竖版图解：PC 仍是 640×400 横版，≤560px 换成 360 宽的竖排版。
+   竖版按 1:1 铺满（390 视口约 344 可用宽，缩放 0.95），字不再被压小，也不用横滑。 */
+body.ka-active .ka-view--card .ka-figcard svg.fig-n {
+  display: none;
+}
+body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-fnum {
+  font-size: 12.5px;
+}
+body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-ftitle {
+  font-size: 18px;
+}
+body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-ftext {
+  font-size: 14.5px;
+}
+body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-fsmall {
+  font-size: 12.5px;
+}
+body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-fbig {
+  font-size: 30px;
+}
+body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-fsay {
+  font-size: 14.5px;
+}
+
 @media (max-width: 560px) {
   body.ka-active .ka-view--card .ka-figcard {
-    overflow-x: auto;
+    overflow-x: visible;
   }
-  body.ka-active .ka-view--card .ka-figcard svg {
-    min-width: 440px;
+  body.ka-active .ka-view--card .ka-figcard svg.fig-w {
+    display: none;
   }
-  body.ka-active .ka-view--card .ka-figcard .fhint {
-    display: inline;
+  body.ka-active .ka-view--card .ka-figcard svg.fig-n {
+    display: block;
   }
   body.ka-active .ka-view--card .ka-prose {
     font-size: 15px;

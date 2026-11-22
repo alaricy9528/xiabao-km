@@ -19,8 +19,8 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 三档动作怎么分<span class="fhint">左右滑动看图</span></div>
-        <svg viewBox="0 0 640 400" role="img" aria-label="按后果把 Skill 动作分成只读、草稿、外部影响三档，权限只能逐级放开">
+        <div class="fhead"><i class="sig"></i>核心图解 · 三档动作怎么分</div>
+        <svg class="fig-w" viewBox="0 0 640 400" role="img" aria-label="按后果把 Skill 动作分成只读、草稿、外部影响三档，权限只能逐级放开">
           <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
           <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
@@ -59,7 +59,35 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
           <text class="ka-fsay" x="320" y="372" text-anchor="middle">能力可以一级一级加，权限一旦放开就收不回来</text>
           <defs><marker id="ur-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
         </svg>
-        <div class="ka-fcap">读法：从左往右是「做错了能不能撤回」的三个答案——能、要人点一下、不能。档位越靠右，授权要求越高。</div>
+        <svg class="fig-n" viewBox="0 0 360 542" role="img" aria-label="按后果把 Skill 动作分成只读、草稿、外部影响三档，权限只能逐级放开">
+          <rect class="ka-fblock" x="14" y="14" width="332" height="118" rx="11"/>
+          <text class="ka-fnum" x="32" y="42" style="fill: var(--ka-rose)">01 为什么</text>
+          <text class="ka-ftitle" x="32" y="78">演示会变真操作</text>
+          <text class="ka-ftext" x="32" y="104">Skill 一升到写入，做错就落到系统里</text>
+          <text class="ka-fnum" x="32" y="172" style="fill: var(--ka-amber)">02 怎么分档</text>
+          <text class="ka-ftext" x="32" y="198">不看功能多少，看做错能不能回退</text>
+          <rect class="ka-fblock" x="32" y="212" width="296" height="80" rx="10" style="stroke: color-mix(in srgb, var(--ka-green) 45%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="238" style="fill: var(--ka-green)">档 01</text>
+          <text class="ka-ftitle" x="48" y="270" style="fill: var(--ka-green)">只读</text>
+          <text class="ka-ftext" x="136" y="268" style="font-size: 13.5px">查待办、出清单</text>
+          <rect x="250" y="256" width="64" height="24" rx="7" style="fill: color-mix(in srgb, var(--ka-green) 14%, transparent)"/>
+          <text x="282" y="272" text-anchor="middle" style="fill: var(--ka-green); font-size: 11px">可直接跑</text>
+          <rect class="ka-fblock" x="32" y="302" width="296" height="80" rx="10" style="stroke: color-mix(in srgb, var(--ka-amber) 45%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="328" style="fill: var(--ka-amber)">档 02</text>
+          <text class="ka-ftitle" x="48" y="360" style="fill: var(--ka-amber)">草稿</text>
+          <text class="ka-ftext" x="136" y="358" style="font-size: 13.5px">拟回执、改方案</text>
+          <rect x="250" y="346" width="64" height="24" rx="7" style="fill: color-mix(in srgb, var(--ka-amber) 14%, transparent)"/>
+          <text x="282" y="362" text-anchor="middle" style="fill: var(--ka-amber); font-size: 11px">人工确认</text>
+          <rect class="ka-fblock" x="32" y="392" width="296" height="80" rx="10" style="stroke: color-mix(in srgb, var(--ka-rose) 45%, transparent)"/>
+          <text class="ka-fsmall" x="48" y="418" style="fill: var(--ka-rose)">档 03</text>
+          <text class="ka-ftitle" x="48" y="450" style="fill: var(--ka-rose)">外部影响</text>
+          <text class="ka-ftext" x="136" y="448" style="font-size: 13.5px">关待办、发通知</text>
+          <rect x="250" y="436" width="64" height="24" rx="7" style="fill: color-mix(in srgb, var(--ka-rose) 14%, transparent)"/>
+          <text x="282" y="452" text-anchor="middle" style="fill: var(--ka-rose); font-size: 11px">逐次授权</text>
+          <text class="ka-fsay" x="180" y="502" text-anchor="middle">能力可以一级一级加</text>
+          <text class="ka-fsay" x="180" y="524" text-anchor="middle">权限一旦放开就收不回来</text>
+        </svg>
+        <div class="ka-fcap">读法：「做错了能不能撤回」的三个答案依次是——能、要人点一下、不能。越往后，授权要求越高。</div>
       </div>
       <div class="ka-prose">
         <p>Skill 一开始基本都只读：查一下待办、算个数、生成一份清单。这类动作做错了，最多是清单不准，重跑一次就好。但一旦它开始写，性质就变了——关掉一条待办、发出一封通知、提交一个审批，这些在系统里是真实发生过的，撤回往往要走另一套流程，有时候根本撤不回。</p>
