@@ -2876,6 +2876,9 @@ body.ka-active .ka-meta-row b {
 body.ka-active .ka-meta-row b.st-pass {
   color: var(--ka-amber);
 }
+body.ka-active .ka-meta-row b.st-live {
+  color: var(--ka-green);
+}
 body.ka-active .ka-implication {
   color: var(--ka-muted);
   font-size: 12.5px;

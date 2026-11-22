@@ -35,7 +35,7 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
         <h5>卡片状态</h5>
-        <div class="ka-meta-row"><span>复核状态</span><b class="st-pass">草稿 · 待复验</b></div>
+        <div class="ka-meta-row"><span>发布状态</span><b class="st-live">已上线</b></div>
         <div class="ka-meta-row"><span>复核触发</span><b>换机器/换解释器复跑</b></div>
         <div class="ka-meta-row"><span>updated_at</span><b>2026-11-22</b></div>
       </div>

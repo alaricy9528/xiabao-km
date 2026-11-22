@@ -34,7 +34,7 @@ description: D2-05 知识召回与 RAG · 判断卡：当题目没有生效时�
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
         <h5>卡片状态</h5>
-        <div class="ka-meta-row"><span>复核状态</span><b class="st-pass">草稿 · 待复验</b></div>
+        <div class="ka-meta-row"><span>发布状态</span><b class="st-live">已上线</b></div>
         <div class="ka-meta-row"><span>复核触发</span><b>元数据字段或题目口径变化</b></div>
         <div class="ka-meta-row"><span>updated_at</span><b>2026-11-21</b></div>
       </div>
