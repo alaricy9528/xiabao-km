@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "lastUpdated": "2026-11-22",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
@@ -111,7 +111,7 @@
           "outcome": "建立小型检索样本，区分召回遗漏、排序靠后和生成引用问题。",
           "core": true,
           "pilot": true,
-          "enabled": true,
+          "enabled": false,
           "slug": "retrieval"
         },
         {
@@ -167,7 +167,7 @@
           "outcome": "画出任务输入、工具调用、状态更新和停止条件。",
           "core": true,
           "pilot": false,
-          "enabled": true,
+          "enabled": false,
           "slug": "agent-loop"
         },
         {
@@ -403,11 +403,11 @@
     }
   ],
   "launch": {
-    "enabledDomains": 2,
-    "publishedTopics": 3,
-    "publishedCards": 5,
+    "enabledDomains": 1,
+    "publishedTopics": 1,
+    "publishedCards": 1,
     "plannedTopics": 38,
-    "pilotTopics": ["D2-05", "D3-06"],
+    "pilotTopics": ["D3-06"],
     "coursePath": ["D1-05", "D2-04", "D2-05", "D5-03", "D3-06", "D4-02", "D4-06"]
   },
   "recent": [
@@ -417,34 +417,6 @@
       "domain": "d3",
       "topic": "skills",
       "card": "os-contract-check"
-    },
-    {
-      "date": "2026-11-21",
-      "title": "前三条命中了哪一版？",
-      "domain": "d2",
-      "topic": "retrieval",
-      "card": "check-current-policy"
-    },
-    {
-      "date": "2026-11-21",
-      "title": "版本条件不清，先别调模型",
-      "domain": "d2",
-      "topic": "retrieval",
-      "card": "when-version-ambiguous"
-    },
-    {
-      "date": "2026-11-21",
-      "title": "做 Skill，还是做连接器？",
-      "domain": "d3",
-      "topic": "skills",
-      "card": "skill-or-connector"
-    },
-    {
-      "date": "2026-11-21",
-      "title": "能力可加，权限不可逆",
-      "domain": "d3",
-      "topic": "skills",
-      "card": "read-only-first"
     }
   ]
 }

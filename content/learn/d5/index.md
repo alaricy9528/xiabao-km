@@ -21,7 +21,7 @@ description: D5 AI 治理与安全 · 域页：哪些风险需要约束，谁负
       <span class="ka-plan">D5-05 事实可信、引文与解释</span>
       <span class="ka-plan">D5-06 运行风险、事件响应与复盘</span>
     </div>
-    <p class="ka-topic-note">D5-03 与 <a href="learn/d3/skills/read-only-first/" data-no-popover="true">D3-06 只读先行卡</a> 强相关，是首发试点的风险视角。</p>
+    <p class="ka-topic-note">D5-03 与 <a href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a> 强相关，是首发试点的风险视角。</p>
   </div>
   <nav class="ka-kp-nav"><a class="prev" href="learn/d4/" data-no-popover="true"><div class="kn">← 上一域</div><div class="kt">D4 AI 工程与平台</div></a><a class="next" href="learn/" data-no-popover="true"><div class="kn">回到总览 →</div><div class="kt">知识星图</div></a></nav>
 </div>

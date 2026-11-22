@@ -5,11 +5,11 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
 ---
 
 <div class="ai-learn ka-view ka-view--card">
-  <div class="ka-kp-crumb"><span>知识星图</span> / <span>D3 智能体工程</span> / <span>Skills 与能力封装</span> / 判断卡 03</div>
+  <div class="ka-kp-crumb"><span>知识星图</span> / <span>D3 智能体工程</span> / <span>Skills 与能力封装</span> / 判断卡 01</div>
   <div class="ka-card-head">
     <div class="tagrow">
       <span class="ka-tag" style="--ka-dc: var(--ka-green)">D3-06 · 试点主题</span>
-      <span class="ka-tag plain">判断卡 03 / 03</span>
+      <span class="ka-tag plain">判断卡 01 / 01</span>
       <span class="ka-tag plain">更新 2026-11-22</span>
     </div>
     <h1>换台机器就跑不通</h1>
@@ -124,15 +124,14 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
         <h5>关联主题</h5>
-        <a class="ka-rel-link" href="learn/d3/skills/skill-or-connector/" data-no-popover="true">做 Skill 还是做连接器 · 先学</a>
-        <a class="ka-rel-link" href="learn/d3/skills/read-only-first/" data-no-popover="true">能力可加，权限不可逆 · 延伸</a>
         <a class="ka-rel-link" href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a>
+        <a class="ka-rel-link" href="learn/d5/" data-no-popover="true">D5-03 权限、人工审批与动作审计 · 风险</a>
       </div>
     </aside>
   </div>
   <p class="ka-card-meta">复核触发：换机器/换解释器复跑 · 更新 2026-11-22</p>
   <nav class="ka-kp-nav">
-    <a class="prev" href="learn/d3/skills/read-only-first/" data-no-popover="true"><div class="kn">← 上一张</div><div class="kt">能力可加，权限不可逆</div></a>
-    <a class="next" href="learn/d3/skills/" data-no-popover="true"><div class="kn">返回主题 →</div><div class="kt">Skills 与能力封装</div></a>
+    <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
+    <a class="next" href="learn/" data-no-popover="true"><div class="kn">回到总览 →</div><div class="kt">知识星图</div></a>
   </nav>
 </div>

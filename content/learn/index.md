@@ -1,7 +1,7 @@
 ---
 title: 知识星图 · 学习目录
 publish: true
-description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规划主题、判断卡式知识点。首发开通 D2 知识工程与 D3 智能体工程两个试点主题，服务每日学习、公众号与体系视频。
+description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规划主题、判断卡式知识点。当前只开通 D3-06 Skills 与能力封装，其余域主题仍在规划中。
 ---
 
 <div class="ai-learn ai-learn--map ka-view ka-view--overview">
@@ -24,19 +24,19 @@ description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规
       <h3>AI 认知基础</h3><p>模型能力从哪来、应用有哪些约束。极简地基，不做论文科普。</p>
       <div class="dfoot"><span>5 主题 · 规划中</span><div class="ka-bar"><i style="width:6%"></i></div></div>
     </div>
-    <div class="ka-dcard" style="--ka-dc: var(--ka-violet)">
-      <a class="ka-dcard-hit" href="learn/d2/" aria-label="进入知识工程域" data-no-popover="true"></a>
+    <div class="ka-dcard grow" style="--ka-dc: var(--ka-violet)">
+      <span class="grow-tag">PLANNED</span>
       <div class="dnum">D2 / 02</div>
       <div class="dico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="8" cy="7" r="1.5" fill="currentColor"></circle><circle cx="16" cy="12" r="1.5" fill="currentColor"></circle></svg></div>
-      <h3>知识工程</h3><p>把资料加工成可检索、可维护、能追溯的知识。首发试点域。</p>
-      <div class="dfoot"><span>2 卡 · 1/9 主题</span><div class="ka-bar"><i style="width:34%"></i></div></div>
+      <h3>知识工程</h3><p>把资料加工成可检索、可维护、能追溯的知识。</p>
+      <div class="dfoot"><span>9 主题 · 规划中</span><div class="ka-bar"><i style="width:6%"></i></div></div>
     </div>
     <div class="ka-dcard" style="--ka-dc: var(--ka-green)">
       <a class="ka-dcard-hit" href="learn/d3/" aria-label="进入智能体工程域" data-no-popover="true"></a>
       <div class="dnum">D3 / 03</div>
       <div class="dico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect><path d="M10 7h4v10"></path></svg></div>
       <h3>智能体工程</h3><p>让智能体完成可验收的任务：任务状态、上下文、能力与工具调用。首发试点域。</p>
-      <div class="dfoot"><span>3 卡 · 2/10 主题</span><div class="ka-bar"><i style="width:32%"></i></div></div>
+      <div class="dfoot"><span>1 卡 · 1/10 主题</span><div class="ka-bar"><i style="width:18%"></i></div></div>
     </div>
     <div class="ka-dcard grow" style="--ka-dc: var(--ka-amber)">
       <span class="grow-tag">PLANNED</span><div class="dnum">D4 / 04</div>
@@ -65,7 +65,7 @@ description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规
     <div class="ka-step"><div class="sn">STEP 03</div><h4>权限与封装</h4><p>明确读写权限（D5-03），再封装只读 Skill（D3-06）。</p></div>
     <div class="ka-step"><div class="sn">STEP 04</div><h4>接入与运维</h4><p>接入流程与运维（D4-02、D4-06），设定告警与回滚。</p></div>
   </div>
-  <div class="ka-sec-head"><h2>最近生长<small>Latest · 判断卡按更新日期排列</small></h2><div class="line"></div><a class="link" href="learn/d2/retrieval/" data-no-popover="true">试点主题</a></div>
+  <div class="ka-sec-head"><h2>最近生长<small>Latest · 判断卡按更新日期排列</small></h2><div class="line"></div><a class="link" href="learn/d3/skills/" data-no-popover="true">当前主题</a></div>
   <div class="ka-feed ka-reveal"></div>
   <ol class="ai-learn__path" hidden>
     <li class="ai-learn__stage"><header><span class="ai-learn__code">D1</span><h2 class="ai-learn__name"><a class="ai-learn__link" href="learn/d1/" data-no-popover="true">AI 认知基础</a></h2></header></li>
