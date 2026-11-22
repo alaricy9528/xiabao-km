@@ -1,7 +1,7 @@
 ---
 title: Skills 与能力封装 · D3-06
 publish: true
-description: D3 智能体工程 · 主题 D3-06：为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界。试点主题，1 篇知识文章。
+description: D3 智能体工程 · 主题 D3-06：为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界。试点主题，2 篇知识文章。
 ---
 
 <div class="ai-learn ka-view ka-view--topic">
@@ -9,14 +9,15 @@ description: D3 智能体工程 · 主题 D3-06：为可重复任务写一份 Sk
   <div class="ka-card-head">
     <div class="tagrow">
       <span class="ka-tag" style="--ka-dc: var(--ka-green)">D3-06 · 试点主题</span>
-      <span class="ka-tag plain">1 篇知识文章</span>
+      <span class="ka-tag plain">2 篇知识文章</span>
     </div>
     <h1>Skills 与能力封装</h1>
-    <p class="lede">学完能<em>为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界</em>。先把它的运行机制弄明白：为什么它不预先读完、为什么换台机器会失败、为什么它跟 MCP 不是一类东西。</p>
+    <p class="lede">学完能<em>为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界</em>。先把它的运行机制弄明白，再看它跟 MCP 各自负责什么。</p>
   </div>
   <div class="ka-topic-block">
     <h2><span>◆</span> 知识文章</h2>
-    <a class="ka-topic-row" href="learn/d3/skills/skill-runtime/" data-no-popover="true"><span class="kn">01</span><span class="kt">Skill 是怎么跑起来的<small>目录结构、三层加载、与 MCP 的分界</small></span><span class="ko">→</span></a>
+    <a class="ka-topic-row" href="learn/d3/skills/skill-runtime/" data-no-popover="true"><span class="kn">01</span><span class="kt">Skill 是怎么跑起来的<small>目录结构、三层加载、脚本执行</small></span><span class="ko">→</span></a>
+    <a class="ka-topic-row" href="learn/d3/skills/skill-vs-mcp/" data-no-popover="true"><span class="kn">02</span><span class="kt">Skill 和 MCP 差在哪<small>两条链路、两件事、一个任务里怎么接</small></span><span class="ko">→</span></a>
   </div>
   <div class="ka-topic-block">
     <h2><span>↗</span> 跨域依赖</h2>
