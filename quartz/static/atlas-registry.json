@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "lastUpdated": "2026-11-22",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
@@ -413,10 +413,10 @@
   "recent": [
     {
       "date": "2026-11-22",
-      "title": "换台机器就跑不通",
+      "title": "Skill 是怎么跑起来的",
       "domain": "d3",
       "topic": "skills",
-      "card": "os-contract-check"
+      "card": "skill-runtime"
     }
   ]
 }

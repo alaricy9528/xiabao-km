@@ -219,7 +219,7 @@ function renderDomains(reg: Registry, tree: Tree): string {
           html += `<div class="ka-seed">${esc(t.id)} ${esc(t.name)}${t.core ? " · 核心" : ""}</div>`
         }
       }
-      if (cardCount === 0) html += `<div class="ka-seed">判断卡待生长</div>`
+      if (cardCount === 0) html += `<div class="ka-seed">知识文章待生长</div>`
     } else {
       for (const t of d.topics) {
         html += `<div class="ka-seed">${esc(t.id)} ${esc(t.name)}${t.core ? " · 核心" : ""}</div>`

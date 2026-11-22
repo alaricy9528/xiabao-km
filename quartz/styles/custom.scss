@@ -4063,3 +4063,166 @@ body.ka-active .ka-view--card .ka-figcard svg.fig-n .ka-fsay {
     font-size: 14.5px;
   }
 }
+
+/* ==================================================================
+   知识文章页 · ka-view--article（2026-11-22）
+   背景：用户对「判断卡」这个名字、形态、写法都不满意——不要「一个
+   问题 + 一个大结论 + 一堆说明文字」的模板骨架，要的是知识文章：靠
+   流转图 / 运行图 / 架构图 / 关系图把机制讲明白，每张图后面只跟两三
+   句说明。所以单开一层，骨架跟 card 层解耦：
+     · 不用 ka-card-question / ka-card-conclusion / ka-evidence / ka-takeaway
+     · 正文节奏 = 图卡 → 短说明 → 图卡 → 短说明，可以连着放多张图
+   图卡复用 .ka-figcard / .ka-fblock / .ka-fnum / .ka-ftitle / .ka-ftext /
+   .ka-fbig / .ka-fcap 那套全局样式（本文件 2331 行起），这里只补
+   article 层缺的：版心、图卡间距、正文段落、fsmall/fsay 字号，
+   以及 fig-n 的默认隐藏与 ≤560px 切换。
+   ================================================================== */
+body.ka-active .ka-view--article {
+  max-width: 1080px;
+}
+body.ka-active .ka-view--article .ka-art-head {
+  margin-bottom: 30px;
+}
+body.ka-active .ka-view--article .ka-art-head .tagrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+body.ka-active .ka-view--article .ka-art-head h1 {
+  margin: 0 0 14px;
+  font-size: 31px;
+  line-height: 1.34;
+  letter-spacing: -0.01em;
+}
+body.ka-active .ka-view--article .ka-art-lede {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--ka-muted);
+  font-size: 16px;
+  line-height: 1.85;
+}
+body.ka-active .ka-view--article .ka-art-h2 {
+  margin: 54px 0 18px;
+  padding-left: 12px;
+  border-left: 3px solid var(--ka-cyan);
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--ka-text);
+}
+body.ka-active .ka-view--article .ka-art-h2:first-of-type {
+  margin-top: 38px;
+}
+body.ka-active .ka-view--article .ka-figcard {
+  margin: 0 0 20px;
+}
+body.ka-active .ka-view--article .ka-art-note {
+  margin: 0 0 44px;
+  max-width: 74ch;
+  font-size: 16px;
+  line-height: 1.92;
+  color: color-mix(in srgb, var(--ka-text) 90%, var(--ka-muted));
+}
+body.ka-active .ka-view--article .ka-art-note em {
+  font-style: normal;
+  color: var(--ka-cyan);
+  border-bottom: 1px dashed color-mix(in srgb, var(--ka-cyan) 50%, transparent);
+}
+body.ka-active .ka-view--article .ka-art-note code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ka-text) 8%, transparent);
+  font-family: var(--ka-mono);
+  font-size: 0.9em;
+}
+body.ka-active .ka-view--article .ka-fsmall {
+  fill: var(--ka-faint);
+  font-family: var(--ka-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+}
+body.ka-active .ka-view--article .ka-fsay {
+  fill: var(--ka-text);
+  font-family: var(--ka-sans);
+  font-size: 15.5px;
+}
+body.ka-active .ka-view--article .ka-art-src {
+  margin: 50px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--ka-line);
+  color: var(--ka-faint);
+  font-size: 13px;
+  line-height: 1.95;
+}
+body.ka-active .ka-view--article .ka-art-src a {
+  color: var(--ka-muted);
+  border-bottom: 1px solid var(--ka-line-strong);
+}
+body.ka-active .ka-view--article .ka-art-src a:hover {
+  color: var(--ka-cyan);
+}
+body.ka-active .ka-view--article .ka-kp-nav {
+  margin-top: 42px;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n {
+  display: none;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n .ka-fnum {
+  font-size: 12.5px;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n .ka-ftitle {
+  font-size: 18px;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n .ka-ftext {
+  font-size: 14.5px;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n .ka-fsmall {
+  font-size: 12.5px;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n .ka-fbig {
+  font-size: 30px;
+}
+body.ka-active .ka-view--article .ka-figcard svg.fig-n .ka-fsay {
+  font-size: 14.5px;
+}
+
+@media (max-width: 800px) {
+  body.ka-active .ka-view--article .ka-art-head h1 {
+    font-size: 26px;
+  }
+  body.ka-active .ka-view--article .ka-art-h2 {
+    margin-top: 42px;
+    font-size: 17.5px;
+  }
+}
+@media (max-width: 560px) {
+  body.ka-active .ka-view--article .ka-figcard {
+    overflow-x: visible;
+  }
+  body.ka-active .ka-view--article .ka-figcard svg.fig-w {
+    display: none;
+  }
+  body.ka-active .ka-view--article .ka-figcard svg.fig-n {
+    display: block;
+  }
+  body.ka-active .ka-view--article .ka-art-head h1 {
+    font-size: 23px;
+  }
+  body.ka-active .ka-view--article .ka-art-note {
+    margin-bottom: 36px;
+    font-size: 15px;
+  }
+  body.ka-active .ka-view--article .ka-figcard .ka-fcap {
+    font-size: 12.5px;
+  }
+}
+
+/* 主题页原本被第 3 组「批量隐藏装饰」关掉了 tagrow，导致「N 篇知识文章」
+   这类标签根本看不到。这里显式打开——特异性高于那条规则，!important 对
+   !important 时后者胜出。 */
+body.ka-active .ka-view--topic .ka-card-head .tagrow {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
