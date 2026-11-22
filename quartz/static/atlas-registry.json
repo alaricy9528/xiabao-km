@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "lastUpdated": "2026-11-22",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
@@ -67,7 +67,7 @@
       "question": "怎样把资料加工成可检索、可维护、能追溯的知识？",
       "decision": "组织知识、控制质量、定义检索验收",
       "color": "violet",
-      "enabled": true,
+      "enabled": false,
       "topics": [
         {
           "id": "D2-01",
