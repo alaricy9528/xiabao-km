@@ -1230,6 +1230,7 @@ body.ka-active {
   --ka-violet: #a78bfa;
   --ka-green: #34d399;
   --ka-amber: #fbbf24;
+  --ka-rose: #fb7185;
   --ka-rot: #f472b6;
   --ka-ease: cubic-bezier(0.22, 1, 0.36, 1);
   background-color: var(--ka-bg);
@@ -1249,6 +1250,7 @@ body.ka-active {
   --ka-violet: #7c5ce0;
   --ka-green: #0f9d6a;
   --ka-amber: #c9860b;
+  --ka-rose: #d92d5c;
   --ka-rot: #d84f92;
 }
 
@@ -2366,13 +2368,13 @@ a.ka-dcard-hit {
 .ka-ftitle {
   fill: var(--ka-text);
   font-family: var(--ka-sans);
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 17.5px;
+  font-weight: 700;
 }
 .ka-ftext {
   fill: var(--ka-muted);
   font-family: var(--ka-sans);
-  font-size: 12.5px;
+  font-size: 14px;
 }
 .ka-fbig {
   fill: var(--ka-cyan);
@@ -3950,19 +3952,104 @@ body.ka-active .ka-view--card .ka-card-note {
 }
 
 /* 末段（边界与行动 / 复验与行动）收成一块「行动卡」，与证据区分开层次 */
-body.ka-active .ka-view--card .ka-card-main .ka-card-sec:nth-child(2) {
+body.ka-active .ka-view--card .ka-card-main .ka-card-sec--action {
   padding: 20px 24px;
   border: 1px solid var(--ka-line);
   border-left: 3px solid var(--ka-cyan);
   border-radius: 10px;
   background: color-mix(in srgb, var(--ka-cyan) 4%, transparent);
 }
-body.ka-active .ka-view--card .ka-card-main .ka-card-sec:nth-child(2) h2 {
+body.ka-active .ka-view--card .ka-card-main .ka-card-sec--action h2 {
   margin-bottom: 12px;
   color: var(--ka-text);
 }
-body.ka-active .ka-view--card .ka-card-main .ka-card-sec:nth-child(2) p {
+body.ka-active .ka-view--card .ka-card-main .ka-card-sec--action p {
   max-width: none;
   font-size: 15.5px;
   line-height: 1.85;
+}
+
+/* ==================================================================
+   判断卡页 v4 · 图解讲解层（2026-11-22）
+   用户反馈：说好的「先用图通俗讲解、最后总结」，v2 换血后页面上图没了。
+   既有 .ka-figcard / .ka-fblock / .ka-ftitle / .ka-prose 样式一直都在
+   （见本文件 2330 行起），只是没被页面用起来。这里只补三件缺的东西：
+   手机端滑动提示、总结块、图内两个小字号类；并微调图内正文可读性。
+   ================================================================== */
+body.ka-active .ka-view--card .ka-figcard {
+  margin: 0 0 28px;
+}
+body.ka-active .ka-view--card .ka-figcard .fhint {
+  display: none;
+  margin-left: auto;
+  color: var(--ka-cyan);
+  font-size: 11px;
+  letter-spacing: 0;
+}
+body.ka-active .ka-view--card .ka-fsmall {
+  fill: var(--ka-faint);
+  font-family: var(--ka-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+body.ka-active .ka-view--card .ka-fsay {
+  fill: var(--ka-text);
+  font-family: var(--ka-sans);
+  font-size: 16px;
+}
+body.ka-active .ka-view--card .ka-prose {
+  max-width: 76ch;
+  margin: 0 0 30px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+body.ka-active .ka-view--card .ka-takeaway {
+  margin: 32px 0 0;
+  padding: 20px 24px;
+  border: 1px solid color-mix(in srgb, var(--ka-cyan) 26%, transparent);
+  border-left: 3px solid var(--ka-cyan);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ka-cyan) 7%, transparent);
+}
+body.ka-active .ka-view--card .ka-takeaway h5 {
+  margin: 0 0 10px;
+  color: var(--ka-cyan);
+  font-family: var(--ka-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+body.ka-active .ka-view--card .ka-takeaway p {
+  max-width: none;
+  color: var(--ka-text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+body.ka-active .ka-view--card .ka-takeaway p + p {
+  margin-top: 10px;
+}
+body.ka-active .ka-view--card .ka-takeaway b {
+  color: var(--ka-cyan);
+  font-weight: 600;
+}
+@media (max-width: 560px) {
+  body.ka-active .ka-view--card .ka-figcard {
+    overflow-x: auto;
+  }
+  body.ka-active .ka-view--card .ka-figcard svg {
+    min-width: 440px;
+  }
+  body.ka-active .ka-view--card .ka-figcard .fhint {
+    display: inline;
+  }
+  body.ka-active .ka-view--card .ka-prose {
+    font-size: 15px;
+  }
+  body.ka-active .ka-view--card .ka-takeaway {
+    padding: 16px 18px;
+  }
+  body.ka-active .ka-view--card .ka-takeaway p {
+    font-size: 14.5px;
+  }
 }
