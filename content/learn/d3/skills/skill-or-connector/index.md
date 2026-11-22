@@ -86,10 +86,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
         <a class="ka-rel-link" href="learn/d3/skills/read-only-first/" data-no-popover="true">只读先行 · 风险</a>
         <a class="ka-rel-link" href="learn/d5/" data-no-popover="true">D5-03 权限与动作审计 · 风险</a>
       </div>
-      <div class="ka-aside-card">
-        <h5>对我工作的意义</h5>
-        <p class="ka-implication">统一待办集成里，先沉淀可复用 Skill 比先堆连接器更快见效，也更安全。</p>
-      </div>
     </aside>
   </div>
   <p class="ka-card-meta">复核触发：Skill/MCP 规范更新或接口变更 · 更新 2026-11-21</p>

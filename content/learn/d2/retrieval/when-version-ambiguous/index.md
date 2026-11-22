@@ -79,10 +79,6 @@ description: D2-05 知识召回与 RAG · 判断卡：当题目没有生效时�
         <a class="ka-rel-link" href="learn/d2/retrieval/" data-no-popover="true">D2-05 知识召回与 RAG</a>
         <a class="ka-rel-link" href="learn/d2/" data-no-popover="true">D2-06 元数据与标签 · 延伸</a>
       </div>
-      <div class="ka-aside-card">
-        <h5>对我工作的意义</h5>
-        <p class="ka-implication">统一待办、BPM 流程制度常有多版本并存；先治理元数据，检索验收才有意义。</p>
-      </div>
     </aside>
   </div>
   <p class="ka-card-meta">复核触发：元数据字段或题目口径变化 · 更新 2026-11-21</p>

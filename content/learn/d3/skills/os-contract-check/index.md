@@ -91,10 +91,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
         <a class="ka-rel-link" href="learn/d3/skills/read-only-first/" data-no-popover="true">能力可加，权限不可逆 · 延伸</a>
         <a class="ka-rel-link" href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a>
       </div>
-      <div class="ka-aside-card">
-        <h5>对我工作的意义</h5>
-        <p class="ka-implication">统一待办、钉钉导出这类 SKILL.md，顶部先写清运行环境与冒烟命令，换环境复跑进上线验收清单。</p>
-      </div>
     </aside>
   </div>
   <p class="ka-card-meta">复核触发：换机器/换解释器复跑 · 更新 2026-11-22</p>

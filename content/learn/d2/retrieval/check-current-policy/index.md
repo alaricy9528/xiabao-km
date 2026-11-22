@@ -88,10 +88,6 @@ description: D2-05 知识召回与 RAG · 判断卡：知识中心同时收录�
         <a class="ka-rel-link" href="learn/d4/" data-no-popover="true">D4-04 RAG 应用交付 · 延伸</a>
         <a class="ka-rel-link" href="learn/d5/" data-no-popover="true">D5-05 事实可信与引文 · 风险</a>
       </div>
-      <div class="ka-aside-card">
-        <h5>对我工作的意义</h5>
-        <p class="ka-implication">知识中心升级时，把「版本召回正确率」做成可回归的验收项，而不是上线后靠人工发现问题。</p>
-      </div>
     </aside>
   </div>
   <p class="ka-card-meta">复核触发：索引或检索参数变更 · 更新 2026-11-21</p>

@@ -2881,11 +2881,6 @@ body.ka-active .ka-meta-row b.st-pass {
 body.ka-active .ka-meta-row b.st-live {
   color: var(--ka-green);
 }
-body.ka-active .ka-implication {
-  color: var(--ka-muted);
-  font-size: 12.5px;
-  line-height: 1.6;
-}
 
 /* ---- 主题页 / 域页 ---- */
 body.ka-active .ka-topic-block {
@@ -3879,15 +3874,6 @@ body.ka-active .ka-view--card .ka-aside-card a.ka-rel-link:last-child {
 }
 body.ka-active .ka-view--card .ka-aside-card a.ka-rel-link:hover {
   color: var(--ka-cyan);
-}
-body.ka-active .ka-view--card .ka-implication {
-  padding: 12px 14px;
-  border: 1px solid var(--ka-line);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--ka-cyan) 6%, transparent);
-  font-size: 13.5px;
-  line-height: 1.8;
-  color: var(--ka-text);
 }
 body.ka-active .ka-view--card .ka-card-meta {
   margin: 36px 0 0;

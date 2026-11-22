@@ -90,10 +90,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
         <a class="ka-rel-link" href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a>
         <a class="ka-rel-link" href="learn/d5/" data-no-popover="true">D5-03 权限、人工审批与动作审计 · 强相关</a>
       </div>
-      <div class="ka-aside-card">
-        <h5>对我工作的意义</h5>
-        <p class="ka-implication">这正是公众号「AI 支付守卫」那条红线在我自己系统里的翻版：对外写入必须先确认。</p>
-      </div>
     </aside>
   </div>
   <p class="ka-card-meta">复核触发：Skill 动作档位变更 · 更新 2026-11-21</p>
