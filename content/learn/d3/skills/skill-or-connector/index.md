@@ -19,11 +19,41 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 先问数据进不进得来</div>
-        <figure class="ka-figimg">
-          <img class="fig-on-light" src="skill-or-connector-light.png" alt="一个判断分两条路：现有接口够就直接写 Skill，不够就先做连接器把数据接进来">
-          <img class="fig-on-dark" src="skill-or-connector-dark.png" alt="">
-        </figure>
+        <div class="fhead"><i class="sig"></i>核心图解 · 先问数据进不进得来<span class="fhint">左右滑动看图</span></div>
+        <svg viewBox="0 0 640 380" role="img" aria-label="决策流程：现有接口能用就直接写 Skill，读不到数据就先做连接器">
+          <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
+          <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
+          <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
+          <text class="ka-fnum" x="36" y="48" style="fill: var(--ka-cyan)">01 分清</text>
+          <text class="ka-ftitle" x="36" y="84">两层不同事</text>
+          <text class="ka-ftext" x="36" y="112">连接器管怎么进来</text>
+          <text class="ka-ftext" x="36" y="134">Skill 管怎么加工</text>
+          <text class="ka-fnum" x="246" y="48" style="fill: var(--ka-amber)">02 判断</text>
+          <text class="ka-ftitle" x="246" y="84">接口够不够</text>
+          <text class="ka-ftext" x="246" y="112">能不能直接读到</text>
+          <text class="ka-ftext" x="246" y="134">要的数据</text>
+          <text class="ka-fnum" x="456" y="48" style="fill: var(--ka-green)">03 顺序</text>
+          <text class="ka-ftitle" x="456" y="84">够就先 Skill</text>
+          <text class="ka-ftext" x="456" y="112">不够先接数据源</text>
+          <text class="ka-ftext" x="456" y="134">接完再包一层</text>
+          <rect class="ka-fblock" x="20" y="182" width="140" height="76" rx="10"/>
+          <text class="ka-ftitle" x="36" y="214" style="font-size: 15px">一件重复任务</text>
+          <text class="ka-ftext" x="36" y="240" style="font-size: 13px">归类、生成、交付</text>
+          <path d="M162 220h30" stroke="var(--ka-cyan)" stroke-width="2.2" fill="none" opacity="0.6" marker-end="url(#sc-arrow)"/>
+          <rect class="ka-fblock" x="196" y="182" width="150" height="76" rx="10" style="stroke: color-mix(in srgb, var(--ka-amber) 45%, transparent)"/>
+          <text class="ka-ftitle" x="212" y="214" style="font-size: 15px">接口够用吗</text>
+          <text class="ka-ftext" x="212" y="240" style="font-size: 13px">现有接口能读到？</text>
+          <path d="M348 212l34-10" stroke="var(--ka-cyan)" stroke-width="2.2" fill="none" opacity="0.6" marker-end="url(#sc-arrow)"/>
+          <path d="M348 228l34 10" stroke="var(--ka-cyan)" stroke-width="2.2" fill="none" opacity="0.6" marker-end="url(#sc-arrow)"/>
+          <rect class="ka-fblock" x="384" y="164" width="236" height="66" rx="10" style="stroke: color-mix(in srgb, var(--ka-green) 45%, transparent)"/>
+          <text class="ka-ftitle" x="400" y="192" style="fill: var(--ka-green); font-size: 15px">够 → 直接写 Skill</text>
+          <text class="ka-ftext" x="400" y="216" style="font-size: 13px">规则、例外、交付格式</text>
+          <rect class="ka-fblock" x="384" y="242" width="236" height="66" rx="10" style="stroke: color-mix(in srgb, var(--ka-amber) 45%, transparent)"/>
+          <text class="ka-ftitle" x="400" y="270" style="fill: var(--ka-amber); font-size: 15px">不够 → 先做连接器</text>
+          <text class="ka-ftext" x="400" y="294" style="font-size: 13px">接完再在外面包 Skill</text>
+          <text class="ka-fsay" x="320" y="352" text-anchor="middle">先解决数据进不进得来，再谈按什么规则加工</text>
+          <defs><marker id="sc-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
+        </svg>
         <div class="ka-fcap">读法：这两层不是二选一，是有先后。数据进不来，Skill 写得再漂亮也跑不动；数据能进来，Skill 立刻就能见效。</div>
       </div>
       <div class="ka-prose">

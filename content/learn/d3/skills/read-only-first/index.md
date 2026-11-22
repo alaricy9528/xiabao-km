@@ -19,12 +19,47 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 三档动作怎么分</div>
-        <figure class="ka-figimg">
-          <img class="fig-on-light" src="read-only-first-light.png" alt="按做错能不能撤回分三档：只读可直接跑、草稿要人工确认、外部影响要逐次授权">
-          <img class="fig-on-dark" src="read-only-first-dark.png" alt="">
-        </figure>
-        <div class="ka-fcap">读法：从上往下是「做错了能不能撤回」的三个答案——能、要人点一下、不能。越往下，授权要求越高。</div>
+        <div class="fhead"><i class="sig"></i>核心图解 · 三档动作怎么分<span class="fhint">左右滑动看图</span></div>
+        <svg viewBox="0 0 640 400" role="img" aria-label="按后果把 Skill 动作分成只读、草稿、外部影响三档，权限只能逐级放开">
+          <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
+          <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
+          <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
+          <text class="ka-fnum" x="36" y="48" style="fill: var(--ka-rose)">01 问题</text>
+          <text class="ka-ftitle" x="36" y="84">演示会变真操作</text>
+          <text class="ka-ftext" x="36" y="112">Skill 一升到写入</text>
+          <text class="ka-ftext" x="36" y="134">做错就落到系统里</text>
+          <text class="ka-fnum" x="246" y="48" style="fill: var(--ka-amber)">02 做法</text>
+          <text class="ka-ftitle" x="246" y="84">按后果分档</text>
+          <text class="ka-ftext" x="246" y="112">不看功能多少</text>
+          <text class="ka-ftext" x="246" y="134">看做错能不能回退</text>
+          <text class="ka-fnum" x="456" y="48" style="fill: var(--ka-green)">03 关键</text>
+          <text class="ka-ftitle" x="456" y="84">只能逐级放开</text>
+          <text class="ka-ftext" x="456" y="112">先只读跑顺</text>
+          <text class="ka-ftext" x="456" y="134">再谈写入授权</text>
+          <rect class="ka-fblock" x="20" y="182" width="180" height="150" rx="11" style="stroke: color-mix(in srgb, var(--ka-green) 45%, transparent)"/>
+          <text class="ka-fsmall" x="36" y="210" style="fill: var(--ka-green)">档 01</text>
+          <text class="ka-ftitle" x="36" y="244" style="fill: var(--ka-green)">只读</text>
+          <text class="ka-ftext" x="36" y="272">查待办、出清单</text>
+          <rect x="36" y="286" width="86" height="28" rx="7" style="fill: color-mix(in srgb, var(--ka-green) 14%, transparent)"/>
+          <text x="49" y="305" style="fill: var(--ka-green); font-size: 13px">可直接跑</text>
+          <path d="M198 257h28" stroke="var(--ka-cyan)" stroke-width="2.2" fill="none" opacity="0.6" marker-end="url(#ur-arrow)"/>
+          <rect class="ka-fblock" x="230" y="182" width="180" height="150" rx="11" style="stroke: color-mix(in srgb, var(--ka-amber) 45%, transparent)"/>
+          <text class="ka-fsmall" x="246" y="210" style="fill: var(--ka-amber)">档 02</text>
+          <text class="ka-ftitle" x="246" y="244" style="fill: var(--ka-amber)">草稿</text>
+          <text class="ka-ftext" x="246" y="272">拟回执、改方案</text>
+          <rect x="246" y="286" width="86" height="28" rx="7" style="fill: color-mix(in srgb, var(--ka-amber) 14%, transparent)"/>
+          <text x="259" y="305" style="fill: var(--ka-amber); font-size: 13px">人工确认</text>
+          <path d="M412 257h28" stroke="var(--ka-cyan)" stroke-width="2.2" fill="none" opacity="0.6" marker-end="url(#ur-arrow)"/>
+          <rect class="ka-fblock" x="440" y="182" width="180" height="150" rx="11" style="stroke: color-mix(in srgb, var(--ka-rose) 45%, transparent)"/>
+          <text class="ka-fsmall" x="456" y="210" style="fill: var(--ka-rose)">档 03</text>
+          <text class="ka-ftitle" x="456" y="244" style="fill: var(--ka-rose)">外部影响</text>
+          <text class="ka-ftext" x="456" y="272">关待办、发通知</text>
+          <rect x="456" y="286" width="86" height="28" rx="7" style="fill: color-mix(in srgb, var(--ka-rose) 14%, transparent)"/>
+          <text x="469" y="305" style="fill: var(--ka-rose); font-size: 13px">逐次授权</text>
+          <text class="ka-fsay" x="320" y="372" text-anchor="middle">能力可以一级一级加，权限一旦放开就收不回来</text>
+          <defs><marker id="ur-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
+        </svg>
+        <div class="ka-fcap">读法：从左往右是「做错了能不能撤回」的三个答案——能、要人点一下、不能。档位越靠右，授权要求越高。</div>
       </div>
       <div class="ka-prose">
         <p>Skill 一开始基本都只读：查一下待办、算个数、生成一份清单。这类动作做错了，最多是清单不准，重跑一次就好。但一旦它开始写，性质就变了——关掉一条待办、发出一封通知、提交一个审批，这些在系统里是真实发生过的，撤回往往要走另一套流程，有时候根本撤不回。</p>

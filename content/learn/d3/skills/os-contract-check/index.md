@@ -19,11 +19,46 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
   <div class="ka-card-grid">
     <div class="ka-card-main">
       <div class="ka-figcard">
-        <div class="fhead"><i class="sig"></i>核心图解 · 假设藏在这五处</div>
-        <figure class="ka-figimg">
-          <img class="fig-on-light" src="os-contract-check-light.png" alt="Skill 的环境假设分散在五处：命令写法、脚本依赖、平台声明、安装契约、入口点。先静态对清单、可疑的才真跑，通过率从 30.6% 升到 38.4%">
-          <img class="fig-on-dark" src="os-contract-check-dark.png" alt="">
-        </figure>
+        <div class="fhead"><i class="sig"></i>核心图解 · 假设藏在这五处<span class="fhint">左右滑动看图</span></div>
+        <svg viewBox="0 0 640 400" role="img" aria-label="Skill 的环境假设分散在五处，先静态筛再动态跑，通过率从三成升到三成八">
+          <rect class="ka-fblock" x="20" y="18" width="180" height="128" rx="11"/>
+          <rect class="ka-fblock" x="230" y="18" width="180" height="128" rx="11"/>
+          <rect class="ka-fblock" x="440" y="18" width="180" height="128" rx="11"/>
+          <text class="ka-fnum" x="36" y="48" style="fill: var(--ka-rose)">01 现象</text>
+          <text class="ka-ftitle" x="36" y="84">我这跑得通</text>
+          <text class="ka-ftext" x="36" y="112">自己的电脑顺利</text>
+          <text class="ka-ftext" x="36" y="134">换台机器就报错</text>
+          <text class="ka-fnum" x="246" y="48" style="fill: var(--ka-amber)">02 藏身处</text>
+          <text class="ka-ftitle" x="246" y="84">五处写死</text>
+          <text class="ka-ftext" x="246" y="112">命令、依赖、平台</text>
+          <text class="ka-ftext" x="246" y="134">安装方式、入口点</text>
+          <text class="ka-fnum" x="456" y="48" style="fill: var(--ka-green)">03 顺序</text>
+          <text class="ka-ftitle" x="456" y="84">先筛再跑</text>
+          <text class="ka-ftext" x="456" y="112">静态对一遍清单</text>
+          <text class="ka-ftext" x="456" y="134">可疑的才真跑</text>
+          <rect class="ka-fblock" x="20" y="182" width="113" height="84" rx="9"/>
+          <text class="ka-fsmall" x="76" y="210" text-anchor="middle">01</text>
+          <text class="ka-ftext" x="76" y="242" text-anchor="middle">命令写法</text>
+          <rect class="ka-fblock" x="141" y="182" width="113" height="84" rx="9"/>
+          <text class="ka-fsmall" x="197" y="210" text-anchor="middle">02</text>
+          <text class="ka-ftext" x="197" y="242" text-anchor="middle">脚本依赖</text>
+          <rect class="ka-fblock" x="262" y="182" width="113" height="84" rx="9"/>
+          <text class="ka-fsmall" x="318" y="210" text-anchor="middle">03</text>
+          <text class="ka-ftext" x="318" y="242" text-anchor="middle">平台声明</text>
+          <rect class="ka-fblock" x="383" y="182" width="113" height="84" rx="9"/>
+          <text class="ka-fsmall" x="439" y="210" text-anchor="middle">04</text>
+          <text class="ka-ftext" x="439" y="242" text-anchor="middle">安装契约</text>
+          <rect class="ka-fblock" x="504" y="182" width="113" height="84" rx="9"/>
+          <text class="ka-fsmall" x="560" y="210" text-anchor="middle">05</text>
+          <text class="ka-ftext" x="560" y="242" text-anchor="middle">入口点</text>
+          <text class="ka-fsmall" x="150" y="300" text-anchor="middle">修之前</text>
+          <text class="ka-fbig" x="150" y="334" text-anchor="middle" style="fill: var(--ka-rose)">30.6%</text>
+          <path d="M288 320h64" stroke="var(--ka-cyan)" stroke-width="2.2" fill="none" opacity="0.6" marker-end="url(#oc-arrow)"/>
+          <text class="ka-fsmall" x="490" y="300" text-anchor="middle">修之后</text>
+          <text class="ka-fbig" x="490" y="334" text-anchor="middle" style="fill: var(--ka-green)">38.4%</text>
+          <text class="ka-fsay" x="320" y="378" text-anchor="middle">1090 个公开 Skill 在三个平台上，能全跑通的只有三成</text>
+          <defs><marker id="oc-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="var(--ka-cyan)"/></marker></defs>
+        </svg>
         <div class="ka-fcap">读法：上面五格是「假设藏在哪里」，下面两个数字是「按这个顺序修完，通过率抬了多少」。抬到三成八还是不高——说明它只治环境这一层。</div>
       </div>
       <div class="ka-prose">
