@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>图 · 换台机器就跑不通</title>
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+  <p class="lead">自己的电脑跑得通，<b>同事的机器一跑就报错</b></p>
+
+  <div class="stack">
+    <div class="blk">
+      <div class="blk-h"><b>01</b><span>现象</span></div>
+      <div class="pair">
+        <div class="cell ok"><b>我的电脑</b><span>一路跑通</span></div>
+        <div class="cell bad"><b>换台机器</b><span>直接报错</span></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-h"><b>02</b><span>假设就藏在这五处</span><i class="hint">先对清单，不用真跑</i></div>
+      <div class="grid5">
+        <div class="chip"><i>01</i>命令写法</div>
+        <div class="chip"><i>02</i>脚本依赖</div>
+        <div class="chip"><i>03</i>平台声明</div>
+        <div class="chip"><i>04</i>安装契约</div>
+        <div class="chip"><i>05</i>入口点</div>
+      </div>
+      <p class="note">1090 个 Skill、三个系统、3270 个用例，全跑通的只有三成。</p>
+    </div>
+
+    <div class="blk">
+      <div class="blk-h"><b>03</b><span>先静态筛，可疑的才真跑</span></div>
+      <div class="nums">
+        <div class="num"><span>修之前</span><b class="rose">30.6%</b></div>
+        <div class="go"><svg width="40" height="16" viewBox="0 0 40 16" fill="none"><path d="M1 8h30" stroke="currentColor" stroke-width="2"/><path d="M30 2l8 6-8 6z" fill="currentColor"/></svg></div>
+        <div class="num"><span>修之后</span><b class="green">38.4%</b></div>
+      </div>
+      <p class="note">随机挑用例要 865 次验证，这套顺序只花 185 次。</p>
+    </div>
+  </div>
+
+  <p class="say">先查环境假设，<em>再花一次复验</em></p>
+
+  <script>
+    var t = new URLSearchParams(location.search).get('t');
+    if (t === 'dark') document.body.classList.add('dark');
+    document.title = 'H=' + Math.ceil(document.body.getBoundingClientRect().height);
+  </script>
+</body>
+</html>

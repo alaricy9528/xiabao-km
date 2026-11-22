@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>图 · 做 Skill 还是做连接器</title>
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+  <p class="lead">同一件重复任务，先分清是<strong>数据进不来</strong>，还是规则没写</p>
+
+  <div class="stack">
+    <div class="blk">
+      <div class="blk-h"><b>01</b><span>两层管的是不同的事</span></div>
+      <div class="pair">
+        <div class="cell" style="background:color-mix(in srgb,var(--cyan) 9%,transparent);border-color:color-mix(in srgb,var(--cyan) 34%,transparent)">
+          <b style="color:var(--cyan)">连接器</b><span>数据怎么进来</span>
+        </div>
+        <div class="cell ok"><b>Skill</b><span>进来之后怎么加工</span></div>
+      </div>
+      <p class="note">接口还没通就去调提示词，只会白忙一轮。</p>
+    </div>
+
+    <div class="blk">
+      <div class="blk-h"><b>02</b><span>一个判断，两条路</span></div>
+      <p class="qa">现有接口，能直接读到你要的那份数据吗？</p>
+      <div class="fork">
+        <div class="fork-item" style="--c:var(--green)">
+          <span class="lb">够</span>
+          <div class="bx"><b>直接写 Skill</b><span>规则、例外、交付格式写清楚，当天就能用</span></div>
+        </div>
+        <div class="fork-item" style="--c:var(--amber)">
+          <span class="lb">不够</span>
+          <div class="bx"><b>先做连接器</b><span>把数据接进来，再在外面包一层 Skill</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="say">先解决<em>数据进不进得来</em>，再谈按什么规则加工</p>
+
+  <script>
+    var t = new URLSearchParams(location.search).get('t');
+    if (t === 'dark') document.body.classList.add('dark');
+    document.title = 'H=' + Math.ceil(document.body.getBoundingClientRect().height);
+  </script>
+</body>
+</html>

@@ -3965,6 +3965,29 @@ body.ka-active .ka-view--card .ka-card-main .ka-card-sec--action p {
 body.ka-active .ka-view--card .ka-figcard {
   margin: 0 0 28px;
 }
+/* 图片版核心图解（2026-11-22）：图由 work/figs/*.html 经 work/fig-render.sh 导出 2x PNG，
+   手机上等比缩放宽高自适应、不横滑；浅/深两版按 saved-theme 切换。 */
+body.ka-active .ka-view--card .ka-figimg {
+  margin: 0;
+}
+body.ka-active .ka-view--card .ka-figimg img {
+  display: block;
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--ka-line);
+  border-radius: 12px;
+}
+body.ka-active .ka-view--card .ka-figimg .fig-on-dark {
+  display: none;
+}
+:root[saved-theme="dark"] body.ka-active .ka-view--card .ka-figimg .fig-on-light {
+  display: none;
+}
+:root[saved-theme="dark"] body.ka-active .ka-view--card .ka-figimg .fig-on-dark {
+  display: block;
+}
 body.ka-active .ka-view--card .ka-figcard .fhint {
   display: none;
   margin-left: auto;

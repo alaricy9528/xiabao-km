@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>图 · 能力可加，权限不可逆</title>
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+  <p class="lead">从「查」变成「改」，做错就不再是<b>重跑一次</b>就能了事</p>
+
+  <div class="stack">
+    <div class="blk">
+      <div class="blk-h"><b>01</b><span>按做错能不能撤回，分三档</span></div>
+      <div class="steps">
+        <div class="step" style="--c:var(--green)">
+          <span class="lv">档 01</span>
+          <div class="txt"><b>只读</b><span>查待办、出清单、做汇总</span></div>
+          <span class="tag">可直接跑</span>
+        </div>
+        <div class="step" style="--c:var(--amber)">
+          <span class="lv">档 02</span>
+          <div class="txt"><b>草稿</b><span>拟回执、改方案、写草稿</span></div>
+          <span class="tag">人工确认</span>
+        </div>
+        <div class="step" style="--c:var(--rose)">
+          <span class="lv">档 03</span>
+          <div class="txt"><b>外部影响</b><span>关待办、发通知、改别人状态</span></div>
+          <span class="tag">逐次授权</span>
+        </div>
+      </div>
+      <p class="note">分档看的是后果，不是功能多少：能不能撤回、要不要人点一下、会不会流到别人手里。</p>
+    </div>
+
+    <div class="blk">
+      <div class="blk-h"><b>02</b><span>顺序倒了就会出事</span></div>
+      <div class="pair">
+        <div class="cell ok"><b>先只读跑顺</b><span>连跑一周不出错</span></div>
+        <div class="cell bad"><b>一上来开写入</b><span>一次误操作就写进系统</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="say">能力可以一级一级加，<em>权限一放开就收不回来</em></p>
+
+  <script>
+    var t = new URLSearchParams(location.search).get('t');
+    if (t === 'dark') document.body.classList.add('dark');
+    document.title = 'H=' + Math.ceil(document.body.getBoundingClientRect().height);
+  </script>
+</body>
+</html>
