@@ -34,12 +34,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
     </div>
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
-        <h5>卡片状态</h5>
-        <div class="ka-meta-row"><span>发布状态</span><b class="st-live">已上线</b></div>
-        <div class="ka-meta-row"><span>复核触发</span><b>Skill/MCP 规范更新或接口变更</b></div>
-        <div class="ka-meta-row"><span>updated_at</span><b>2026-11-21</b></div>
-      </div>
-      <div class="ka-aside-card">
         <h5>关联主题</h5>
         <a class="ka-rel-link" href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a>
         <a class="ka-rel-link" href="learn/d3/skills/read-only-first/" data-no-popover="true">只读先行 · 风险</a>
@@ -51,6 +45,7 @@ description: D3-06 Skills 与能力封装 · 判断卡：已有只读待办接�
       </div>
     </aside>
   </div>
+  <p class="ka-card-meta">复核触发：Skill/MCP 规范更新或接口变更 · 更新 2026-11-21</p>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
     <a class="next" href="learn/d3/skills/read-only-first/" data-no-popover="true"><div class="kn">下一张 →</div><div class="kt">能力可加，权限不可逆</div></a>

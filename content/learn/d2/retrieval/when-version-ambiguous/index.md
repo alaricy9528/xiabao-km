@@ -33,12 +33,6 @@ description: D2-05 知识召回与 RAG · 判断卡：当题目没有生效时�
     </div>
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
-        <h5>卡片状态</h5>
-        <div class="ka-meta-row"><span>发布状态</span><b class="st-live">已上线</b></div>
-        <div class="ka-meta-row"><span>复核触发</span><b>元数据字段或题目口径变化</b></div>
-        <div class="ka-meta-row"><span>updated_at</span><b>2026-11-21</b></div>
-      </div>
-      <div class="ka-aside-card">
         <h5>关联主题</h5>
         <a class="ka-rel-link" href="learn/d2/retrieval/check-current-policy/" data-no-popover="true">前三条命中了哪一版 · 先学</a>
         <a class="ka-rel-link" href="learn/d2/retrieval/" data-no-popover="true">D2-05 知识召回与 RAG</a>
@@ -50,6 +44,7 @@ description: D2-05 知识召回与 RAG · 判断卡：当题目没有生效时�
       </div>
     </aside>
   </div>
+  <p class="ka-card-meta">复核触发：元数据字段或题目口径变化 · 更新 2026-11-21</p>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d2/retrieval/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">知识召回与 RAG</div></a>
     <a class="next" href="learn/d3/skills/" data-no-popover="true"><div class="kn">下一主题 →</div><div class="kt">D3-06 Skills 与能力封装</div></a>

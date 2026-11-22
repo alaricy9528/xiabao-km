@@ -34,12 +34,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
     </div>
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
-        <h5>卡片状态</h5>
-        <div class="ka-meta-row"><span>发布状态</span><b class="st-live">已上线</b></div>
-        <div class="ka-meta-row"><span>复核触发</span><b>换机器/换解释器复跑</b></div>
-        <div class="ka-meta-row"><span>updated_at</span><b>2026-11-22</b></div>
-      </div>
-      <div class="ka-aside-card">
         <h5>关联主题</h5>
         <a class="ka-rel-link" href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a>
         <a class="ka-rel-link" href="learn/d3/" data-no-popover="true">D3-02 智能体运行时 · 延伸</a>
@@ -51,6 +45,7 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 换一台机器�
       </div>
     </aside>
   </div>
+  <p class="ka-card-meta">复核触发：换机器/换解释器复跑 · 更新 2026-11-22</p>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
     <a class="next" href="learn/" data-no-popover="true"><div class="kn">回到总览 →</div><div class="kt">知识星图</div></a>

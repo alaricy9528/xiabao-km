@@ -33,12 +33,6 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
     </div>
     <aside class="ka-card-aside">
       <div class="ka-aside-card">
-        <h5>卡片状态</h5>
-        <div class="ka-meta-row"><span>发布状态</span><b class="st-live">已上线</b></div>
-        <div class="ka-meta-row"><span>复核触发</span><b>Skill 动作档位变更</b></div>
-        <div class="ka-meta-row"><span>updated_at</span><b>2026-11-21</b></div>
-      </div>
-      <div class="ka-aside-card">
         <h5>关联主题</h5>
         <a class="ka-rel-link" href="learn/d3/skills/skill-or-connector/" data-no-popover="true">做 Skill 还是做连接器 · 先学</a>
         <a class="ka-rel-link" href="learn/d3/skills/" data-no-popover="true">D3-06 Skills 与能力封装</a>
@@ -50,6 +44,7 @@ description: D3-06 Skills 与能力封装 · 判断卡：Skill 从只读升级�
       </div>
     </aside>
   </div>
+  <p class="ka-card-meta">复核触发：Skill 动作档位变更 · 更新 2026-11-21</p>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
     <a class="next" href="learn/d3/skills/os-contract-check/" data-no-popover="true"><div class="kn">下一张 →</div><div class="kt">换台机器就跑不通</div></a>
