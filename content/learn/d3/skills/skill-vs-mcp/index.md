@@ -201,6 +201,6 @@ description: 一个负责让模型够得着外部系统，一个负责告诉模�
   </div>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
-    <a class="next" href="learn/d3/skills/skill-runtime/" data-no-popover="true"><div class="kn">上一篇 →</div><div class="kt">Skill 是怎么跑起来的</div></a>
+    <a class="next" href="learn/d3/skills/skill-drift/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 为什么会越改越差</div></a>
   </nav>
 </div>
