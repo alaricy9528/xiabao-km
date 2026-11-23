@@ -171,6 +171,6 @@ description: 无反馈反复重写会让 Skill 越写越没用：模型先丢掉
   </div>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
-    <a class="next" href="learn/d3/skills/skill-runtime/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 是怎么跑起来的</div></a>
+    <a class="next" href="learn/d3/skills/skill-trigger/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 为什么没被触发</div></a>
   </nav>
 </div>
