@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 10,
   "lastUpdated": "2026-11-24",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
@@ -413,7 +413,7 @@
   "recent": [
     {
       "date": "2026-11-24",
-      "title": "Agent 模式，其实是两根旋钮",
+      "title": "Agent 模式、计划模式、思考模式：三层控制，各管一件事",
       "domain": "d3",
       "topic": "agent-modes",
       "card": "agent-modes-knobs"

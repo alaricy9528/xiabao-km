@@ -1,7 +1,7 @@
 ---
 title: 智能体运行时 · D3-02
 publish: true
-description: D3 智能体工程 · 主题 D3-02：分清控制权的各个旋钮，为同一任务设计中断恢复、降级和运行轨迹记录。1 篇知识文章。
+description: D3 智能体工程 · 主题 D3-02：分清交互形态、权限审批、推理深度三层控制，为同一任务设计中断恢复、降级和运行轨迹记录。1 篇知识文章。
 ---
 
 <div class="ai-learn ka-view ka-view--topic">
@@ -12,11 +12,11 @@ description: D3 智能体工程 · 主题 D3-02：分清控制权的各个旋钮
       <span class="ka-tag plain">1 篇知识文章</span>
     </div>
     <h1>智能体运行时</h1>
-    <p class="lede">学完能<em>分清控制权的各个旋钮，为同一任务设计中断恢复、降级和运行轨迹记录</em>。先看「计划 / 思考 / Agent」这些模式到底在调什么。</p>
+    <p class="lede">学完能<em>分清交互形态、权限审批、推理深度三层控制，为同一任务设计中断恢复、降级和运行轨迹记录</em>。先看「计划 / 思考 / Agent」这些名字各自落在哪一层。</p>
   </div>
   <div class="ka-topic-block">
     <h2><span>◆</span> 知识文章</h2>
-    <a class="ka-topic-row" href="learn/d3/agent-modes/agent-modes-knobs/" data-no-popover="true"><span class="kn">01</span><span class="kt">Agent 模式，其实是两根旋钮<small>权限轴 × 推理轴、六档权限、努力档与思考开关</small></span><span class="ko">→</span></a>
+    <a class="ka-topic-row" href="learn/d3/agent-modes/agent-modes-knobs/" data-no-popover="true"><span class="kn">01</span><span class="kt">Agent 模式、计划模式、思考模式：三层控制<small>谁圈定范围 · 审批与沙箱两层 · 努力档与思考开关</small></span><span class="ko">→</span></a>
   </div>
   <div class="ka-topic-block">
     <h2><span>↗</span> 跨域依赖</h2>
