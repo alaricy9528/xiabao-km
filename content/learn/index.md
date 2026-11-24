@@ -1,7 +1,7 @@
 ---
 title: 知识星图 · 学习目录
 publish: true
-description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规划主题、图文并重的知识文章。当前只开通 D3-06 Skills 与能力封装，其余域主题仍在规划中。
+description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规划主题、图文并重的知识文章。当前开通 D3-02 智能体运行时、D3-06 Skills 与能力封装，其余域主题仍在规划中。
 ---
 
 <div class="ai-learn ai-learn--map ka-view ka-view--overview">
@@ -36,7 +36,7 @@ description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规
       <div class="dnum">D3 / 03</div>
       <div class="dico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect><path d="M10 7h4v10"></path></svg></div>
       <h3>智能体工程</h3><p>让智能体完成可验收的任务：任务状态、上下文、能力与工具调用。首发试点域。</p>
-      <div class="dfoot"><span>4 篇 · 1/10 主题</span><div class="ka-bar"><i style="width:30%"></i></div></div>
+      <div class="dfoot"><span>5 篇 · 2/10 主题</span><div class="ka-bar"><i style="width:40%"></i></div></div>
     </div>
     <div class="ka-dcard grow" style="--ka-dc: var(--ka-amber)">
       <span class="grow-tag">PLANNED</span><div class="dnum">D4 / 04</div>
