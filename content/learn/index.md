@@ -36,7 +36,7 @@ description: 一张按认知对象铺开的 AI 知识版图：五域、38 个规
       <div class="dnum">D3 / 03</div>
       <div class="dico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect><path d="M10 7h4v10"></path></svg></div>
       <h3>智能体工程</h3><p>让智能体完成可验收的任务：任务状态、上下文、能力与工具调用。首发试点域。</p>
-      <div class="dfoot"><span>6 篇 · 2/10 主题</span><div class="ka-bar"><i style="width:50%"></i></div></div>
+      <div class="dfoot"><span>7 篇 · 2/10 主题</span><div class="ka-bar"><i style="width:58%"></i></div></div>
     </div>
     <div class="ka-dcard grow" style="--ka-dc: var(--ka-amber)">
       <span class="grow-tag">PLANNED</span><div class="dnum">D4 / 04</div>

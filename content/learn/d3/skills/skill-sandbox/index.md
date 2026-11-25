@@ -225,6 +225,6 @@ description: Skill 不自带权限：脚本借宿主的身份干活。所以边�
   </div>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
-    <a class="next" href="learn/d3/skills/skill-runtime/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 是怎么跑起来的</div></a>
+    <a class="next" href="learn/d3/skills/skill-baseline/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 有没有用，得跟「没有它」比</div></a>
   </nav>
 </div>
