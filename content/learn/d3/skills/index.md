@@ -12,7 +12,7 @@ description: D3 智能体工程 · 主题 D3-06：为可重复任务写一份 Sk
       <span class="ka-tag plain">6 篇知识文章</span>
     </div>
     <h1>Skills 与能力封装</h1>
-    <p class="lede">学完能<em>为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界</em>。先看它怎么跑、跟 MCP 各自负责什么、为什么会越改越差、为什么没被触发，最后看它的脚本跑在谁的权限里、改完又该怎么验收。</p>
+    <p class="lede">学完能<em>为可重复任务写一份 Skill，写清触发条件、步骤、验收与复用边界</em>。先看它怎么跑、跟 MCP 各自负责什么、为什么会越改越差、为什么没被触发，最后看它的脚本跑在谁的权限里、长会话压缩后指令还剩多少。</p>
   </div>
   <div class="ka-topic-block">
     <h2><span>◆</span> 知识文章</h2>
@@ -21,7 +21,7 @@ description: D3 智能体工程 · 主题 D3-06：为可重复任务写一份 Sk
     <a class="ka-topic-row" href="learn/d3/skills/skill-drift/" data-no-popover="true"><span class="kn">03</span><span class="kt">Skill 为什么会越改越差<small>无反馈重写、先验漂移、专家知识的价值</small></span><span class="ko">→</span></a>
     <a class="ka-topic-row" href="learn/d3/skills/skill-trigger/" data-no-popover="true"><span class="kn">04</span><span class="kt">Skill 为什么没被触发<small>两关串联、库规模、前置全文只救触发</small></span><span class="ko">→</span></a>
     <a class="ka-topic-row" href="learn/d3/skills/skill-sandbox/" data-no-popover="true"><span class="kn">05</span><span class="kt">Skill 的脚本跑在谁的权限里<small>权限继承、沙箱默认、装前四步</small></span><span class="ko">→</span></a>
-    <a class="ka-topic-row" href="learn/d3/skills/skill-baseline/" data-no-popover="true"><span class="kn">06</span><span class="kt">Skill 有没有用，得跟「没有它」比<small>基线对照、干净会话、平均分与单条</small></span><span class="ko">→</span></a>
+    <a class="ka-topic-row" href="learn/d3/skills/skill-compaction/" data-no-popover="true"><span class="kn">06</span><span class="kt">Skill 指令在压缩后的去向<small>一条消息常驻、5,000 与 25,000 额度、静默降级</small></span><span class="ko">→</span></a>
   </div>
   <div class="ka-topic-block">
     <h2><span>↗</span> 跨域依赖</h2>

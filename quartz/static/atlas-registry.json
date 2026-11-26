@@ -1,5 +1,5 @@
 {
-  "version": 12,
+  "version": 13,
   "lastUpdated": "2026-11-26",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
@@ -413,10 +413,10 @@
   "recent": [
     {
       "date": "2026-11-26",
-      "title": "Skill 有没有用，得跟「没有它」比",
+      "title": "Skill 指令在压缩后的去向",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-baseline"
+      "card": "skill-compaction"
     },
     {
       "date": "2026-11-25",
