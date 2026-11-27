@@ -190,6 +190,6 @@ description: Skill 没有安装包——文件夹即技能：整个文件夹放�
   </div>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
-    <a class="next" href="learn/d3/skills/skill-sandbox/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 的脚本跑在谁的权限里</div></a>
+    <a class="next" href="learn/d3/skills/skill-update/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 更新为什么停在旧版本</div></a>
   </nav>
 </div>
