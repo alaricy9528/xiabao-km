@@ -1,6 +1,6 @@
 {
-  "version": 13,
-  "lastUpdated": "2026-11-26",
+  "version": 14,
+  "lastUpdated": "2026-11-27",
   "schema": "knowledge-atlas/v1",
   "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
   "domains": [
@@ -405,12 +405,19 @@
   "launch": {
     "enabledDomains": 1,
     "publishedTopics": 2,
-    "publishedCards": 7,
+    "publishedCards": 8,
     "plannedTopics": 38,
     "pilotTopics": ["D3-06"],
     "coursePath": ["D1-05", "D2-04", "D2-05", "D5-03", "D3-06", "D4-02", "D4-06"]
   },
   "recent": [
+    {
+      "date": "2026-11-27",
+      "title": "一个 Skill 怎么装到别人的 Agent 里",
+      "domain": "d3",
+      "topic": "skills",
+      "card": "skill-sharing"
+    },
     {
       "date": "2026-11-26",
       "title": "Skill 指令在压缩后的去向",

@@ -191,6 +191,6 @@ description: Skill 激活后不是每次重读文件，而是作为一条消息�
   </div>
   <nav class="ka-kp-nav">
     <a class="prev" href="learn/d3/skills/" data-no-popover="true"><div class="kn">← 返回主题</div><div class="kt">Skills 与能力封装</div></a>
-    <a class="next" href="learn/d3/skills/skill-sandbox/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">Skill 的脚本跑在谁的权限里</div></a>
+    <a class="next" href="learn/d3/skills/skill-sharing/" data-no-popover="true"><div class="kn">下一篇 →</div><div class="kt">一个 Skill 怎么装到别人的 Agent 里</div></a>
   </nav>
 </div>
