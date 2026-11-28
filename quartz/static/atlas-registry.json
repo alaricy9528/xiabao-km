@@ -1,8 +1,8 @@
 {
-  "version": 15,
+  "version": 16,
   "lastUpdated": "2026-11-28",
-  "schema": "knowledge-atlas/v1",
-  "note": "结构化主题台账：五域、主题、试点状态。侧栏/星图/总览/计数共享此视图。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
+  "schema": "knowledge-atlas/v2",
+  "note": "结构化主题台账：五域、主题、试点状态，以及每个主题的知识点账本（state/covered/plan）。侧栏/星图/总览/计数共享此视图。state=blank|seeded|growing|saturated，plan 首项恒为 lv:core 总纲篇。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
   "domains": [
     {
       "id": "d1",
@@ -20,7 +20,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D1-02",
@@ -29,7 +32,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D1-03",
@@ -38,7 +44,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D1-04",
@@ -47,7 +56,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D1-05",
@@ -56,7 +68,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         }
       ]
     },
@@ -76,7 +91,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-02",
@@ -85,7 +103,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-03",
@@ -94,7 +115,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-04",
@@ -103,7 +127,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-05",
@@ -112,7 +139,10 @@
           "core": true,
           "pilot": true,
           "enabled": false,
-          "slug": "retrieval"
+          "slug": "retrieval",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-06",
@@ -121,7 +151,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-07",
@@ -130,7 +163,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-08",
@@ -139,7 +175,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D2-09",
@@ -148,7 +187,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         }
       ]
     },
@@ -168,7 +210,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": "agent-loop"
+          "slug": "agent-loop",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D3-02",
@@ -177,7 +222,29 @@
           "core": false,
           "pilot": false,
           "enabled": true,
-          "slug": "agent-modes"
+          "slug": "agent-modes",
+          "state": "growing",
+          "covered": ["agent-modes-knobs"],
+          "plan": [
+            {
+              "k": "agent-modes-knobs",
+              "t": "Agent 模式、计划模式、思考模式：三层控制",
+              "lv": "core",
+              "fam": "运行时控制"
+            },
+            {
+              "k": "agent-interrupt",
+              "t": "运行中断与恢复",
+              "lv": "sub",
+              "fam": "运行时状态"
+            },
+            {
+              "k": "agent-trace",
+              "t": "运行轨迹记录",
+              "lv": "sub",
+              "fam": "可观测"
+            }
+          ]
         },
         {
           "id": "D3-03",
@@ -186,7 +253,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D3-04",
@@ -195,7 +265,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D3-05",
@@ -204,7 +277,17 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "seeded",
+          "covered": [],
+          "plan": [
+            {
+              "k": "mcp-what-it-is",
+              "t": "MCP 到底约定了什么",
+              "lv": "core",
+              "fam": "协议定义"
+            }
+          ]
         },
         {
           "id": "D3-06",
@@ -213,7 +296,75 @@
           "core": true,
           "pilot": true,
           "enabled": true,
-          "slug": "skills"
+          "slug": "skills",
+          "state": "saturated",
+          "covered": [
+            "skill-runtime",
+            "skill-vs-mcp",
+            "skill-drift",
+            "skill-trigger",
+            "skill-sandbox",
+            "skill-compaction",
+            "skill-sharing",
+            "skill-update"
+          ],
+          "plan": [
+            {
+              "k": "skill-runtime",
+              "t": "Skill 是怎么跑起来的",
+              "lv": "core",
+              "fam": "运行机制"
+            },
+            {
+              "k": "skill-vs-mcp",
+              "t": "Skill 和 MCP 差在哪",
+              "lv": "sub",
+              "fam": "定位比较"
+            },
+            {
+              "k": "skill-drift",
+              "t": "Skill 为什么会越改越差",
+              "lv": "sub",
+              "fam": "维护退化"
+            },
+            {
+              "k": "skill-trigger",
+              "t": "Skill 为什么没被触发",
+              "lv": "sub",
+              "fam": "触发"
+            },
+            {
+              "k": "skill-sandbox",
+              "t": "Skill 的脚本跑在谁的权限里",
+              "lv": "sub",
+              "fam": "权限边界"
+            },
+            {
+              "k": "skill-compaction",
+              "t": "Skill 指令在压缩后的去向",
+              "lv": "sub",
+              "fam": "上下文"
+            },
+            {
+              "k": "skill-sharing",
+              "t": "一个 Skill 怎么装到别人的 Agent 里",
+              "lv": "sub",
+              "fam": "分发"
+            },
+            {
+              "k": "skill-update",
+              "t": "Skill 更新为什么停在旧版本",
+              "lv": "sub",
+              "fam": "更新"
+            },
+            {
+              "k": "skill-eval",
+              "t": "Skill 怎么验证真的有效",
+              "lv": "sub",
+              "fam": "评测",
+              "defer": true
+            }
+          ]
         },
         {
           "id": "D3-07",
@@ -222,7 +373,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D3-08",
@@ -231,7 +385,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D3-09",
@@ -240,7 +397,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D3-10",
@@ -249,7 +409,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         }
       ]
     },
@@ -269,7 +432,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-02",
@@ -278,7 +444,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-03",
@@ -287,7 +456,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-04",
@@ -296,7 +468,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-05",
@@ -305,7 +480,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-06",
@@ -314,7 +492,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-07",
@@ -323,7 +504,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D4-08",
@@ -332,7 +516,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         }
       ]
     },
@@ -352,7 +539,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D5-02",
@@ -361,7 +551,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D5-03",
@@ -370,7 +563,10 @@
           "core": true,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D5-04",
@@ -379,7 +575,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D5-05",
@@ -388,7 +587,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         },
         {
           "id": "D5-06",
@@ -397,7 +599,10 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": ""
+          "slug": "",
+          "state": "blank",
+          "covered": [],
+          "plan": []
         }
       ]
     }
@@ -416,49 +621,56 @@
       "title": "Skill 更新为什么停在旧版本",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-update"
+      "card": "skill-update",
+      "fam": "更新"
     },
     {
       "date": "2026-11-27",
       "title": "一个 Skill 怎么装到别人的 Agent 里",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-sharing"
+      "card": "skill-sharing",
+      "fam": "分发"
     },
     {
       "date": "2026-11-26",
       "title": "Skill 指令在压缩后的去向",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-compaction"
+      "card": "skill-compaction",
+      "fam": "上下文"
     },
     {
       "date": "2026-11-25",
       "title": "Skill 的脚本跑在谁的权限里",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-sandbox"
+      "card": "skill-sandbox",
+      "fam": "权限边界"
     },
     {
       "date": "2026-11-24",
       "title": "Agent 模式、计划模式、思考模式：三层控制，各管一件事",
       "domain": "d3",
       "topic": "agent-modes",
-      "card": "agent-modes-knobs"
+      "card": "agent-modes-knobs",
+      "fam": "运行时控制"
     },
     {
       "date": "2026-11-24",
       "title": "Skill 为什么没被触发",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-trigger"
+      "card": "skill-trigger",
+      "fam": "触发"
     },
     {
       "date": "2026-11-23",
       "title": "Skill 为什么会越改越差",
       "domain": "d3",
       "topic": "skills",
-      "card": "skill-drift"
+      "card": "skill-drift",
+      "fam": "维护退化"
     }
   ]
 }
