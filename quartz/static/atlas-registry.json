@@ -1,6 +1,6 @@
 {
-  "version": 16,
-  "lastUpdated": "2026-11-28",
+  "version": 17,
+  "lastUpdated": "2026-11-29",
   "schema": "knowledge-atlas/v2",
   "note": "结构化主题台账：五域、主题、试点状态，以及每个主题的知识点账本（state/covered/plan）。侧栏/星图/总览/计数共享此视图。state=blank|seeded|growing|saturated，plan 首项恒为 lv:core 总纲篇。域名与主题 ID 固定，名称和顺序可调整。随站点版本管理。",
   "domains": [
@@ -277,15 +277,39 @@
           "core": false,
           "pilot": false,
           "enabled": false,
-          "slug": "",
-          "state": "seeded",
-          "covered": [],
+          "slug": "mcp",
+          "state": "growing",
+          "covered": ["mcp-what-it-is"],
           "plan": [
             {
               "k": "mcp-what-it-is",
               "t": "MCP 到底约定了什么",
               "lv": "core",
               "fam": "协议定义"
+            },
+            {
+              "k": "mcp-negotiation",
+              "t": "能力协商：从握手到按请求声明",
+              "lv": "sub",
+              "fam": "连接生命周期"
+            },
+            {
+              "k": "mcp-primitives",
+              "t": "工具、资源、提示：服务器三原语",
+              "lv": "sub",
+              "fam": "能力模型"
+            },
+            {
+              "k": "mcp-client-side",
+              "t": "客户端反向能力：采样、根目录、信息征询",
+              "lv": "sub",
+              "fam": "反向能力"
+            },
+            {
+              "k": "mcp-security-boundary",
+              "t": "MCP 的安全边界在宿主手里",
+              "lv": "sub",
+              "fam": "安全边界"
             }
           ]
         },
@@ -609,13 +633,21 @@
   ],
   "launch": {
     "enabledDomains": 1,
-    "publishedTopics": 2,
-    "publishedCards": 9,
+    "publishedTopics": 3,
+    "publishedCards": 10,
     "plannedTopics": 38,
     "pilotTopics": ["D3-06"],
     "coursePath": ["D1-05", "D2-04", "D2-05", "D5-03", "D3-06", "D4-02", "D4-06"]
   },
   "recent": [
+    {
+      "date": "2026-11-29",
+      "title": "MCP 到底约定了什么",
+      "domain": "d3",
+      "topic": "mcp",
+      "card": "mcp-what-it-is",
+      "fam": "协议定义"
+    },
     {
       "date": "2026-11-28",
       "title": "Skill 更新为什么停在旧版本",
@@ -655,22 +687,6 @@
       "topic": "agent-modes",
       "card": "agent-modes-knobs",
       "fam": "运行时控制"
-    },
-    {
-      "date": "2026-11-24",
-      "title": "Skill 为什么没被触发",
-      "domain": "d3",
-      "topic": "skills",
-      "card": "skill-trigger",
-      "fam": "触发"
-    },
-    {
-      "date": "2026-11-23",
-      "title": "Skill 为什么会越改越差",
-      "domain": "d3",
-      "topic": "skills",
-      "card": "skill-drift",
-      "fam": "维护退化"
     }
   ]
 }
